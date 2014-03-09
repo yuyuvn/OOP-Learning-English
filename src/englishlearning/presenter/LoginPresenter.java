@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 /**
  *
  * @author Clicia
+ * @param <V>
+ * @param <M>
  */
 public class LoginPresenter<V extends LoginViewController, M extends Model> extends Presenter<V,M> {
     private Stage stage;

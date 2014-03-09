@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 /**
 *
 * @author Clicia
+ * @param <P>
 */
 public class LoginViewController<P extends LoginPresenter> extends ViewController<P> implements Initializable
 {
