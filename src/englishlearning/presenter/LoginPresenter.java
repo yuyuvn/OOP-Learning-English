@@ -8,8 +8,11 @@ package englishlearning.presenter;
 
 import englishlearning.views.ILoginView;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 /**
@@ -29,7 +32,17 @@ public class LoginPresenter<V extends ILoginView, M> extends Presenter<V,M> {
         this.stage = stage;
     }
     
-    public void handleButtonAction(ActionEvent event) {        
-        this.getView().setLabel("Hello World!");
+    @Override
+    public void setView(V view) {
+        super.setView(view);
+        
+        this.getView().getButton().setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent t) {
+                getView().getLabel().setText("Hello World!");
+            }
+            
+        });
     }
 }

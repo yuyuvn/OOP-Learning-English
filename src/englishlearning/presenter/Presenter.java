@@ -17,11 +17,11 @@ public abstract class Presenter<V, M> {
     private M model;
     private V view;
      
-    protected final V getView() {
+    protected V getView() {
         return this.view;
     }
  
-    public final void setView(V view) {
+    public void setView(V view) {
         if (view == null) {
             throw new NullPointerException("view cannot be null.");
         }

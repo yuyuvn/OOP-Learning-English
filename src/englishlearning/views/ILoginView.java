@@ -7,15 +7,15 @@
 package englishlearning.views;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 /**
  *
  * @author Clicia
  */
-public interface ILoginView extends Initializable {
-    @FXML
-    public void handleButtonAction(ActionEvent event);
-    public void setLabel(String text);
+public interface ILoginView {    
+    public Label getLabel();
+    public Button getButton();
 }

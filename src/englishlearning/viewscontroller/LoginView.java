@@ -11,7 +11,9 @@ import englishlearning.views.ILoginView;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 /**
@@ -24,6 +26,8 @@ public class LoginView<P extends LoginPresenter> extends ViewController<P> imple
     
     @FXML
     private Label label;
+    @FXML
+    private Button button;
 
     public LoginView(P presenter) {
         super(presenter);
@@ -34,20 +38,17 @@ public class LoginView<P extends LoginPresenter> extends ViewController<P> imple
         return "/resource/fxml/LoginView.fxml"; //To change body of generated methods, choose Tools | Templates.
     }
     
-    @Override
-    public void setLabel(String text) {
-        System.out.println("You clicked me!");
-        label.setText(text);
-    }
-
-    @Override
+    /*@Override
     public void initialize(URL url, ResourceBundle rb) {
         
-    }
-        
-    @FXML
+    }*/
+    
     @Override
-    public void handleButtonAction(ActionEvent event) {        
-        this.getPresenter().handleButtonAction(event);
+    public Label getLabel() {
+        return this.label;
+    }
+    @Override
+    public Button getButton() {
+        return this.button;
     }
 }
