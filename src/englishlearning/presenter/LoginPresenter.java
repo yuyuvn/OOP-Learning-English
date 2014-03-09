@@ -6,9 +6,9 @@
 
 package englishlearning.presenter;
 
-import englishlearning.model.Model;
-import englishlearning.viewscontroller.LoginViewController;
+import englishlearning.views.ILoginView;
 import javafx.event.ActionEvent;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -18,11 +18,11 @@ import javafx.stage.Stage;
  * @param <V>
  * @param <M>
  */
-public class LoginPresenter<V extends LoginViewController, M extends Model> extends Presenter<V,M> {
+public class LoginPresenter<V extends ILoginView, M> extends Presenter<V,M> {
     private Stage stage;
     
     public void showWindows(Stage stage) {
-        Scene scene = new Scene(this.getView());
+        Scene scene = new Scene((Parent) this.getView());
         
         stage.setScene(scene);
         stage.show();

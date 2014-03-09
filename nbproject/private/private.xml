@@ -5,9 +5,11 @@
         <group>
             <file>file:/C:/Users/Clicia/Documents/GitHub/OOP-Learning-English/src/englishlearning/viewscontroller/UserControl.java</file>
             <file>file:/C:/Users/Clicia/Documents/GitHub/OOP-Learning-English/src/englishlearning/presenter/Presenter.java</file>
-            <file>file:/C:/Users/Clicia/Documents/GitHub/OOP-Learning-English/src/englishlearning/viewscontroller/LoginViewController.java</file>
+            <file>file:/C:/Users/Clicia/Documents/GitHub/OOP-Learning-English/src/englishlearning/viewscontroller/LoginView.java</file>
+            <file>file:/C:/Users/Clicia/Documents/GitHub/OOP-Learning-English/src/englishlearning/viewscontroller/ViewController.java</file>
             <file>file:/C:/Users/Clicia/Documents/GitHub/OOP-Learning-English/src/englishlearning/presenter/LoginPresenter.java</file>
             <file>file:/C:/Users/Clicia/Documents/GitHub/OOP-Learning-English/src/englishlearning/EnglishLearning.java</file>
+            <file>file:/C:/Users/Clicia/Documents/GitHub/OOP-Learning-English/src/englishlearning/views/ILoginView.java</file>
         </group>
     </open-files>
 </project-private>

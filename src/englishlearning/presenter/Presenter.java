@@ -6,16 +6,13 @@
 
 package englishlearning.presenter;
 
-import englishlearning.model.Model;
-import englishlearning.viewscontroller.UserControl;
-
 /**
  *
  * @author Clicia
  * @param <V>
  * @param <M>
  */
-public abstract class Presenter<V extends UserControl, M extends Model> {
+public abstract class Presenter<V, M> {
  
     private M model;
     private V view;

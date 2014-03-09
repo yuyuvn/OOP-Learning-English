@@ -7,11 +7,11 @@
 package englishlearning.viewscontroller;
 
 import englishlearning.presenter.LoginPresenter;
+import englishlearning.views.ILoginView;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
 /**
@@ -19,21 +19,22 @@ import javafx.scene.control.Label;
 * @author Clicia
  * @param <P>
 */
-public class LoginViewController<P extends LoginPresenter> extends ViewController<P> implements Initializable
+public class LoginView<P extends LoginPresenter> extends ViewController<P> implements ILoginView
 {
     
     @FXML
     private Label label;
 
-    public LoginViewController(P presenter) {
+    public LoginView(P presenter) {
         super(presenter);
     }
 
     @Override
     protected String getViewPath() {
-        return "/englishlearning/views/LoginView.fxml"; //To change body of generated methods, choose Tools | Templates.
+        return "/resource/fxml/LoginView.fxml"; //To change body of generated methods, choose Tools | Templates.
     }
     
+    @Override
     public void setLabel(String text) {
         System.out.println("You clicked me!");
         label.setText(text);
@@ -45,6 +46,7 @@ public class LoginViewController<P extends LoginPresenter> extends ViewControlle
     }
         
     @FXML
+    @Override
     public void handleButtonAction(ActionEvent event) {        
         this.getPresenter().handleButtonAction(event);
     }
