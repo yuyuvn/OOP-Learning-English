@@ -9,9 +9,6 @@ package englishlearning;
 import englishlearning.presenter.LoginPresenter;
 import englishlearning.viewscontroller.LoginViewController;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 

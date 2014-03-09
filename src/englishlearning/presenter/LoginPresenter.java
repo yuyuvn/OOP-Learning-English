@@ -8,7 +8,6 @@ package englishlearning.presenter;
 
 import englishlearning.model.Model;
 import englishlearning.viewscontroller.LoginViewController;
-import englishlearning.viewscontroller.UserControl;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

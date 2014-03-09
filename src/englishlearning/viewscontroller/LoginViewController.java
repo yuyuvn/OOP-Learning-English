@@ -7,7 +7,6 @@
 package englishlearning.viewscontroller;
 
 import englishlearning.presenter.LoginPresenter;
-import englishlearning.presenter.Presenter;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
