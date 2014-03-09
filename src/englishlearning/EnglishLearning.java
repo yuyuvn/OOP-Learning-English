@@ -6,26 +6,26 @@
 
 package englishlearning;
 
+import englishlearning.presenter.LoginPresenter;
+import englishlearning.viewscontroller.LoginViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
 /**
  *
  * @author Clicia
  */
-public class EnglishLearning extends Application {
-    
+public class EnglishLearning extends Application {    
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/englishlearning/views/LoginView.fxml"));
-        
-        Scene scene = new Scene(root);
-        
-        stage.setScene(scene);
-        stage.show();
+        LoginPresenter presenter = new LoginPresenter();
+        LoginViewController view;
+        view = new LoginViewController<>(presenter);
+        presenter.showWindows(stage);
     }
 
     /**
