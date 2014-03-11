@@ -7,13 +7,14 @@
 package englishlearning.presenter;
 
 import englishlearning.views.ILoginView;
+import java.awt.MouseInfo;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.Hyperlink;
 import javafx.stage.Stage;
+import org.controlsfx.control.PopOver;
 
 /**
  *
@@ -40,9 +41,26 @@ public class LoginPresenter<V extends ILoginView, M> extends Presenter<V,M> {
 
             @Override
             public void handle(ActionEvent t) {
-                getView().getLabel().setText("Hello World!");
+                getView().getLabel().setText("[Hello] [World] is [blah] [blah] abc []xyz [blah] [blah] [blah] [blah]!");
             }
             
         });
+        getView().getLabel().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Hyperlink link = (Hyperlink)event.getSource();
+                final String str = link == null ? "" : link.getText();
+                double targetX = MouseInfo.getPointerInfo().getLocation().x;
+                double targetY = MouseInfo.getPointerInfo().getLocation().y;
+                
+ 
+                    if (getView().getPopOver().isDetached()) {
+                        getView().setPopOver(new PopOver());
+                    }
+ 
+                    getView().getPopOver().show(link, targetX, targetY);
+            }
+        });
+        
     }
 }

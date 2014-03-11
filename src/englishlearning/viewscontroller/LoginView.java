@@ -8,13 +8,10 @@ package englishlearning.viewscontroller;
 
 import englishlearning.presenter.LoginPresenter;
 import englishlearning.views.ILoginView;
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import org.controlsfx.control.HyperlinkLabel;
+import org.controlsfx.control.PopOver;
 
 /**
 *
@@ -25,9 +22,11 @@ public class LoginView<P extends LoginPresenter> extends ViewController<P> imple
 {
     
     @FXML
-    private Label label;
+    private HyperlinkLabel label;
     @FXML
     private Button button;
+    @FXML
+    private PopOver popOver;
 
     public LoginView(P presenter) {
         super(presenter);
@@ -35,7 +34,7 @@ public class LoginView<P extends LoginPresenter> extends ViewController<P> imple
 
     @Override
     protected String getViewPath() {
-        return "/resource/fxml/LoginView.fxml"; //To change body of generated methods, choose Tools | Templates.
+        return "/resource/fxml/LoginView.fxml";
     }
     
     /*@Override
@@ -44,11 +43,21 @@ public class LoginView<P extends LoginPresenter> extends ViewController<P> imple
     }*/
     
     @Override
-    public Label getLabel() {
+    public HyperlinkLabel getLabel() {
         return this.label;
     }
     @Override
     public Button getButton() {
         return this.button;
+    }
+
+    @Override
+    public PopOver getPopOver() {
+        return this.popOver;
+    }
+
+    @Override
+    public void setPopOver(PopOver popOver) {
+        this.popOver = popOver;
     }
 }

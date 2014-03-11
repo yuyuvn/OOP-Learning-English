@@ -6,16 +6,17 @@
 
 package englishlearning.views;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import org.controlsfx.control.HyperlinkLabel;
+import org.controlsfx.control.PopOver;
 
 /**
  *
  * @author Clicia
  */
 public interface ILoginView {    
-    public Label getLabel();
+    public HyperlinkLabel getLabel();
     public Button getButton();
+    public PopOver getPopOver();
+    public void setPopOver(PopOver popOver);
 }
