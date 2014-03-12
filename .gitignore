@@ -1,7 +1,5 @@
 # NetBeans specific #
-nbproject/
-!nbproject/project.properties
-!nbproject/project.xml
+nbproject/*
 build/
 nbbuild/
 dist/
@@ -19,3 +17,5 @@ nb-configuration.xml
 
 # Library Files #
 !library/*.jar
+!nbproject/project.properties
+!nbproject/project.xml
