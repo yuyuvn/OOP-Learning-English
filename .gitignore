@@ -3,6 +3,7 @@ nbproject/*
 !nbproject/project.properties
 !nbproject/project.xml
 !nbproject/jfx-impl.xml
+!nbproject/build-impl.xml
 build/
 nbbuild/
 dist/
