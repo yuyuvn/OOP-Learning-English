@@ -31,11 +31,6 @@ public class LoginView<P extends LoginPresenter> extends ViewController<P> imple
     public LoginView(P presenter) {
         super(presenter);
     }
-
-    @Override
-    protected String getViewPath() {
-        return "/resource/fxml/LoginView.fxml";
-    }
     
     /*@Override
     public void initialize(URL url, ResourceBundle rb) {

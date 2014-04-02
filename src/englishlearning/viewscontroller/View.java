@@ -6,35 +6,34 @@
 
 package englishlearning.viewscontroller;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.layout.Region;
 import java.io.IOException;
-import java.util.logging.*;
 import java.net.URL;
+import java.util.logging.*;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.Pane;
 /**
  *
  * @author Clicia
  */
-public abstract class UserControl extends Region {     
-    private final String resourcePath = "%s.fxml";
+public abstract class View extends Pane {     
+    private final String resourcePath = "/resource/fxml/%s.fxml";
  
-    public UserControl() {
+    public View() {
         this.loadFXML();
     }
  
     private void loadFXML() {
         FXMLLoader loader = new FXMLLoader();
- 
+
+        loader.setRoot(this);
         loader.setController(this);
         loader.setLocation(this.getViewURL());
  
         try {
-            Node root = (Node) loader.load();
-            this.getChildren().add(root);
+            loader.load();
         }
         catch (IOException ex) {
-            Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
         }   
     }
  

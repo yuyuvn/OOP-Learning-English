@@ -14,11 +14,12 @@ import englishlearning.presenter.Presenter;
  * @param <P>
  */
 public abstract class ViewController<P extends Presenter>
-    extends UserControl {
+    extends View {
  
     private final P presenter;
  
     public ViewController(P presenter) {
+        super();
         this.presenter = presenter;
         this.initialisePresenter();
     }

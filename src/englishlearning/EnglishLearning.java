@@ -6,8 +6,8 @@
 
 package englishlearning;
 
-import englishlearning.presenter.LoginPresenter;
-import englishlearning.viewscontroller.LoginView;
+import englishlearning.presenter.MainWindowsPresenter;
+import englishlearning.viewscontroller.MainWindowView;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -19,9 +19,8 @@ import javafx.stage.Stage;
 public class EnglishLearning extends Application {    
     @Override
     public void start(Stage stage) throws Exception {
-        LoginPresenter presenter = new LoginPresenter();
-        LoginView view;
-        view = new LoginView<>(presenter);
+        MainWindowsPresenter presenter = new MainWindowsPresenter();
+        MainWindowView view = new MainWindowView<>(presenter);
         presenter.showWindows(stage);
     }
 
