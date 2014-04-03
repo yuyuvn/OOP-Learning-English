@@ -9,13 +9,9 @@
 <?import org.controlsfx.control.*?>
 
 <fx:root type="javafx.scene.layout.Pane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
-    <AnchorPane prefHeight="200.0" prefWidth="320.0">
-        <fx:define>
-          <PopOver fx:id="popOver" />
-        </fx:define>
-        <children>
-          <Button fx:id="button" layoutX="126.0" layoutY="90.0" text="Click Me!" />
-          <HyperlinkLabel fx:id="label" layoutX="126.0" layoutY="120.0" minHeight="16.0" minWidth="69.0" maxWidth="100" />
-        </children>
-    </AnchorPane>
+    <VBox>
+        <Label text="Hãy điền tên bạn:"/>
+        <TextField fx:id="username" />
+        <Button fx:id="loginButton" mnemonicParsing="false" text="Login" />
+    </VBox>
 </fx:root>

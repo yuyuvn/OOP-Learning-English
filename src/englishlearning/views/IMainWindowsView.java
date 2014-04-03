@@ -17,6 +17,6 @@ import javafx.scene.layout.Pane;
 public interface IMainWindowsView {
     public Button getExitButton();
     public void setContains(View control);
-    public Label getStatusLabel();
     public Pane getRootPane();
+    public void setStatus(int i, String text);
 }

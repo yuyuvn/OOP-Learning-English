@@ -24,9 +24,13 @@ public class MainWindowView <P extends MainWindowsPresenter> extends ViewControl
     @FXML
     private Button exitButton;
     @FXML
-    private View contain;
+    private Pane contains;
     @FXML
     private GridPane rootPane;
+    @FXML
+    private Label status1;
+    @FXML
+    private Label status2;
     
     public MainWindowView(P presenter) {
         super(presenter);
@@ -39,20 +43,26 @@ public class MainWindowView <P extends MainWindowsPresenter> extends ViewControl
 
     @Override
     public void setContains(View c) {
-        if (this.contain == null) {
-            GridPane.setRowIndex(c, 1);
-            rootPane.getChildren().add(c);
-        }
-        this.contain = c;
-    }
-
-    @Override
-    public Label getStatusLabel() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        contains.getChildren().clear();
+        contains.getChildren().add(c);
     }
 
     @Override
     public Pane getRootPane() {
         return rootPane;
+    }
+
+    @Override
+    public void setStatus(int i, String text) {
+        switch (i) {
+            case 0:
+                status1.setText(text);
+                break;
+            case 1:
+                status2.setText(text);
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
     }
 }

@@ -6,11 +6,12 @@
 
 package englishlearning.presenter;
 
+import englishlearning.model.UsersList;
 import englishlearning.views.ILoginView;
-import java.awt.MouseInfo;
+import java.util.Collections;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Hyperlink;
-import org.controlsfx.control.PopOver;
+import javafx.event.EventHandler;
+import org.controlsfx.control.textfield.TextFields;
 
 /**
  *
@@ -18,27 +19,20 @@ import org.controlsfx.control.PopOver;
  * @param <V>
  * @param <M>
  */
-public class LoginPresenter<V extends ILoginView, M> extends Presenter<V,M> {    
+public class LoginPresenter<V extends ILoginView, M extends UsersList> extends Presenter<V,M> {    
     @Override
-    public void setView(V view) {
-        super.setView(view);
-        
-        this.getView().getButton().setOnAction((ActionEvent t) -> {
-            getView().getLabel().setText("[Hello] [World] is [blah] [blah] abc []xyz [blah] [blah] [blah] [blah]!");
+    protected void initialize() {
+        TextFields.bindAutoCompletion(getView().getUsername(), Collections.synchronizedMap(getModel()));
+        getView().getLoginButton().addEventHandler(ActionEvent.ACTION, (ActionEvent event) -> {
+            // getModel().saveData(); // TODO: add datapath
         });
-        getView().getLabel().setOnAction((ActionEvent event) -> {
-            Hyperlink link = (Hyperlink)event.getSource();
-            final String str = link == null ? "" : link.getText();
-            double targetX = MouseInfo.getPointerInfo().getLocation().x;
-            double targetY = MouseInfo.getPointerInfo().getLocation().y;
-            
-            
-            if (getView().getPopOver().isDetached()) {
-                getView().setPopOver(new PopOver());
-            }
-            
-            getView().getPopOver().show(link, targetX, targetY);
-        });
-        
+    }
+    
+    public final void setOnLogin(EventHandler<ActionEvent> onLogin) {
+        getView().getLoginButton().addEventHandler(ActionEvent.ACTION, onLogin);
+    }
+    
+    public String getName() {
+        return getModel().getUsername();
     }
 }

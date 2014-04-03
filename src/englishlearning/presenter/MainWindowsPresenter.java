@@ -6,13 +6,14 @@
 
 package englishlearning.presenter;
 
+import englishlearning.model.UsersList;
+import englishlearning.util.WindowsBehavior;
 import englishlearning.views.IMainWindowsView;
 import englishlearning.viewscontroller.LoginView;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -24,11 +25,6 @@ import javafx.stage.StageStyle;
  */
 public class MainWindowsPresenter<V extends IMainWindowsView, M> extends Presenter<V,M> {
     private Stage stage;
-    private LoginPresenter loginPresenter;
-    
-    // Drag Windows vars
-    private Double initialX;
-    private Double initialY;
     
     public void showWindows(Stage stage) {
         stage.initStyle(StageStyle.TRANSPARENT);
@@ -37,37 +33,30 @@ public class MainWindowsPresenter<V extends IMainWindowsView, M> extends Present
         stage.setScene(scene);
         stage.show();
         this.stage = stage;
+        
+        WindowsBehavior.setDragDrop(getView().getRootPane(), stage);
     }
-    
+
     @Override
-    public void setView(V view) {
-        super.setView(view);
+    protected void initialize() {
+        addControlButtonHandle();
         
-        init();
-    }
-    
-    private void init() {
-        getView().getExitButton().setOnAction((ActionEvent event) -> {
-            stage.close();
-        });
-        
-        
-        loginPresenter = new LoginPresenter();
+        LoginPresenter loginPresenter = new LoginPresenter();
+        loginPresenter.setModel(new UsersList<>()); // TODO: add datapath
         LoginView loginView = new LoginView<>(loginPresenter);
         getView().setContains(loginView);
         
-        // Drag Windows
-        getView().getRootPane().setOnMousePressed((MouseEvent me) -> {
-            if (me.getButton() == MouseButton.PRIMARY) {
-                initialX = me.getSceneX();
-                initialY = me.getSceneY();
+        loginPresenter.setOnLogin(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                // TODO: tao presenter cho main containt
             }
         });
-        getView().getRootPane().setOnMouseDragged((MouseEvent me) -> {
-           if (me.getButton() == MouseButton.PRIMARY) {
-                stage.getScene().getWindow().setX(me.getScreenX() - initialX);
-                stage.getScene().getWindow().setY(me.getScreenY() - initialY);
-            } 
-        });
+    }
+    
+    private void addControlButtonHandle() {
+        getView().getExitButton().setOnAction((ActionEvent event) -> {
+            stage.close();
+        });        
     }
 }

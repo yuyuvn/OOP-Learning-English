@@ -31,6 +31,8 @@ public abstract class Presenter<V, M> {
         }
  
         this.view = view;
+        
+        this.initialize();
     }
  
     public final M getModel() {
@@ -41,5 +43,9 @@ public abstract class Presenter<V, M> {
         if (model == null) {
             throw new NullPointerException("model cannot be null.");
         }
+        
+        this.model = model;
     }
+    
+    protected abstract void initialize();
 }

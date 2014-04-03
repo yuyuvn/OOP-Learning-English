@@ -10,8 +10,7 @@ import englishlearning.presenter.LoginPresenter;
 import englishlearning.views.ILoginView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import org.controlsfx.control.HyperlinkLabel;
-import org.controlsfx.control.PopOver;
+import javafx.scene.control.TextField;
 
 /**
 *
@@ -20,39 +19,22 @@ import org.controlsfx.control.PopOver;
 */
 public class LoginView<P extends LoginPresenter> extends ViewController<P> implements ILoginView
 {
+    @FXML
+    private TextField username;
+    @FXML
+    private Button loginButton;
     
-    @FXML
-    private HyperlinkLabel label;
-    @FXML
-    private Button button;
-    @FXML
-    private PopOver popOver;
-
     public LoginView(P presenter) {
         super(presenter);
     }
-    
-    /*@Override
-    public void initialize(URL url, ResourceBundle rb) {
-        
-    }*/
-    
+
     @Override
-    public HyperlinkLabel getLabel() {
-        return this.label;
-    }
-    @Override
-    public Button getButton() {
-        return this.button;
+    public TextField getUsername() {
+        return username;
     }
 
     @Override
-    public PopOver getPopOver() {
-        return this.popOver;
-    }
-
-    @Override
-    public void setPopOver(PopOver popOver) {
-        this.popOver = popOver;
+    public Button getLoginButton() {
+        return loginButton;
     }
 }
