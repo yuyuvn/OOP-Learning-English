@@ -10,15 +10,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.logging.*;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.HPos;
-import javafx.geometry.VPos;
-import javafx.scene.Node;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.AnchorPane;
 /**
  *
  * @author Clicia
  */
-public abstract class View extends Region {     
+public abstract class View extends AnchorPane {     
     private final String resourcePath = "/resource/fxml/%s.fxml";
  
     public View() {
@@ -28,13 +25,12 @@ public abstract class View extends Region {
     private void loadFXML() {
         FXMLLoader loader = new FXMLLoader();
 
+        loader.setRoot(this);
         loader.setController(this);
         loader.setLocation(this.getViewURL());
  
         try {
-            Node root = (Node) loader.load();
-            setMaxSize(root);
-            this.getChildren().add(root);
+            loader.load();
         }
         catch (IOException ex) {
             Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
@@ -51,20 +47,5 @@ public abstract class View extends Region {
  
     private URL getViewURL() {
         return this.getClass().getResource(this.getViewPath());
-    }
-    
-    @Override
-    protected void layoutChildren() {
-        getChildren().stream().forEach((node) -> {
-            layoutInArea(node, 0, 0, getWidth(), getHeight(), 0, HPos.LEFT, VPos.TOP);
-        });
-    }
-    
-    private void setMaxSize(Node node) {
-        if (node != null && node instanceof Region) {
-            Region region = (Region) node;
-            region.setMaxWidth(Double.MAX_VALUE);
-            region.setMaxHeight(Double.MAX_VALUE);
-        }
     }
 }

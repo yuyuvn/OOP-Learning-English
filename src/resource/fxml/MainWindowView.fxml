@@ -4,8 +4,11 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import englishlearning.viewscontroller.*?>
 
-<GridPane fx:id="rootPane" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefWidth="400.0" prefHeight="300.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+<GridPane fx:id="rootPane" AnchorPane.bottomAnchor=".0" AnchorPane.leftAnchor=".0" AnchorPane.rightAnchor=".0" AnchorPane.topAnchor=".0">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" />
   </columnConstraints>
@@ -35,7 +38,11 @@
 <RowConstraints />
 </rowConstraints>
     </GridPane>
-    <AnchorPane fx:id="contains" GridPane.rowIndex="1"></AnchorPane>
+    <AnchorPane fx:id="contains" GridPane.rowIndex="1" >
+        <padding>
+            <Insets left="100.0" right ="100.0"/>
+        </padding>
+    </AnchorPane>
     <GridPane GridPane.rowIndex="2">
         <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" />
@@ -51,3 +58,5 @@
     </GridPane>
 </children>
 </GridPane>
+    </children>
+</fx:root>
