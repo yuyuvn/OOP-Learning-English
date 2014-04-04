@@ -8,7 +8,10 @@ package englishlearning.viewscontroller;
 
 import englishlearning.presenter.LoginPresenter;
 import englishlearning.views.ILoginView;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
@@ -17,7 +20,8 @@ import javafx.scene.control.TextField;
 * @author Clicia
  * @param <P>
 */
-public class LoginView<P extends LoginPresenter> extends ViewController<P> implements ILoginView
+public class LoginView<P extends LoginPresenter> extends ViewController<P> 
+    implements ILoginView
 {
     @FXML
     private TextField username;

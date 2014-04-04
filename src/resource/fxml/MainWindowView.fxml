@@ -4,17 +4,15 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import englishlearning.viewscontroller.*?>
 
-<fx:root type="javafx.scene.layout.Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-<GridPane prefHeight="400.0" prefWidth="600.0" fx:id="rootPane">
+<GridPane fx:id="rootPane" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints maxHeight="127.0" minHeight="0.0" prefHeight="18.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="370.0" minHeight="10.0" prefHeight="359.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="50.0" minHeight="4.0" prefHeight="15.0" vgrow="SOMETIMES" />
+    <RowConstraints vgrow="NEVER" />
+    <RowConstraints vgrow="ALWAYS" />
+    <RowConstraints vgrow="NEVER" />
   </rowConstraints>
 <opaqueInsets>
 <Insets />
@@ -26,27 +24,30 @@
             <ColumnConstraints hgrow="NEVER" />
         </columnConstraints>
         <children>
-            <Pane>
-                <Label text="English Learning"/>
-            </Pane>
-            <Pane GridPane.columnIndex="1">
+            <Pane><children>
+                <Label text="English Learning" />
+            </children></Pane>
+            <HBox GridPane.columnIndex="1"><children>
                 <Button fx:id="exitButton" mnemonicParsing="false" text="Exit" />
-            </Pane>
+            </children></HBox>
         </children>
+<rowConstraints>
+<RowConstraints />
+</rowConstraints>
     </GridPane>
-    <Pane GridPane.rowIndex="1" fx:id="contains"></Pane>
+    <AnchorPane fx:id="contains" GridPane.rowIndex="1"></AnchorPane>
     <GridPane GridPane.rowIndex="2">
         <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" />
             <ColumnConstraints hgrow="NEVER" />
         </columnConstraints>
-        <Pane>
-            <Label fx:id="status1"/>
-        </Pane>
-        <Pane GridPane.rowIndex="1">
-            <Label fx:id="status2"/>
-        </Pane>
+        <children>
+            <Label fx:id="status1" />
+            <Label fx:id="status2" GridPane.columnIndex="1" />
+        </children>
+<rowConstraints>
+<RowConstraints />
+</rowConstraints>
     </GridPane>
 </children>
 </GridPane>
-</fx:root>

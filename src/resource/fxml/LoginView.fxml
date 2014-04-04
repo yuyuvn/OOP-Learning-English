@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
-<?import java.net.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import org.controlsfx.control.*?>
 
-<fx:root type="javafx.scene.layout.Pane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
-    <VBox>
-        <Label text="Hãy điền tên bạn:"/>
-        <TextField fx:id="username" />
-        <Button fx:id="loginButton" mnemonicParsing="false" text="Login" />
-    </VBox>
-</fx:root>
+<VBox alignment="CENTER" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+            <Label text="Hãy điền tên bạn:" />
+            <TextField fx:id="username" />
+            <Button fx:id="loginButton" mnemonicParsing="false" text="Login" />
+    </children>
+</VBox>

@@ -12,7 +12,7 @@ import java.util.HashMap;
  *
  * @author Clicia
  * @param <K> username
- * @param <V>
+ * @param <V> password (if needed)
  */
 public class UsersList<K extends String,V> extends HashMap<K,V> {
     private K username;

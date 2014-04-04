@@ -42,14 +42,13 @@ public class MainWindowsPresenter<V extends IMainWindowsView, M> extends Present
         addControlButtonHandle();
         
         LoginPresenter loginPresenter = new LoginPresenter();
-        loginPresenter.setModel(new UsersList<>()); // TODO: add datapath
         LoginView loginView = new LoginView<>(loginPresenter);
         getView().setContains(loginView);
         
         loginPresenter.setOnLogin(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // TODO: tao presenter cho main containt
+                // TODO: tao presenter cho main contains
             }
         });
     }
@@ -57,6 +56,6 @@ public class MainWindowsPresenter<V extends IMainWindowsView, M> extends Present
     private void addControlButtonHandle() {
         getView().getExitButton().setOnAction((ActionEvent event) -> {
             stage.close();
-        });        
+        });
     }
 }

@@ -19,10 +19,12 @@ import org.controlsfx.control.textfield.TextFields;
  * @param <V>
  * @param <M>
  */
-public class LoginPresenter<V extends ILoginView, M extends UsersList> extends Presenter<V,M> {    
+public class LoginPresenter<V extends ILoginView,M extends UsersList> extends Presenter<V,M> {    
     @Override
     protected void initialize() {
-        TextFields.bindAutoCompletion(getView().getUsername(), Collections.synchronizedMap(getModel()));
+        setModel((M)new UsersList<>());
+        
+        TextFields.bindAutoCompletion(getView().getUsername(), getModel());
         getView().getLoginButton().addEventHandler(ActionEvent.ACTION, (ActionEvent event) -> {
             // getModel().saveData(); // TODO: add datapath
         });
