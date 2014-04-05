@@ -6,16 +6,17 @@
 
 package englishlearning.views;
 
-import englishlearning.viewscontroller.View;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 
 /**
  *
  * @author Clicia
  */
-public interface IMainWindowsView {
-    public void setContains(View control);
-    public Pane getRootPane();
-    public void setStatus(int i, String text);
+public interface ITitleView {
+    public Button getCloseButton();
+    public Button getMaximizeButton();
+    public Button getRestoreButton();
+    public Button getMinimizeButton();
+    public Pane getRoot();
 }

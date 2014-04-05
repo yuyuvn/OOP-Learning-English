@@ -21,16 +21,16 @@ public class WindowsBehavior {
     
     public static void setDragDrop(final Pane p, final Stage s) {        
         p.setOnMousePressed((MouseEvent me) -> {
-            if (me.getButton() == MouseButton.PRIMARY) {
+            if (me.getButton() == MouseButton.PRIMARY && !s.isMaximized()) {                
                 initialX = me.getSceneX();
                 initialY = me.getSceneY();
             }
         });
         p.setOnMouseDragged((MouseEvent me) -> {
-           if (me.getButton() == MouseButton.PRIMARY) {
+            if (me.getButton() == MouseButton.PRIMARY && !s.isMaximized()) {
                 s.getScene().getWindow().setX(me.getScreenX() - initialX);
                 s.getScene().getWindow().setY(me.getScreenY() - initialY);
-            } 
+            }
         });
     }
 }

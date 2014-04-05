@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root prefWidth="400.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <GridPane AnchorPane.bottomAnchor=".0" AnchorPane.leftAnchor=".0" AnchorPane.rightAnchor=".0" AnchorPane.topAnchor=".0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" />
+                <ColumnConstraints hgrow="NEVER" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints />
+            </rowConstraints>
+            <children>
+                <Pane><children>
+                    <!-- TODO: icon -->
+                    <Label text="English Learning" />
+                </children></Pane>
+                <HBox GridPane.columnIndex="1"><children>
+                    <Button fx:id="minimize" mnemonicParsing="false" text="Minimize" />
+                    <Button fx:id="maximize" mnemonicParsing="false" text="Maximize" />
+                    <Button fx:id="restore" mnemonicParsing="false" text="Restore" />
+                    <Button fx:id="close" mnemonicParsing="false" text="Exit" />
+                </children></HBox>
+            </children>
+        </GridPane>
+    </children>
+</fx:root>

@@ -21,7 +21,7 @@ import javafx.scene.layout.Pane;
  * @param <P>
  */
 public class MainWindowView <P extends MainWindowsPresenter> extends ViewController<P> implements IMainWindowsView {
-    @FXML
+    @FXML 
     private Button exitButton;
     @FXML
     private Pane contains;
@@ -34,11 +34,6 @@ public class MainWindowView <P extends MainWindowsPresenter> extends ViewControl
     
     public MainWindowView(P presenter) {
         super(presenter);
-    }
-
-    @Override
-    public Button getExitButton() {
-        return this.exitButton;
     }
 
     @Override

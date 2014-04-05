@@ -8,7 +8,6 @@ package englishlearning.presenter;
 
 import englishlearning.model.UsersList;
 import englishlearning.views.ILoginView;
-import java.util.Collections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import org.controlsfx.control.textfield.TextFields;

@@ -31,6 +31,10 @@ public abstract class View extends AnchorPane {
  
         try {
             loader.load();
+            AnchorPane.setBottomAnchor(this, .0);
+            AnchorPane.setLeftAnchor(this, .0);
+            AnchorPane.setRightAnchor(this, .0);
+            AnchorPane.setTopAnchor(this, .0);
         }
         catch (IOException ex) {
             Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);

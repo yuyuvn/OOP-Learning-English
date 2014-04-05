@@ -4,7 +4,7 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import englishlearning.viewscontroller.*?>
+<?import englishlearning.viewscontroller.control.*?>
 
 <fx:root prefWidth="400.0" prefHeight="300.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
@@ -21,23 +21,7 @@
 <Insets />
 </opaqueInsets>
 <children>
-    <GridPane>
-        <columnConstraints>
-            <ColumnConstraints hgrow="ALWAYS" />
-            <ColumnConstraints hgrow="NEVER" />
-        </columnConstraints>
-        <children>
-            <Pane><children>
-                <Label text="English Learning" />
-            </children></Pane>
-            <HBox GridPane.columnIndex="1"><children>
-                <Button fx:id="exitButton" mnemonicParsing="false" text="Exit" />
-            </children></HBox>
-        </children>
-<rowConstraints>
-<RowConstraints />
-</rowConstraints>
-    </GridPane>
+    <TitleView />
     <AnchorPane fx:id="contains" GridPane.rowIndex="1" >
         <padding>
             <Insets left="100.0" right ="100.0"/>
