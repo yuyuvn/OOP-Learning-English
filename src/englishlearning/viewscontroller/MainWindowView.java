@@ -22,8 +22,6 @@ import javafx.scene.layout.Pane;
  * @param <P>
  */
 public class MainWindowView <P extends Presenter> extends ViewController<P> implements IMainWindowsView {
-    @FXML 
-    private Button exitButton;
     @FXML
     private Pane contains;
     @FXML
