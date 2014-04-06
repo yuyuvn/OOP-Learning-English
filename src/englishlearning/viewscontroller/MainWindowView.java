@@ -7,6 +7,7 @@
 package englishlearning.viewscontroller;
 
 import englishlearning.presenter.MainWindowsPresenter;
+import englishlearning.presenter.Presenter;
 import englishlearning.views.IMainWindowsView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,7 +21,7 @@ import javafx.scene.layout.Pane;
  * @author Clicia
  * @param <P>
  */
-public class MainWindowView <P extends MainWindowsPresenter> extends ViewController<P> implements IMainWindowsView {
+public class MainWindowView <P extends Presenter> extends ViewController<P> implements IMainWindowsView {
     @FXML 
     private Button exitButton;
     @FXML
