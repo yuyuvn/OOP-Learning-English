@@ -16,7 +16,6 @@ import javafx.scene.layout.Pane;
 public interface ITitleView {
     public Button getCloseButton();
     public Button getMaximizeButton();
-    public Button getRestoreButton();
     public Button getMinimizeButton();
     public Pane getRoot();
 }

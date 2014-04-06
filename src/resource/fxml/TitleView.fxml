@@ -22,7 +22,6 @@
                 <HBox GridPane.columnIndex="1"><children>
                     <Button fx:id="minimize" mnemonicParsing="false" text="Minimize" />
                     <Button fx:id="maximize" mnemonicParsing="false" text="Maximize" />
-                    <Button fx:id="restore" mnemonicParsing="false" text="Restore" />
                     <Button fx:id="close" mnemonicParsing="false" text="Exit" />
                 </children></HBox>
             </children>

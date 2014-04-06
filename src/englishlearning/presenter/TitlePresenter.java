@@ -8,6 +8,7 @@ package englishlearning.presenter;
 
 import englishlearning.views.ITitleView;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
@@ -28,10 +29,16 @@ public class TitlePresenter<V extends ITitleView,M> extends Presenter<V,M> {
             ((Stage)getView().getRoot().getScene().getWindow()).setIconified(true);
         });
         getView().getMaximizeButton().setOnAction((ActionEvent event) -> {
-            ((Stage)getView().getRoot().getScene().getWindow()).setMaximized(true);
-        });
-        getView().getRestoreButton().setOnAction((ActionEvent event) -> {
-            ((Stage)getView().getRoot().getScene().getWindow()).setMaximized(false);
+            Stage s = (Stage)getView().getRoot().getScene().getWindow();
+            Button b = (Button)event.getSource();
+            if (s.isMaximized()) {
+                s.setMaximized(false);
+                b.setText("Maximize");
+            } else {
+                s.setMaximized(true);
+                b.setText("Restore");
+            }
+            
         });
         getView().getCloseButton().setOnAction((ActionEvent event) -> {
             ((Stage)getView().getRoot().getScene().getWindow()).close();

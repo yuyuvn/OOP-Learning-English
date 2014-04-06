@@ -17,7 +17,6 @@ import javafx.scene.layout.Pane;
  */
 public class TitleView extends View implements ITitleView {
     @FXML protected Button close;
-    @FXML protected Button restore;
     @FXML protected Button maximize;
     @FXML protected Button minimize;
 
@@ -34,11 +33,6 @@ public class TitleView extends View implements ITitleView {
     @Override
     public Button getMinimizeButton() {
         return minimize;
-    }
-
-    @Override
-    public Button getRestoreButton() {
-        return restore;
     }
     
     @Override

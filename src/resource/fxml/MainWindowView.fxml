@@ -22,11 +22,7 @@
 </opaqueInsets>
 <children>
     <TitleView />
-    <AnchorPane fx:id="contains" GridPane.rowIndex="1" >
-        <padding>
-            <Insets left="100.0" right ="100.0"/>
-        </padding>
-    </AnchorPane>
+    <AnchorPane fx:id="contains" GridPane.rowIndex="1" />
     <GridPane GridPane.rowIndex="2">
         <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" />
