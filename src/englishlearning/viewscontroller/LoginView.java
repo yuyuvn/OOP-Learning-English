@@ -15,9 +15,8 @@ import javafx.scene.control.TextField;
 /**
 *
 * @author Clicia
- * @param <P>
 */
-public class LoginView<P extends Presenter> extends ViewController<P> 
+public class LoginView extends ViewController 
     implements ILoginView
 {
     @FXML
@@ -25,7 +24,7 @@ public class LoginView<P extends Presenter> extends ViewController<P>
     @FXML
     private Button loginButton;
     
-    public LoginView(P presenter) {
+    public LoginView(Presenter presenter) {
         super(presenter);
     }
 

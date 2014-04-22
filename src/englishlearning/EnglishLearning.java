@@ -20,7 +20,7 @@ public class EnglishLearning extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         MainWindowsPresenter presenter = new MainWindowsPresenter();
-        MainWindowView view = new MainWindowView<>(presenter);
+        MainWindowView view = new MainWindowView(presenter);
         presenter.showWindows(stage);
     }
 

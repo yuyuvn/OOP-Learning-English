@@ -6,11 +6,9 @@
 
 package englishlearning.viewscontroller;
 
-import englishlearning.presenter.MainWindowsPresenter;
 import englishlearning.presenter.Presenter;
 import englishlearning.views.IMainWindowsView;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -19,9 +17,8 @@ import javafx.scene.layout.Pane;
  * FXML Controller class
  *
  * @author Clicia
- * @param <P>
  */
-public class MainWindowView <P extends Presenter> extends ViewController<P> implements IMainWindowsView {
+public class MainWindowView extends ViewController implements IMainWindowsView {
     @FXML
     private Pane contains;
     @FXML
@@ -31,7 +28,7 @@ public class MainWindowView <P extends Presenter> extends ViewController<P> impl
     @FXML
     private Label status2;
     
-    public MainWindowView(P presenter) {
+    public MainWindowView(Presenter presenter) {
         super(presenter);
     }
 

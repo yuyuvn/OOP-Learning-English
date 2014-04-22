@@ -36,7 +36,7 @@ public class MainWindowsPresenter<V extends IMainWindowsView, M> extends Present
     @Override
     protected void initialize() {        
         LoginPresenter loginPresenter = new LoginPresenter();
-        LoginView loginView = new LoginView<>(loginPresenter);
+        LoginView loginView = new LoginView(loginPresenter);
         getView().setContains(loginView);
         
         loginPresenter.setOnLogin(new EventHandler<ActionEvent>() {

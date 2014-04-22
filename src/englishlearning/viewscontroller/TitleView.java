@@ -15,7 +15,7 @@ import javafx.scene.layout.Pane;
  *
  * @author Clicia
  */
-public class TitleView extends View implements ITitleView {
+public class TitleView extends ViewController implements ITitleView {
     @FXML protected Button close;
     @FXML protected Button maximize;
     @FXML protected Button minimize;

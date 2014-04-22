@@ -11,14 +11,16 @@ import englishlearning.presenter.Presenter;
 /**
  *
  * @author Clicia
- * @param <P>
  */
-public abstract class ViewController<P extends Presenter>
-    extends View {
+public abstract class ViewController extends View { 
+    private final Presenter presenter;
  
-    private final P presenter;
- 
-    public ViewController(P presenter) {
+    public ViewController() {
+        super();
+        this.presenter = null;
+    }
+    
+    public ViewController(Presenter presenter) {
         super();
         this.presenter = presenter;
         this.initialisePresenter();
@@ -30,9 +32,5 @@ public abstract class ViewController<P extends Presenter>
         }
  
         this.presenter.setView(this);
-    }
- 
-    protected P getPresenter() {
-        return this.presenter;
     }
 }
