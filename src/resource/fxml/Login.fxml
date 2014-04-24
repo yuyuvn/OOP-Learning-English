@@ -9,7 +9,7 @@
 <VBox alignment="CENTER" AnchorPane.bottomAnchor=".0" AnchorPane.leftAnchor=".0" AnchorPane.rightAnchor=".0" AnchorPane.topAnchor=".0">
     <children>
             <Label text="Hãy điền tên bạn:" />
-            <TextField fx:id="username" maxWidth="250"  />
+            <TextField fx:id="username" maxWidth="250" />
             <Button fx:id="loginButton" mnemonicParsing="false" text="Login" />
     </children>
 </VBox>

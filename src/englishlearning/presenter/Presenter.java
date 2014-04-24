@@ -6,46 +6,46 @@
 
 package englishlearning.presenter;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.logging.*;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.AnchorPane;
 /**
  *
  * @author Clicia
- * @param <V>
- * @param <M>
  */
-public abstract class Presenter<V, M> {
+public abstract class Presenter extends AnchorPane {     
+    private final String resourcePath = "/resource/fxml/%s.fxml";
+  
+    protected void loadFXML() {
+        FXMLLoader loader = new FXMLLoader();
+
+        loader.setRoot(this);
+        loader.setController(this);
+        loader.setLocation(this.getViewURL());
  
-    private M model;
-    private V view;
-     
-    protected V getView() {
-        return this.view;
-    }
- 
-    public void setView(V view) {
-        if (view == null) {
-            throw new NullPointerException("view cannot be null.");
+        try {
+            loader.load();
+            AnchorPane.setBottomAnchor(this, .0);
+            AnchorPane.setLeftAnchor(this, .0);
+            AnchorPane.setRightAnchor(this, .0);
+            AnchorPane.setTopAnchor(this, .0);
         }
- 
-        if (this.view != null) {
-            throw new IllegalStateException("View has already been set.");
-        }
- 
-        this.view = view;
-        
-        this.initialize();
+        catch (IOException ex) {
+            Logger.getLogger(Presenter.class.getName()).log(Level.SEVERE, null, ex);
+        }   
     }
  
-    public final M getModel() {
-        return this.model;
+    /**
+     *
+     * @return
+     */
+    protected String getViewPath() {
+        return String.format(resourcePath, this.getClass().getSimpleName());
     }
  
-    protected final void setModel(M model) {
-        if (model == null) {
-            throw new NullPointerException("model cannot be null.");
-        }
-        
-        this.model = model;
+    private URL getViewURL() {
+        return this.getClass().getResource(this.getViewPath());
     }
-    
-    protected abstract void initialize();
 }
