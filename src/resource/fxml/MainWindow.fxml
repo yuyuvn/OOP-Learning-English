@@ -4,7 +4,7 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import englishlearning.presenter.TitleBar?>
+<?import englishlearning.presenter.CaptionBar?>
 
 <fx:root prefWidth="400.0" prefHeight="300.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
@@ -21,7 +21,7 @@
 <Insets />
 </opaqueInsets>
 <children>
-    <TitleBar fx:id="titleBar" />
+    <CaptionBar fx:id="captionBar" />
     <AnchorPane fx:id="contains" GridPane.rowIndex="1" />
     <GridPane GridPane.rowIndex="2">
         <columnConstraints>

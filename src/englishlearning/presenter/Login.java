@@ -6,10 +6,10 @@
 
 package englishlearning.presenter;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 /**
@@ -17,15 +17,21 @@ import javafx.scene.control.TextField;
  * @author Clicia
  */
 public class Login extends Presenter {
-    @FXML Button loginButton;
     @FXML TextField username;
+    
+    //<editor-fold defaultstate="collapsed" desc="Property isLoged">
+    private final BooleanProperty isLoged = new SimpleBooleanProperty(this, "isLoged", false);;
+    public final Boolean getIsLoged() { return isLoged.get(); }
+    public final void setIsLoged(Boolean value) { isLoged.set(value); }
+    public final BooleanProperty isLogedProperty() { return isLoged; }
+//</editor-fold>
     
     public Login() {
         loadFXML();
     }
     
-    public final void setOnLogin(EventHandler<ActionEvent> onLogin) {
-        loginButton.addEventHandler(ActionEvent.ACTION, onLogin);
+    public final void onLogin(ActionEvent event) {
+        if (!getUsername().equals("")) setIsLoged(true);
     }
     
     public String getUsername() {

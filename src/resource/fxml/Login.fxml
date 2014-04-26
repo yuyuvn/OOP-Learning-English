@@ -10,7 +10,7 @@
     <children>
             <Label text="Hãy điền tên bạn:" />
             <TextField fx:id="username" maxWidth="250" />
-            <Button fx:id="loginButton" mnemonicParsing="false" text="Login" />
+            <Button fx:id="loginButton" mnemonicParsing="false" text="Login" onAction="#onLogin" />
     </children>
 </VBox>
     </children>

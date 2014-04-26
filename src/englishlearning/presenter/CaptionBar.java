@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  *
  * @author Clicia
  */
-public class TitleBar extends Presenter {
+public class CaptionBar extends Presenter {
     //<editor-fold defaultstate="collapsed" desc="Property minimize">
     private final StringProperty minimize = new SimpleStringProperty(this, "minimize", "Minimize");;
     public final String getMinimize() { return minimize.get(); }
@@ -36,7 +36,7 @@ public class TitleBar extends Presenter {
     public final StringProperty closeProperty() { return close; }
 //</editor-fold>
     
-    public TitleBar() {
+    public CaptionBar() {
         loadFXML();
     }
 

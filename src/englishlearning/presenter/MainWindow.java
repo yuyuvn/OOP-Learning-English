@@ -10,9 +10,7 @@ import englishlearning.util.WindowsBehavior;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -30,22 +28,38 @@ public class MainWindow extends Presenter {
     @FXML
     private Pane rootPane;
     @FXML
-    private Presenter titleBar;
+    private Presenter captionBar;
     
     // <editor-fold desc="Property content" defaultstate="collapsed">
     private final ObjectProperty<Presenter> content = new SimpleObjectProperty<>(this, "content");;
     public final Presenter getContent() { return content.get(); }
-    public final void setContent(Presenter value) { content.set(value); }
+    public final void setContent(Presenter value) { 
+        if (getContent()!=value) {
+            contains.getChildren().clear();
+            contains.getChildren().add(value);
+            content.set(value);
+        }
+    }
     public final ObjectProperty<Presenter> contentProperty() { return content; }
     // </editor-fold>
     
+    private MainContent mainContent;
+    
     public MainWindow() {
         loadFXML();
-        Init();
         
         Login login = new Login();
-        login.setOnLogin((ActionEvent event) -> {
-            // TODO
+        login.isLogedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue) {
+                System.out.println("User " + login.getUsername() + " logged");
+                mainContent = new MainContent();
+                mainContent.setUser(login.getUsername());
+                
+                WindowsBehavior.setWindowSize(this.getScene().getWindow(), 960.0, 640.0);
+                this.setPrefSize(960, 640);
+                
+                setContent(mainContent);
+            }
         });
         setContent(login);
     }
@@ -54,16 +68,10 @@ public class MainWindow extends Presenter {
         stage.initStyle(StageStyle.TRANSPARENT);
         Scene scene = new Scene((Parent) this);
         
+        scene.setFill(null);
         stage.setScene(scene);
         stage.show();
         
         WindowsBehavior.setDragDrop(rootPane, stage);
-    }
-    
-    private void Init() {        
-        contentProperty().addListener((ObservableValue<? extends Node> observable, Node oldValue, Node newValue) -> {
-            contains.getChildren().clear();
-            contains.getChildren().add(newValue);
-        });
     }
 }

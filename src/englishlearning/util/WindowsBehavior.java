@@ -10,6 +10,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 /**
  *
@@ -32,5 +33,16 @@ public class WindowsBehavior {
                 s.getScene().getWindow().setY(me.getScreenY() - initialY);
             }
         });
+    }
+    
+    public static void setWindowSize(Window window, Double width, Double height) {
+        Double oldWidth = window.getWidth();
+        Double oldHeight = window.getHeight();
+        
+        window.setX(window.getX() + (oldWidth - width)/2);
+        window.setY(window.getY() + (oldHeight - height)/2);
+        
+        window.setWidth(width);
+        window.setHeight(height);
     }
 }
