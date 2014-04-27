@@ -39,15 +39,7 @@ public class DataInDisk {
     }
     
     public static void saveUsersList(UsersList data, String dataPath) {
-        File fileHandler = new File(dataPath);
-        if(!fileHandler.exists()) {
-            try {
-                fileHandler.getParentFile().mkdirs();
-                fileHandler.createNewFile();
-            } catch (IOException ex) {
-                Logger.getLogger(DataInDisk.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } 
+        createIfNotExists(dataPath);
         
         try (FileOutputStream fileOut = new FileOutputStream(dataPath); ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
             out.writeObject(data);
@@ -60,5 +52,19 @@ public class DataInDisk {
     
     public static void saveUsersList(UsersList data) {
         saveUsersList(data, getRelativePath(PATHUL));
+    }
+    
+    public static boolean createIfNotExists(String path) {        
+        File fileHandler = new File(path);
+        if(!fileHandler.exists()) {
+            try {
+                fileHandler.getParentFile().mkdirs();
+                fileHandler.createNewFile();
+            } catch (IOException ex) {
+                Logger.getLogger(DataInDisk.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        return true;
     }
 }
