@@ -8,40 +8,43 @@ package englishlearning.util;
 
 import englishlearning.model.UsersList;
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Clicia
  */
 public class DataInDisk {
-    private final static String PATHUL = ""; // TODO: set default path
+    private final static String PATHUL = "/data/users.bin"; // TODO: set default path
     
-    public static UsersList getUsersList(String dataPath) throws FileNotFoundException, IOException, ClassNotFoundException {
-        UsersList list = null;
-        FileInputStream fileIn = new FileInputStream(dataPath);
-        ObjectInputStream in = new ObjectInputStream(fileIn);
-        list = (UsersList) in.readObject();
-        in.close();
-        fileIn.close();
-        // TODO: read data from file
-        // http://www.tutorialspoint.com/java/java_serialization.htm
-        return new UsersList();
+    public static UsersList getUsersList(String dataPath) {
+        UsersList list = new UsersList();
+        try (FileInputStream fileIn = new FileInputStream(dataPath); ObjectInputStream in = new ObjectInputStream(fileIn)) {
+            list = (UsersList) in.readObject();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(DataInDisk.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(DataInDisk.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
     }
     
-    public static UsersList getUsersList() throws IOException, FileNotFoundException, ClassNotFoundException {
+    public static UsersList getUsersList() {
         return getUsersList(PATHUL);
     }
     
-    public static void saveUsersList(UsersList data, String dataPath) throws FileNotFoundException, IOException {
-        FileOutputStream fileOut = new FileOutputStream(dataPath);
-        ObjectOutputStream out  = new ObjectOutputStream(fileOut);
-        out.writeObject(data);
-        out.close();
-        fileOut.close();
-        // TODO: write data to file
+    public static void saveUsersList(UsersList data, String dataPath) {
+        try (FileOutputStream fileOut = new FileOutputStream(dataPath); ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+            out.writeObject(data);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(DataInDisk.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DataInDisk.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
-    public static void saveUsersList(UsersList data) throws IOException {
+    public static void saveUsersList(UsersList data) {
         saveUsersList(data, PATHUL);
     }
 }
