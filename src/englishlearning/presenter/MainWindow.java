@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -68,7 +69,8 @@ public class MainWindow extends Presenter {
         stage.initStyle(StageStyle.TRANSPARENT);
         Scene scene = new Scene((Parent) this);
         
-        scene.setFill(null);
+        scene.setFill(Color.TRANSPARENT);
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.setScene(scene);
         stage.show();
         

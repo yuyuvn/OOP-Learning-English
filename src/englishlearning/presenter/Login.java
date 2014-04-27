@@ -6,11 +6,15 @@
 
 package englishlearning.presenter;
 
+import englishlearning.model.UsersList;
+import englishlearning.util.DataInDisk;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import org.controlsfx.control.textfield.TextFields;
 
 /**
  *
@@ -26,15 +30,26 @@ public class Login extends Presenter {
     public final BooleanProperty isLogedProperty() { return isLoged; }
 //</editor-fold>
     
+    private final UsersList users;
+    
     public Login() {
         loadFXML();
+        
+        // TODO: add datapath
+        users = DataInDisk.getUsersList();
+        TextFields.bindAutoCompletion(username, users);
+        
+        isLogedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            users.add(getUsername());
+            DataInDisk.saveUsersList(users);
+        });
     }
     
     public final void onLogin(ActionEvent event) {
         if (!getUsername().equals("")) setIsLoged(true);
     }
     
-    public String getUsername() {
+    public final String getUsername() {
         return username.getText();
     }
 }

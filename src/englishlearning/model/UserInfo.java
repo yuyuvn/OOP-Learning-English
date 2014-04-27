@@ -7,6 +7,7 @@
 package englishlearning.model;
 
 import java.io.Serializable;
+import java.util.LinkedHashMap;
 
 /**
  *
@@ -14,5 +15,10 @@ import java.io.Serializable;
  */
 public class UserInfo implements Serializable {
     public String name;
-    // TODO: can gi them nay
+    public String lastUsed;
+    public LinkedHashMap<String,Object> readList; // TODO: change object to model score
+    // TODO: trạng thái chơi dở (có đang chơi hay không ? để có thể resume)
+    
+    // add favorite (thêm nếu có thời gian)
+    // public HashSet<String> favorite;
 }

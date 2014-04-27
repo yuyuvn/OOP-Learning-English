@@ -6,13 +6,14 @@
 
 package englishlearning.model;
 
-import java.util.HashSet;
+import java.util.LinkedHashMap;
 
 /**
  *
  * @author Clicia
- * @param <T>
+ * @param <K>
+ * @param <V>
  */
-public class UsersList<T extends String> extends HashSet<T> {        
+public class Articles<K extends String, V extends Article> extends LinkedHashMap<K,V> {
     
 }

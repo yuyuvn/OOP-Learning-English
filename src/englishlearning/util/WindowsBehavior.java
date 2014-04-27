@@ -39,10 +39,9 @@ public class WindowsBehavior {
         Double oldWidth = window.getWidth();
         Double oldHeight = window.getHeight();
         
-        window.setX(window.getX() + (oldWidth - width)/2);
-        window.setY(window.getY() + (oldHeight - height)/2);
-        
         window.setWidth(width);
         window.setHeight(height);
+        
+        window.centerOnScreen();
     }
 }
