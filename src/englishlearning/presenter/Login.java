@@ -35,7 +35,6 @@ public class Login extends Presenter {
     public Login() {
         loadFXML();
         
-        // TODO: add datapath
         users = DataInDisk.getUsersList();
         TextFields.bindAutoCompletion(username, users);
         
