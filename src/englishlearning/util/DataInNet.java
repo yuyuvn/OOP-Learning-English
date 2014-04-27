@@ -6,9 +6,19 @@
 
 package englishlearning.util;
 
-import englishlearning.model.Article;
 import englishlearning.model.Articles;
+import englishlearning.util.handler.ArticlesListHandler;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
 
 /**
  *
@@ -17,16 +27,27 @@ import java.net.URL;
 public class DataInNet {
     private final static String URL_RSS = "http://learningenglish.voanews.com/api/epiqq";
     
-    public static Articles getListArticle(String url) {
+    public static Articles getListArticle(String urlString) throws MalformedURLException{
         // TODO: fetch data from url, pasrt to Articles
         // http://www.journaldev.com/1198/java-sax-parser-example-tutorial-to-parse-xml-to-list-of-objects
+        URL url = new URL(urlString);
+        SAXParserFactory spf = SAXParserFactory.newInstance();
+        ArticlesListHandler handler = new ArticlesListHandler();
         
-        Articles<String,Article> articles = new Articles<>();
+        try {
+            SAXParser sp = spf.newSAXParser();
+            XMLReader xr = sp.getXMLReader();
+            xr.setContentHandler(handler);
+            xr.parse(new InputSource(url.openStream()));            
+        } catch (IOException | SAXException | ParserConfigurationException ex) {
+            Logger.getLogger(DataInNet.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        return articles;
+        
+        return handler.getArticles();
     }
     
-    public static Articles getListArticle() {
+    public static Articles getListArticle() throws MalformedURLException {
         return getListArticle(URL_RSS);
     }
 }
