@@ -28,8 +28,6 @@ public class DataInNet {
     private final static String URL_RSS = "http://learningenglish.voanews.com/api/epiqq";
     
     public static Articles getListArticle(String urlString) throws MalformedURLException{
-        // TODO: fetch data from url, pasrt to Articles
-        // http://www.journaldev.com/1198/java-sax-parser-example-tutorial-to-parse-xml-to-list-of-objects
         URL url = new URL(urlString);
         SAXParserFactory spf = SAXParserFactory.newInstance();
         ArticlesListHandler handler = new ArticlesListHandler();
