@@ -28,10 +28,6 @@ import javafx.stage.StageStyle;
 public class MainWindow extends Presenter {
     @FXML
     private Pane contains;
-    @FXML
-    private Pane rootPane;
-    @FXML
-    private Presenter captionBar;
     
     // <editor-fold desc="Property content" defaultstate="collapsed">
     private final ObjectProperty<Presenter> content = new SimpleObjectProperty<>(this, "content");;
@@ -79,15 +75,5 @@ public class MainWindow extends Presenter {
         stage.setMinHeight(undecorator.getMinHeight());
         
         stage.show();
-        
-        /*stage.initStyle(StageStyle.TRANSPARENT);
-        Scene scene = new Scene((Parent) this);
-        
-        scene.setFill(Color.TRANSPARENT);
-        stage.initStyle(StageStyle.TRANSPARENT);
-        stage.setScene(scene);
-        stage.show();
-        
-        WindowsBehavior.setDragDrop(rootPane, stage);*/
     }
 }

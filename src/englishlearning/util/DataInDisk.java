@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  * @author Clicia
  */
 public class DataInDisk {
-    private final static String PATHUL = "data/users.bin"; // TODO: set default path
+    private final static String PATHUL = "data/users.bin";
     
     public static String getRelativePath(String path) {
         return new File(System.getProperty("user.dir"), path).getPath();

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" pickOnBounds="false" prefHeight="400.0" prefWidth="600.0" snapToPixel="true" style="" xmlns:fx="http://javafx.com/fxml">
+<AnchorPane id="AnchorPane" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" pickOnBounds="false" prefHeight="400.0" prefWidth="600.0" snapToPixel="true" style="" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml">
   <children>
     <Button fx:id="close" mnemonicParsing="false" pickOnBounds="true" prefHeight="30.0" prefWidth="34.0" styleClass="decoration-button-close" text="" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <rotationAxis>
@@ -28,6 +28,6 @@
     </Label>
   </children>
   <stylesheets>
-    <URL value="@../../skin/undecorator.css" />
+    <URL value="@../../resource/skin/undecorator.css" />
   </stylesheets>
 </AnchorPane>

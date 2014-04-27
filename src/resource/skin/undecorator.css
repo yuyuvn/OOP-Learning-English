@@ -10,7 +10,9 @@
     The Stage background.
     Currently a Rectangle node
 */
-
+.root {
+    -fx-background-color: transparent;
+}
 .undecorator-background {
     -fx-fill:#ffffff;
     /* -fx-fill: radial-gradient(focus-angle 45deg, focus-distance 20%, center 25% 25%, radius 50%, reflect, #eeeeee88, #55555588 75%, dimgray);*/
@@ -28,7 +30,7 @@
 */
 .decoration-button-menu{
     -fx-background-radius: 0;
-    -fx-border-style: null;
+    -fx-border-style: none;
     -fx-background-color: null;
     -fx-background-image:url("./menu.png");
     -fx-background-repeat:no-repeat;
@@ -44,7 +46,7 @@
 */
 .decoration-button-minimize{
     -fx-background-radius: 0;
-    -fx-border-style: null;
+    -fx-border-style: none;
     -fx-background-color: null;
     -fx-background-image:url("./minimize.png");
     -fx-background-repeat:no-repeat;
@@ -60,7 +62,7 @@
 */
 .decoration-button-maximize{
     -fx-background-radius: 0;
-    -fx-border-style: null;
+    -fx-border-style: none;
     -fx-background-color: null;
     -fx-background-image:url("./maximize.png");
     -fx-background-repeat:no-repeat;
@@ -72,7 +74,7 @@
 }
 .decoration-button-restore{
     -fx-background-radius: 0;
-    -fx-border-style: null;
+    -fx-border-style: none;
     -fx-background-color: null;
     -fx-background-image:url("./restore.png");
     -fx-background-repeat:no-repeat;
@@ -87,7 +89,7 @@
 */
 .decoration-button-close{
     -fx-background-radius: 0;
-    -fx-border-style: null;
+    -fx-border-style: none;
     -fx-background-color: null;
     -fx-background-image:url("./close.png");
     -fx-background-repeat:no-repeat;
@@ -102,7 +104,7 @@
 */
 .decoration-button-fullscreen{
     -fx-background-radius: 0;
-    -fx-border-style: null;
+    -fx-border-style: none;
     -fx-background-color: null;
     -fx-background-image:url("./fullscreen.png");
     -fx-background-repeat:no-repeat;
@@ -114,7 +116,7 @@
 }
 .decoration-button-unfullscreen{
     -fx-background-radius: 0;
-    -fx-border-style: null;
+    -fx-border-style: none;
     -fx-background-color: null;
     -fx-background-image:url("./unfullscreen.png");
     -fx-background-repeat:no-repeat;
@@ -129,7 +131,7 @@
 */
 .decoration-button-resize{
     -fx-background-radius: 0;
-    -fx-border-style: null;
+    -fx-border-style: none;
     -fx-background-color: null;
     -fx-background-image:url("./resizeSE.png");
     -fx-background-repeat:no-repeat;

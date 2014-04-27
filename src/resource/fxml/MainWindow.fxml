@@ -21,7 +21,6 @@
 <Insets />
 </opaqueInsets>
 <children>
-    <!--<CaptionBar fx:id="captionBar" />-->
     <AnchorPane fx:id="contains" GridPane.rowIndex="1" />
     <GridPane GridPane.rowIndex="2">
         <columnConstraints>

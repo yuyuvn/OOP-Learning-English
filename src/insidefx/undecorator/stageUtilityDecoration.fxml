@@ -21,6 +21,6 @@
     <Button id="close" fx:id="menu" layoutX="0.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="25.0" scaleX="1.0" scaleY="1.0" style="" styleClass="decoration-button-menu" text="" AnchorPane.topAnchor="0.0" />
   </children>
   <stylesheets>
-    <URL value="@../../skin/undecoratorUtilityStage.css" />
+    <URL value="@../../resource/skin/undecoratorUtilityStage.css" />
   </stylesheets>
 </AnchorPane>
