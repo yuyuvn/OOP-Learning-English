@@ -149,7 +149,7 @@ public class Undecorator extends StackPane {
     }
 
     public Undecorator(Stage stage, Region root) {
-        this(stage, root, "stagedecoration.fxml", StageStyle.UNDECORATED);
+        this(stage, root, "stagedecoration.fxml", StageStyle.TRANSPARENT);
     }
 
     public Undecorator(Stage stag, Region clientArea, String stageDecorationFxml, StageStyle st) {
@@ -890,7 +890,7 @@ public class Undecorator extends StackPane {
         Properties prop = new Properties();
 
         try {
-            prop.load(Undecorator.class.getClassLoader().getResourceAsStream("skin/undecorator.properties"));
+            prop.load(Undecorator.class.getClassLoader().getResourceAsStream("resource/skin/undecorator.properties"));
             SHADOW_WIDTH = Integer.parseInt(prop.getProperty("window-shadow-width"));
             RESIZE_PADDING = Integer.parseInt(prop.getProperty("window-resize-padding"));
         } catch (IOException ex) {

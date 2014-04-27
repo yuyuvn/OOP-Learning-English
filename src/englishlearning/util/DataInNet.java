@@ -19,6 +19,7 @@ public class DataInNet {
     
     public static Articles getListArticle(String url) {
         // TODO: fetch data from url, pasrt to Articles
+        // http://www.journaldev.com/1198/java-sax-parser-example-tutorial-to-parse-xml-to-list-of-objects
         
         Articles<String,Article> articles = new Articles<>();
         

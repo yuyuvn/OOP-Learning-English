@@ -21,4 +21,12 @@ public class UserWrapper<T extends UserInfo> extends Wrapper<T> {
     public String getWelcomeMessage() {
         return "Welcome " + getRawData().name;
     }
+    
+    public String getNumberReadedMessage() {
+        return String.format("You have readed {0} articles", getReadedArticles());
+    }
+    
+    public int getReadedArticles() {
+        return getRawData().readList.size();
+    }
 }

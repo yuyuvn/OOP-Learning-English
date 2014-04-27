@@ -20,10 +20,11 @@
                 <VBox alignment="TOP_LEFT">
                     <children>
                         <Label text="${controller.user.welcomeMessage}" />
+                        <Label text="${controller.user.numberReadedMessage}" />
                     </children>
                 </VBox>
                 <!--
-                <LessionList />
+                <ArticlesList />
                 -->
             </children>
         </GridPane>

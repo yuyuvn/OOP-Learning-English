@@ -7,6 +7,8 @@
 package englishlearning.presenter;
 
 import englishlearning.util.WindowsBehavior;
+import insidefx.undecorator.Undecorator;
+import insidefx.undecorator.UndecoratorScene;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
@@ -57,7 +59,6 @@ public class MainWindow extends Presenter {
                 mainContent.setUser(login.getUsername());
                 
                 WindowsBehavior.setWindowSize(this.getScene().getWindow(), 960.0, 640.0);
-                this.setPrefSize(960, 640);
                 
                 setContent(mainContent);
             }
@@ -66,7 +67,20 @@ public class MainWindow extends Presenter {
     }
     
     public void showWindows(Stage stage) {
-        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setTitle("VOA Learning English");
+        UndecoratorScene undecoratorScene = new UndecoratorScene(stage, this);
+        
+        stage.setScene(undecoratorScene);
+        stage.sizeToScene();
+        stage.toFront();
+                
+        Undecorator undecorator = undecoratorScene.getUndecorator();
+        stage.setMinWidth(undecorator.getMinWidth());
+        stage.setMinHeight(undecorator.getMinHeight());
+        
+        stage.show();
+        
+        /*stage.initStyle(StageStyle.TRANSPARENT);
         Scene scene = new Scene((Parent) this);
         
         scene.setFill(Color.TRANSPARENT);
@@ -74,6 +88,6 @@ public class MainWindow extends Presenter {
         stage.setScene(scene);
         stage.show();
         
-        WindowsBehavior.setDragDrop(rootPane, stage);
+        WindowsBehavior.setDragDrop(rootPane, stage);*/
     }
 }
