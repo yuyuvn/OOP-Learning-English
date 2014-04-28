@@ -35,10 +35,7 @@ public class WindowsBehavior {
         });
     }
     
-    public static void setWindowSize(Window window, Double width, Double height) {
-        Double oldWidth = window.getWidth();
-        Double oldHeight = window.getHeight();
-        
+    public static void setWindowSize(Window window, Double width, Double height) {        
         window.setWidth(width);
         window.setHeight(height);
         

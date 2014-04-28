@@ -6,6 +6,7 @@
 
 package englishlearning.model;
 
+import java.io.Serializable;
 import java.net.URL;
 import java.util.Date;
 import java.util.HashSet;
@@ -14,7 +15,7 @@ import java.util.HashSet;
  *
  * @author Clicia
  */
-public class Article {
+public class Article implements Serializable {
     public String guid;
     public String title;
     public String description;
