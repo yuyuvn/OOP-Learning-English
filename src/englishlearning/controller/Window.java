@@ -6,16 +6,12 @@
 
 package englishlearning.controller;
 
-import englishlearning.controller.Controller.FXMLPath;
-import englishlearning.controls.ContentControl;
 import insidefx.undecorator.Undecorator;
 import insidefx.undecorator.UndecoratorScene;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.fxml.FXML;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
