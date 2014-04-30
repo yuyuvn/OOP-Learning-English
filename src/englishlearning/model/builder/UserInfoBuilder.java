@@ -18,36 +18,41 @@ import java.util.Date;
 public class UserInfoBuilder {
     private final UserInfo data = new UserInfo();
     
+    @SuppressWarnings({"deprecation", "rawtypes", "unchecked"})
     public UserInfoBuilder() {
         
     }
-    
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public UserInfoBuilder(String name) {
         data.name = name;
     }
-    
+    @SuppressWarnings("unchecked")
+    public static UserInfoBuilder create() {
+        return new UserInfoBuilder();
+    }
+    @SuppressWarnings("unchecked")
     public UserInfoBuilder name(String name) {
         data.name = name;
         return this;
     }
-    
+    @SuppressWarnings("unchecked")
     public UserInfoBuilder lastUsed(Date lastUsed) {
         data.lastUsed = lastUsed;
         return this;
     }
-    
+    @SuppressWarnings("unchecked")
     public UserInfoBuilder readList(ReadList readList) {
         data.readList = readList;
         return this;
     }
-    
+    @SuppressWarnings("unchecked")
     public UserInfoBuilder playState(PlayState playState) {
         data.playState = playState;
         return this;
     }
-    
+    @SuppressWarnings("unchecked")
     public UserInfo build() {
-        if (data.name == null) throw new IllegalArgumentException("Name is not setted");
+        if (data.name == null) throw new RuntimeException("Name is not set");
         return data;
     }
 }

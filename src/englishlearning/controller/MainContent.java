@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package englishlearning.presenter;
+package englishlearning.controller;
 
 import englishlearning.model.UserInfo;
 import englishlearning.model.wrapper.UserWrapper;
@@ -15,18 +15,19 @@ import javafx.beans.property.SimpleObjectProperty;
  *
  * @author Clicia
  */
-public class MainContent extends Presenter {
+public class MainContent extends Controller {
     
     //<editor-fold defaultstate="collapsed" desc="Property User">
-    private final ObjectProperty<UserWrapper> user = new SimpleObjectProperty<>(this, "user");;
-    public final UserWrapper getUser() { return user.get(); }
-    protected final void setUser(UserWrapper value) { user.set(value); }
-    public final ObjectProperty<UserWrapper> userProperty() { return user; }
-//</editor-fold>
-    
-    public MainContent() {
-        loadFXML();
+    private ObjectProperty<UserWrapper> user;
+    public final UserWrapper getUser() { return userProperty().get(); }
+    protected final void setUser(UserWrapper value) { userProperty().set(value); }
+    public final ObjectProperty<UserWrapper> userProperty() { 
+        if (user == null) {
+             user = new SimpleObjectProperty<>(this, "user");
+        }
+        return user; 
     }
+//</editor-fold>
     
     public UserInfo setUser(String username) {
         UserInfo u = new UserInfo();

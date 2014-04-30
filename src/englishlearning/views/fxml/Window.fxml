@@ -5,9 +5,11 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import englishlearning.presenter.CaptionBar?>
+<?import englishlearning.controller.Login?>
+<?import englishlearning.controls.*?>
+<?import java.util.ArrayList?>
 
-<fx:root minWidth="400.0" minHeight="300.0" style="-fx-background-color: transparent" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root style="-fx-background-color: transparent" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
 <GridPane fx:id="rootPane" AnchorPane.bottomAnchor=".0" AnchorPane.leftAnchor=".0" AnchorPane.rightAnchor=".0" AnchorPane.topAnchor=".0">
   <columnConstraints>
@@ -22,20 +24,7 @@
 <Insets />
 </opaqueInsets>
 <children>
-    <AnchorPane fx:id="contains" GridPane.rowIndex="1" />
-    <GridPane GridPane.rowIndex="2">
-        <columnConstraints>
-            <ColumnConstraints hgrow="ALWAYS" />
-            <ColumnConstraints hgrow="NEVER" />
-        </columnConstraints>
-        <children>
-            <Label fx:id="status1" />
-            <Label fx:id="status2" GridPane.columnIndex="1" />
-        </children>
-<rowConstraints>
-<RowConstraints />
-</rowConstraints>
-    </GridPane>
+    <ContentControl fx:id="test" data="${controller.content}" GridPane.rowIndex="1" />
 </children>
 </GridPane>
     </children>

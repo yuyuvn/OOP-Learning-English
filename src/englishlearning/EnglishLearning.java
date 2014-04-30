@@ -6,8 +6,10 @@
 
 package englishlearning;
 
-import englishlearning.presenter.MainWindow;
+import englishlearning.controller.*;
+import englishlearning.util.WindowsBehavior;
 import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
 import javafx.stage.Stage;
 
 
@@ -18,8 +20,7 @@ import javafx.stage.Stage;
 public class EnglishLearning extends Application {    
     @Override
     public void start(Stage stage) throws Exception {
-        MainWindow mainWindow = new MainWindow();
-        mainWindow.showWindows(stage);
+        Window loginWindow = new LoginWindow(stage);
     }
 
     /**
