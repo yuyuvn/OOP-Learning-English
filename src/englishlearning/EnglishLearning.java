@@ -7,9 +7,7 @@
 package englishlearning;
 
 import englishlearning.controller.*;
-import englishlearning.util.WindowsBehavior;
 import javafx.application.Application;
-import javafx.beans.value.ObservableValue;
 import javafx.stage.Stage;
 
 
