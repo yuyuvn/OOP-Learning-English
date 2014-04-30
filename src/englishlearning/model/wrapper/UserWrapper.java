@@ -23,7 +23,7 @@ public class UserWrapper<T extends UserInfo> extends Wrapper<T> {
     }
     
     public String getNumberReadedMessage() {
-        return String.format("You have readed {0} articles", getReadedArticles());
+        return String.format("You have readed %s articles", getReadedArticles());
     }
     
     public int getReadedArticles() {

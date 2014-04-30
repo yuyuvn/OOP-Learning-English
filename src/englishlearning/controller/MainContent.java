@@ -7,6 +7,7 @@
 package englishlearning.controller;
 
 import englishlearning.model.UserInfo;
+import englishlearning.model.builder.UserInfoBuilder;
 import englishlearning.model.wrapper.UserWrapper;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -32,7 +33,7 @@ public class MainContent extends Controller {
     public UserInfo setUser(String username) {
         UserInfo u = new UserInfo();
         u.name = username;
-        UserWrapper wp = new UserWrapper(u);
+        UserWrapper wp = new UserWrapper(UserInfoBuilder.create().name(username).build());
         // TODO: get user info from username
         setUser(wp);
         return u;

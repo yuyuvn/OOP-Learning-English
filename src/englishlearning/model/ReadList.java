@@ -11,8 +11,8 @@ import java.util.LinkedHashMap;
 /**
  *
  * @author Clicia
- * @param <K>
- * @param <V>
+ * @param <K> guid of @link(Article)
+ * @param <V> percent anwsered true, 0 if never played
  */
 public class ReadList<K extends String,V extends Double> extends LinkedHashMap<K,V> {
     

@@ -6,13 +6,12 @@
 
 package englishlearning.model;
 
-import java.util.HashSet;
 
 /**
  *
  * @author Clicia
  * @param <T>
  */
-public class UsersList<T extends String> extends HashSet<T> {        
+public class UsersList<T extends String> extends java.util.HashSet<T> {        
     
 }

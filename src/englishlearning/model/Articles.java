@@ -6,7 +6,6 @@
 
 package englishlearning.model;
 
-import java.util.LinkedHashMap;
 
 /**
  *
@@ -14,6 +13,6 @@ import java.util.LinkedHashMap;
  * @param <K>
  * @param <V>
  */
-public class Articles<K extends String, V extends Article> extends LinkedHashMap<K,V> {
+public class Articles<K extends String, V extends Article> extends java.util.LinkedHashMap<K,V> {
     
 }

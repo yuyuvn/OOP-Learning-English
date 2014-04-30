@@ -20,7 +20,7 @@
                 <VBox alignment="TOP_LEFT">
                     <children>
                         <Label text="${controller.user.welcomeMessage}" />
-                        <!--<Label text="${controller.user.numberReadedMessage}" />-->
+                        <Label text="${controller.user.numberReadedMessage}" />
                     </children>
                 </VBox>
                 <!--

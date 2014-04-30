@@ -22,14 +22,11 @@ public class UserInfoBuilder {
     public UserInfoBuilder() {
         
     }
-    @SuppressWarnings({"rawtypes", "unchecked"})
-    public UserInfoBuilder(String name) {
-        data.name = name;
-    }
     @SuppressWarnings("unchecked")
     public static UserInfoBuilder create() {
         return new UserInfoBuilder();
     }
+    
     @SuppressWarnings("unchecked")
     public UserInfoBuilder name(String name) {
         data.name = name;
@@ -53,6 +50,7 @@ public class UserInfoBuilder {
     @SuppressWarnings("unchecked")
     public UserInfo build() {
         if (data.name == null) throw new RuntimeException("Name is not set");
+        if (data.readList == null) data.readList = new ReadList();
         return data;
     }
 }

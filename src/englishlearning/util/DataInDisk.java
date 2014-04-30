@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  * @author Clicia
  */
 public class DataInDisk {
-    private final static String PATHUL = "data/users.bin";
+    private final static String PATH_USERSLIST = "data/users.bin";
     
     public static String getRelativePath(String path) {
         return new File(System.getProperty("user.dir"), path).getPath();
@@ -35,7 +35,7 @@ public class DataInDisk {
     }
     
     public static UsersList getUsersList() {
-        return getUsersList(getRelativePath(PATHUL));
+        return getUsersList(getRelativePath(PATH_USERSLIST));
     }
     
     public static void saveUsersList(UsersList data, String dataPath) {
@@ -51,7 +51,7 @@ public class DataInDisk {
     }
     
     public static void saveUsersList(UsersList data) {
-        saveUsersList(data, getRelativePath(PATHUL));
+        saveUsersList(data, getRelativePath(PATH_USERSLIST));
     }
     
     public static boolean createIfNotExists(String path) {        
