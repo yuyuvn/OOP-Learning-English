@@ -32,7 +32,7 @@ public class LoginWindow extends Window {
             }
         });
         
-        this.setTitle("Login");
+        this.setTitle("VOA English Learning - Login");
         this.setContent(login);
         this.showWindow();
     }

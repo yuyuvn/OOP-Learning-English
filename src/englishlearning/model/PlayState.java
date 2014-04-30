@@ -7,7 +7,7 @@
 package englishlearning.model;
 
 import java.io.Serializable;
-import java.util.Map;
+import java.util.List;
 
 /**
  *
@@ -17,7 +17,7 @@ public class PlayState implements Serializable {
     private final String articleGUID;
     private transient Article article;
     
-    private Map<String,Object> questions; // TODO change object to question model
+    private List<Question> questions;
 
     public PlayState(String articleGUID) {
         this.articleGUID = articleGUID;
@@ -27,11 +27,11 @@ public class PlayState implements Serializable {
         return articleGUID;
     }
 
-    public Map<String, Object> getQuestions() {
+    public List<Question> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(Map<String, Object> allQuestions) {
+    public void setQuestions(List<Question> allQuestions) {
         this.questions = allQuestions;
     }
     
@@ -43,10 +43,8 @@ public class PlayState implements Serializable {
         return article;
     }
     
-    public int getScore() {
-        // TODO count true answer, use stream & lambda expression
-        int s = 0;
-        
-        return s;
+    public long getScore() {
+        // TODO change filter condition
+        return questions.stream().filter(q -> q.equals(q)).count();
     }
 }

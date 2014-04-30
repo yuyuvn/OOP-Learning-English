@@ -16,12 +16,12 @@ import java.util.Set;
  * @author Clicia
  */
 public class Article implements Serializable {
-    private String guid;
-    private String title;    
-    private String description;
-    private URL link;
-    private Date pubDate; // http://stackoverflow.com/questions/4216745/java-string-to-date-conversion
-    private Set<String> tags;
-    private URL imageUrl;
-    private String content;
+    public String guid;
+    public String title;    
+    public String description;
+    public URL link;
+    public Date pubDate; // http://stackoverflow.com/questions/4216745/java-string-to-date-conversion
+    public Set<String> tags;
+    public URL imageUrl;
+    public String content;
 }
