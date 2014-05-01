@@ -10,9 +10,8 @@ package englishlearning.model;
 /**
  *
  * @author Clicia
- * @param <K>
  * @param <V>
  */
-public class Articles<K extends String, V extends Article> extends java.util.LinkedHashMap<K,V> {
+public class Articles<V extends Article> extends java.util.ArrayList<V> {
     
 }

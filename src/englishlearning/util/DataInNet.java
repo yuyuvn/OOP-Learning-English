@@ -6,6 +6,7 @@
 
 package englishlearning.util;
 
+import englishlearning.model.Article;
 import englishlearning.model.Articles;
 import englishlearning.util.handler.ArticlesListHandler;
 import java.io.IOException;
@@ -47,5 +48,11 @@ public class DataInNet {
     
     public static Articles getListArticle() throws MalformedURLException {
         return getListArticle(URL_RSS);
+    }
+    
+    public static Article getArticle(Article article) {
+        // TODO: load url from article.link then get content and set to it
+        
+        return article;
     }
 }

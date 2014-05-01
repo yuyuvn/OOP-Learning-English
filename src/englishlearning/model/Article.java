@@ -8,8 +8,7 @@ package englishlearning.model;
 
 import java.io.Serializable;
 import java.net.URL;
-import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 /**
  *
@@ -17,16 +16,21 @@ import java.util.Set;
  */
 public class Article implements Serializable {
     public String guid;
-    public String title;    
+    public String title;
     public String description;
     public URL link;
-    public Date pubDate; // http://stackoverflow.com/questions/4216745/java-string-to-date-conversion
-    public Set<String> tags;
+    public List<String> tags;
     public URL imageUrl;
     public String content;
     
     //<editor-fold defaultstate="collapsed" desc="Must use builder">
     Article() {
     }
+
 //</editor-fold>
+    
+    @Override
+    public String toString() {
+        return "Article{" + "guid=" + guid + ", title=" + title + ", description=" + description + ", link=" + link + ", tags=" + tags + ", imageUrl=" + imageUrl + ", content=" + content + '}';
+    }
 }
