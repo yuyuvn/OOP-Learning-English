@@ -47,7 +47,7 @@ public class UserInfoBuilder {
         data.playState = playState;
         return this;
     }
-    @SuppressWarnings("unchecked")
+    
     public UserInfo build() {
         if (data.name == null) throw new RuntimeException("Name is not set");
         if (data.readList == null) data.readList = new ReadList();

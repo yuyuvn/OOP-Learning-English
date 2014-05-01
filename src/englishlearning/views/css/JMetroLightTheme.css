@@ -627,7 +627,9 @@
     -fx-opacity: .4;
 }
 
-
+.loading-block {
+    -fx-fill: #666;
+}
 
 
 
