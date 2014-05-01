@@ -27,9 +27,9 @@ public class DataInDisk {
         try (FileInputStream fileIn = new FileInputStream(dataPath); ObjectInputStream in = new ObjectInputStream(fileIn)) {
             list = (UsersList) in.readObject();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(DataInDisk.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DataInDisk.class.getName()).log(Level.WARNING, null, ex);
         } catch (IOException | ClassNotFoundException ex) {
-            Logger.getLogger(DataInDisk.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
         return list;
     }
@@ -44,9 +44,9 @@ public class DataInDisk {
         try (FileOutputStream fileOut = new FileOutputStream(dataPath); ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
             out.writeObject(data);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(DataInDisk.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DataInDisk.class.getName()).log(Level.WARNING, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(DataInDisk.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DataInDisk.class.getName()).log(Level.WARNING, null, ex);
         }
     }
     
@@ -61,7 +61,7 @@ public class DataInDisk {
                 fileHandler.getParentFile().mkdirs();
                 fileHandler.createNewFile();
             } catch (IOException ex) {
-                Logger.getLogger(DataInDisk.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DataInDisk.class.getName()).log(Level.WARNING, null, ex);
                 return false;
             }
         }
