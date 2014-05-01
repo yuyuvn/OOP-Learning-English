@@ -4,13 +4,12 @@
  * and open the template in the editor.
  */
 
-package englishlearning.controller;
+package englishlearning.presenter;
 
 import englishlearning.model.UserInfo;
 import englishlearning.model.builder.UserInfoBuilder;
 import englishlearning.model.wrapper.UserWrapper;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import englishlearning.model.wrapper.WrapperProperty;
 
 /**
  *
@@ -19,14 +18,15 @@ import javafx.beans.property.SimpleObjectProperty;
 public class MainContent extends Controller {
     
     //<editor-fold defaultstate="collapsed" desc="Property User">
-    private ObjectProperty<UserWrapper> user;
-    public final UserWrapper getUser() { return userProperty().get(); }
-    protected final void setUser(UserWrapper value) { userProperty().set(value); }
-    public final ObjectProperty<UserWrapper> userProperty() { 
-        if (user == null) {
-             user = new SimpleObjectProperty<>(this, "user");
-        }
+    private WrapperProperty<UserWrapper<UserInfo>> user;
+    public final UserWrapper<UserInfo> getUser() { return userProperty().get(); }
+    protected final void setUser(UserWrapper<UserInfo> value) { userProperty().set(value); }
+    public final WrapperProperty<UserWrapper<UserInfo>> userProperty() { 
+        if (user == null) user = new WrapperProperty(this, "user");
         return user; 
+    }
+    public void raiseUserPropertyChange() {
+        userProperty().fireValueChangedEvent();
     }
 //</editor-fold>
     

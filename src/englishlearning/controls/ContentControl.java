@@ -28,15 +28,16 @@ public class ContentControl extends AnchorPane {
         if (data == null) {
             data = new SimpleObjectProperty(this, "data");
             data.addListener((ObservableValue observable, Object oldValue, Object newValue) -> {
-                if (newValue instanceof javafx.scene.Node && getResources().isEmpty()) {
+                List<Node> nodes = getResources().stream()
+                            .filter(d -> d.getDataClass().isInstance(newValue))
+                            .collect(Collectors.toList());
+                if (newValue instanceof javafx.scene.Node && nodes.isEmpty()) {
                     this.getChildren().clear();
                     this.getChildren().add((Node) newValue);
                 } else {
                     if (!newValue.getClass().equals(oldValue.getClass())) {
                         this.getChildren().clear();
-                        this.getChildren().addAll(getResources().stream()
-                            .filter(d -> d.getDataClass().isInstance(newValue))
-                            .collect(Collectors.toList()));
+                        this.getChildren().addAll(nodes);
                     }
                 }
             });

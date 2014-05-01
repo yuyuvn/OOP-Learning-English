@@ -6,7 +6,8 @@
 
 package englishlearning;
 
-import englishlearning.controller.*;
+import englishlearning.presenter.Window;
+import englishlearning.presenter.LoginWindow;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

@@ -6,7 +6,6 @@
 
 package englishlearning.model.wrapper;
 
-import englishlearning.model.Article;
 import englishlearning.model.PlayState;
 
 /**

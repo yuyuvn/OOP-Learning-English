@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 
-package englishlearning.controller;
+package englishlearning.presenter;
 
-import englishlearning.controller.Controller.FXMLPath;
+import englishlearning.presenter.Controller.FXMLPath;
 import javafx.beans.value.ObservableValue;
 import javafx.stage.Stage;
 

@@ -20,5 +20,5 @@ public class UserInfo implements Serializable {
     public PlayState playState;
     
     // add favorite (thêm nếu có thời gian)
-    // public HashSet<String> favorite;
+    // public HashSet<String> favorite;    
 }
