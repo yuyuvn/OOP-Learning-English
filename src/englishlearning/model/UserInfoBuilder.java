@@ -4,11 +4,8 @@
  * and open the template in the editor.
  */
 
-package englishlearning.model.builder;
+package englishlearning.model;
 
-import englishlearning.model.PlayState;
-import englishlearning.model.ReadList;
-import englishlearning.model.UserInfo;
 import java.util.Date;
 
 /**
@@ -19,7 +16,7 @@ public class UserInfoBuilder {
     private final UserInfo data = new UserInfo();
     
     @SuppressWarnings({"deprecation", "rawtypes", "unchecked"})
-    public UserInfoBuilder() {
+    private UserInfoBuilder() {
         
     }
     @SuppressWarnings("unchecked")

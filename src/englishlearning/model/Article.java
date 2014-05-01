@@ -24,4 +24,9 @@ public class Article implements Serializable {
     public Set<String> tags;
     public URL imageUrl;
     public String content;
+    
+    //<editor-fold defaultstate="collapsed" desc="Must use builder">
+    Article() {
+    }
+//</editor-fold>
 }

@@ -20,5 +20,10 @@ public class UserInfo implements Serializable {
     public PlayState playState;
     
     // add favorite (thêm nếu có thời gian)
-    // public HashSet<String> favorite;    
+    // public List<String> favorite;
+    
+    //<editor-fold defaultstate="collapsed" desc="Must use builder">
+    UserInfo() {
+    }
+//</editor-fold>
 }

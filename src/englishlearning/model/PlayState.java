@@ -14,9 +14,7 @@ import java.util.List;
  * @author Clicia
  */
 public class PlayState implements Serializable {
-    private final String articleGUID;
-    private transient Article article;
-    
+    private final String articleGUID;    
     private List<Question> questions;
 
     public PlayState(String articleGUID) {
@@ -35,16 +33,16 @@ public class PlayState implements Serializable {
         this.questions = allQuestions;
     }
     
-    public Article getArticle() {
-        if (article == null) {
-            // TODO get Article from articleGUID
-            article = new Article();
-        }
-        return article;
+    /*public Article getArticle() {
+    if (article == null) {
+    // TODO get Article from articleGUID
+    article = new Article();
+    }
+    return article;
     }
     
     public long getScore() {
-        // TODO change filter condition
-        return questions.stream().filter(q -> q.equals(q)).count();
-    }
+    // TODO change filter condition
+    return questions.stream().filter(q -> q.equals(q)).count();
+    }*/
 }

@@ -7,7 +7,7 @@
 package englishlearning.presenter;
 
 import englishlearning.model.UserInfo;
-import englishlearning.model.builder.UserInfoBuilder;
+import englishlearning.model.UserInfoBuilder;
 import englishlearning.model.wrapper.UserWrapper;
 import englishlearning.model.wrapper.WrapperProperty;
 
@@ -31,8 +31,7 @@ public class MainContent extends Controller {
 //</editor-fold>
     
     public UserInfo setUser(String username) {
-        UserInfo u = new UserInfo();
-        u.name = username;
+        UserInfo u = UserInfoBuilder.create().name(username).build();
         UserWrapper wp = new UserWrapper(UserInfoBuilder.create().name(username).build());
         // TODO: get user info from username
         setUser(wp);
