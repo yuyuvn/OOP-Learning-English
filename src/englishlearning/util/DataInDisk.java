@@ -26,13 +26,15 @@ public class DataInDisk {
     }
     
     public static UsersList getUsersList(String dataPath) {
-        UsersList list = new UsersList();
+        UsersList list = null;
         try (FileInputStream fileIn = new FileInputStream(dataPath); ObjectInputStream in = new ObjectInputStream(fileIn)) {
             list = (UsersList) in.readObject();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(DataInDisk.class.getName()).log(Level.WARNING, null, ex);
         } catch (IOException | ClassNotFoundException ex) {
             
+        } finally {
+            if (list == null) list = new UsersList();
         }
         return list;
     }

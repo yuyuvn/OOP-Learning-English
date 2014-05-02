@@ -12,6 +12,7 @@ import englishlearning.util.handler.ArticlesListHandler;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.ParserConfigurationException;
@@ -50,9 +51,9 @@ public class DataInNet {
         return getListArticle(URL_RSS);
     }
     
-    public static Article getArticle(Article article) {
-        // TODO: load url from article.link then get content and set to it
-        
+    public static Article getArticle(Article article) throws IOException {
+        // TODO: load url from article.link then get content and set to it        
+        // http://learningenglish.voanews.com/content/words-and-their-stories-belittle/1578052.html
         return article;
     }
 }
