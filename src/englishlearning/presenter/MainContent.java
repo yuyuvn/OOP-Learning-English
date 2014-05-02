@@ -7,16 +7,15 @@
 package englishlearning.presenter;
 
 import englishlearning.model.UserInfo;
-import englishlearning.model.UserInfoBuilder;
 import englishlearning.model.wrapper.UserWrapper;
 import englishlearning.model.wrapper.WrapperProperty;
+import englishlearning.util.DataInDisk;
 
 /**
  *
  * @author Clicia
  */
-public class MainContent extends Controller {
-    
+public class MainContent extends Controller {    
     //<editor-fold defaultstate="collapsed" desc="Property User">
     private WrapperProperty<UserWrapper<UserInfo>> user;
     public final UserWrapper<UserInfo> getUser() { return userProperty().get(); }
@@ -28,13 +27,16 @@ public class MainContent extends Controller {
     public void raiseUserPropertyChange() {
         userProperty().fireValueChangedEvent();
     }
-//</editor-fold>
+//</editor-fold>    
     
-    public UserInfo setUser(String username) {
-        UserInfo u = UserInfoBuilder.create().name(username).build();
-        UserWrapper wp = new UserWrapper(UserInfoBuilder.create().name(username).build());
-        // TODO: get user info from username
-        setUser(wp);
-        return u;
+    public void setUser(String username) {
+        UserWrapper<UserInfo> userwrapper = new UserWrapper(DataInDisk.getUserInfo(username));
+        setUser(userwrapper);
+        
+        if (userwrapper.getRawData().playState == null) {
+        
+        } else {
+        //TODO: resume play state
+        }
     }
 }

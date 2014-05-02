@@ -6,6 +6,8 @@
 
 package englishlearning.util;
 
+import englishlearning.model.UserInfo;
+import englishlearning.model.UserInfoBuilder;
 import englishlearning.model.UsersList;
 import java.io.*;
 import java.util.logging.Level;
@@ -17,6 +19,7 @@ import java.util.logging.Logger;
  */
 public class DataInDisk {
     private final static String PATH_USERSLIST = "data/users.bin";
+    private final static String PATH_USERS = "data/i%s.bin";
     
     public static String getRelativePath(String path) {
         return new File(System.getProperty("user.dir"), path).getPath();
@@ -66,5 +69,12 @@ public class DataInDisk {
             }
         }
         return true;
+    }
+    
+    public static UserInfo getUserInfo(String username) {
+        // TODO
+        UserInfo user = UserInfoBuilder.create().name(username).build();
+        
+        return user;
     }
 }

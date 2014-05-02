@@ -57,7 +57,7 @@ public class Loading extends HBox {
     private DoubleProperty recSize;
     public double getRecSize() { return recSizeProperty().get(); }
     public void setRecSize(double value) { 
-        if (value < 1) throw new IllegalArgumentException("Rectangle size must larger than 0");
+        if (value < 1) throw new IllegalArgumentException("Block size must larger than 0");
         recSizeProperty().set(value);
         createRec();
     }

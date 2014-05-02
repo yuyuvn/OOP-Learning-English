@@ -28,6 +28,10 @@ public class ContentControl extends AnchorPane {
         if (data == null) {
             data = new SimpleObjectProperty(this, "data");
             data.addListener((ObservableValue observable, Object oldValue, Object newValue) -> {
+                if (newValue == null) {
+                    this.getChildren().clear();
+                    return;
+                }
                 List<Node> nodes = getResources().stream()
                             .filter(d -> d.getDataClass().isInstance(newValue))
                             .collect(Collectors.toList());
@@ -35,7 +39,7 @@ public class ContentControl extends AnchorPane {
                     this.getChildren().clear();
                     this.getChildren().add((Node) newValue);
                 } else {
-                    if (!newValue.getClass().equals(oldValue.getClass())) {
+                    if (oldValue == null || !newValue.getClass().equals(oldValue.getClass())) {
                         this.getChildren().clear();
                         this.getChildren().addAll(nodes);
                     }

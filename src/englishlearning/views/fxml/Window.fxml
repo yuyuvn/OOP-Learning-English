@@ -22,7 +22,14 @@
 <Insets />
 </opaqueInsets>
 <children>
-    <ContentControl fx:id="test" data="${controller.content}" GridPane.rowIndex="1" />
+    <ContentControl data="${controller.content}" GridPane.rowIndex="1" />
+    
+    <ContentControl data="${controller.test}" GridPane.rowIndex="2">
+        <resources>
+            <DataTemplate dataType="java.lang.String"><ContentControl data="${controller.content}" GridPane.rowIndex="1" /></DataTemplate>
+            <DataTemplate dataType="java.lang.Integer"><TextField text="test integer" /></DataTemplate>
+        </resources>
+    </ContentControl>
 </children>
 </GridPane>
     </children>

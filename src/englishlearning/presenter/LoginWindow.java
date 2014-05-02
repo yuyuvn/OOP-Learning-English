@@ -7,6 +7,8 @@
 package englishlearning.presenter;
 
 import englishlearning.presenter.Controller.FXMLPath;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.stage.Stage;
 
@@ -16,6 +18,17 @@ import javafx.stage.Stage;
  */
 @FXMLPath("Window.fxml")
 public class LoginWindow extends Window {
+    
+    private ObjectProperty test;
+    public final Object getTest() { return testProperty().get(); }
+    public final void setTest(Object value) { testProperty().set(value); }
+    public final ObjectProperty testProperty() { 
+        if (test == null) {
+            test = new SimpleObjectProperty<>(this, "test");
+        }
+        return test;
+    }
+    
     public LoginWindow(Stage stage) {
         super(stage);
         

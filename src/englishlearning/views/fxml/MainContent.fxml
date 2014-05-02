@@ -6,6 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import englishlearning.controls.*?>
+<?import org.controlsfx.control.textfield.CustomTextField?>
 
 <fx:root type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
@@ -25,9 +26,8 @@
                         <Label text="${controller.user.numberReadedMessage}" />
                     </children>
                 </VBox>
-                <Loading GridPane.columnIndex="1" alignment="BASELINE_CENTER" />
                 <!--
-                <ArticlesList />
+                <ArticlesList GridPane.columnIndex="1" />
                 -->
             </children>
         </GridPane>
