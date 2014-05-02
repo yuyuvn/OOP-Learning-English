@@ -6,11 +6,9 @@
 
 package englishlearning.presenter;
 
-import englishlearning.util.CustomTextFields;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 import org.controlsfx.control.textfield.CustomTextField;
 
 /**

@@ -7,12 +7,9 @@
 package englishlearning.util;
 
 import englishlearning.model.Article;
+import englishlearning.model.ArticleBuilder;
 import englishlearning.model.Articles;
-import java.util.List;
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -23,46 +20,49 @@ public class DataInNetTest {
     
     public DataInNetTest() {
     }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
 
     /**
      * Test of getListArticle method, of class DataInNet.
      */
-    @Test
+    /*@Test
     public void testGetListArticle_String() throws Exception {
-        System.out.println("getListArticle");
-        String urlString = "http://learningenglish.voanews.com/api/epiqq";
-        //Articles expResult = null;
-        Articles result = DataInNet.getListArticle(urlString);
-        result.stream().forEach(a -> System.out.println(a));
+    System.out.println("getListArticle");
+    String urlString = "";
+    Articles expResult = null;
+    Articles result = DataInNet.getListArticle(urlString);
+    assertEquals(expResult, result);
+    // TODO review the generated test code and remove the default call to fail.
+    fail("The test case is a prototype.");
+    }*/
+
+    /**
+     * Test of getListArticle method, of class DataInNet.
+     */
+    /*@Test
+    public void testGetListArticle_0args() throws Exception {
+    System.out.println("getListArticle");
+    Articles expResult = null;
+    Articles result = DataInNet.getListArticle();
+    assertEquals(expResult, result);
+    // TODO review the generated test code and remove the default call to fail.
+    fail("The test case is a prototype.");
+    }*/
+
+    /**
+     * Test of getArticle method, of class DataInNet.
+     */
+    @Test
+    public void testGetArticle() throws Exception {
+        System.out.println("getArticle");
+        //Article article = DataInNet.getListArticle().get(0);
+        Article article = ArticleBuilder.create().guid("http://learningenglish.voanews.com/content/virginia-textbooks-sea-of-japan-east-sea/1903561.html").build();
+        System.out.println("Content of "+ article.link);
+        //Article expResult = null;
+        Article result = DataInNet.getArticle(article);
+        System.out.println(result.content);
         //assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getListArticle method, of class DataInNet.
-     */
-    @Test
-    public void testGetListArticle() throws Exception {
-        //System.out.println("getListArticle");
-        //Articles expResult = null;
-        //List<Article> result = DataInNet.getListArticle();
-        //assertEquals(expResult, result);
-        //result.stream().forEach(a -> System.out.println(a));
-        // TODO review the generated test code and remove the default call to fail.
-        // fail("The test case is a prototype.");
     }
     
 }

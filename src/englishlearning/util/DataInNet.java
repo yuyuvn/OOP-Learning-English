@@ -12,12 +12,16 @@ import englishlearning.util.handler.ArticlesListHandler;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collector;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -29,7 +33,7 @@ import org.xml.sax.XMLReader;
 public class DataInNet {
     private final static String URL_RSS = "http://learningenglish.voanews.com/api/epiqq";
     
-    public static Articles getListArticle(String urlString) throws MalformedURLException{
+    public static Articles<Article> getListArticle(String urlString) throws MalformedURLException{
         URL url = new URL(urlString);
         SAXParserFactory spf = SAXParserFactory.newInstance();
         ArticlesListHandler handler = new ArticlesListHandler();
@@ -47,13 +51,25 @@ public class DataInNet {
         return handler.getArticles();
     }
     
-    public static Articles getListArticle() throws MalformedURLException {
+    public static Articles<Article> getListArticle() throws MalformedURLException {
         return getListArticle(URL_RSS);
     }
     
     public static Article getArticle(Article article) throws IOException {
         // TODO: load url from article.link then get content and set to it        
         // http://learningenglish.voanews.com/content/words-and-their-stories-belittle/1578052.html
+        
+        Document doc = Jsoup.connect(article.link).get();
+        Element data = doc.select(".zoomMe").first();
+        
+        // Remove garbage
+        data.select("ul").remove();
+        data.select("div").stream().filter(d -> d.select("br").isEmpty()).forEach(e -> e.remove());
+        // Convert br & p to \n
+        data.select("br").append("\\n");
+        data.select("p").append("\\n\\n");
+        
+        article.content = data.text().replaceAll("\\\\n", "\n").trim();
         return article;
     }
 }

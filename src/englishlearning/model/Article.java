@@ -18,7 +18,7 @@ public class Article implements Serializable {
     public String guid;
     public String title;
     public String description;
-    public URL link;
+    public String link;
     public List<String> tags;
     public URL imageUrl;
     public String content;

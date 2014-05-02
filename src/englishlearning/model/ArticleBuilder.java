@@ -31,6 +31,7 @@ public class ArticleBuilder {
     
     public Article build() {
         if (data.guid == null) throw new RuntimeException("Guid is not set");
+        if (data.link == null) data.link = data.guid;
         if (data.title == null) data.title = "";
         if (data.description == null) data.description = "";
         if (data.content == null) data.content = "";
@@ -52,17 +53,8 @@ public class ArticleBuilder {
         return this;
     }
     
-    public ArticleBuilder link(URL link) {
-        data.link = link;
-        return this;
-    }
-    
     public ArticleBuilder link(String link) {
-        try {
-            data.link = new URL(link);
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(ArticleBuilder.class.getName()).log(Level.WARNING, null, ex);
-        }
+        data.link = link;
         return this;
     }
     
