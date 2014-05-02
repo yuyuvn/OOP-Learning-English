@@ -4,14 +4,15 @@
 <?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
 
 <fx:root type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
 <VBox spacing="7.0" alignment="CENTER" AnchorPane.bottomAnchor=".0" AnchorPane.leftAnchor=".0" AnchorPane.rightAnchor=".0" AnchorPane.topAnchor=".0">
     <children>
-            <Label text="Hãy điền tên bạn:" styleClass="login-label" />
-            <TextField fx:id="usernameTextField" maxWidth="250" styleClass="login-textfield" onKeyPressed="#onKeyPressed"  />
-            <Button fx:id="loginButton" mnemonicParsing="false" text="Login" onAction="#onLogin" styleClass="login-button" />
+        <Label text="Hãy điền tên bạn:" styleClass="login-label" />
+        <TextField fx:id="usernameTextField" maxWidth="250" styleClass="login-textfield" onKeyPressed="#onKeyPressed" />
+        <Button fx:id="loginButton" mnemonicParsing="false" text="Login" onAction="#onLogin" styleClass="login-button" />
     </children>
 </VBox>
     </children>

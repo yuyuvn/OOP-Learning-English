@@ -6,6 +6,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import englishlearning.controls.*?>
+<?import javafx.geometry.Insets?>
+<?import org.controlsfx.control.textfield.CustomTextField?>
+<?import englishlearning.util.CustomTextFields?>
 
 <fx:root type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
@@ -15,8 +18,12 @@
                 <RowConstraints vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <ContentControl data="${controller.searchField}" />
-                <ListView GridPane.rowIndex="1" />
+                <CustomTextField fx:id="searchField" CustomTextFields.clearButtonField="true" promptText="Filter articles" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" >
+                    <GridPane.margin>
+                        <Insets bottom="5" left="5" right="5" top="5" />
+                    </GridPane.margin>
+                </CustomTextField>
+                <ListView GridPane.rowIndex="1" visible="!${controller.isLoading}" />
                 <Loading GridPane.rowIndex="1" alignment="BASELINE_CENTER" visible="${controller.isLoading}" />
             </children>
         </GridPane>
