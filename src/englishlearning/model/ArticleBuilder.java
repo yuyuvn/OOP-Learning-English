@@ -8,12 +8,8 @@ package englishlearning.model;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,7 +20,7 @@ import java.util.logging.Logger;
 public class ArticleBuilder {
     private final Article data;
 
-    private ArticleBuilder() {
+    protected ArticleBuilder() {
         this.data = new Article();
         this.data.tags = new ArrayList<>();
     }
@@ -34,7 +30,7 @@ public class ArticleBuilder {
     }
     
     public Article build() {
-        if (data.guid == null) throw new RuntimeException("Word is not set");
+        if (data.guid == null) throw new RuntimeException("Guid is not set");
         if (data.title == null) data.title = "";
         if (data.description == null) data.description = "";
         if (data.content == null) data.content = "";

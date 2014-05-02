@@ -18,7 +18,7 @@ import javafx.scene.layout.AnchorPane;
  * @author Clicia
  */
 public abstract class Controller extends AnchorPane {     
-    private final String resourceDir = "/englishlearning/views/fxml/";
+    private final String __resourceDir = "/englishlearning/views/fxml/";
 
     public Controller() {
         loadFXML();
@@ -44,7 +44,7 @@ public abstract class Controller extends AnchorPane {
     }
  
     private String getViewPath() {
-        return String.format(resourceDir + "%s.fxml", this.getClass().getSimpleName());
+        return String.format(__resourceDir + "%s.fxml", this.getClass().getSimpleName());
     }
  
     private URL getViewURL() {
@@ -53,7 +53,7 @@ public abstract class Controller extends AnchorPane {
             if (annotation.fullPath()) {
                 path = annotation.value();
             } else {
-                path = resourceDir + annotation.value();
+                path = __resourceDir + annotation.value();
             }
         }
         return this.getClass().getResource(path);

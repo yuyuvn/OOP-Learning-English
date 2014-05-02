@@ -16,7 +16,7 @@ public class UserInfoBuilder {
     private final UserInfo data = new UserInfo();
     
     @SuppressWarnings({"deprecation", "rawtypes", "unchecked"})
-    private UserInfoBuilder() {
+    protected UserInfoBuilder() {
         
     }
     @SuppressWarnings("unchecked")

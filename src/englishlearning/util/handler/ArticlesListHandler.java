@@ -21,13 +21,8 @@ public class ArticlesListHandler extends DefaultHandler {
     // http://learningenglish.voanews.com/api/epiqq
     
     private final Articles articles = new Articles();
-    private ArticleBuilder articleBuilder;
-    
-    private boolean __title = false;
-    private boolean __description = false;
-    private boolean __link = false;
-    private boolean __guid = false;
-    private boolean __category = false;
+    private ArticleBuilder __articleBuilder;    
+    private Field __field = Field.NIL;
     
     public Articles getArticles() {
         return articles;
@@ -37,20 +32,20 @@ public class ArticlesListHandler extends DefaultHandler {
     public void startElement(String uri, String localName, String qName, Attributes attributes)
             throws SAXException {
         if (qName.equalsIgnoreCase("item")) {
-            articleBuilder = ArticleBuilder.create();
+            __articleBuilder = ArticleBuilder.create();
         } else if (qName.equalsIgnoreCase("title")) {
-            __title = true;
+            __field = Field.TITLE;
         } else if (qName.equalsIgnoreCase("description")) {
-            __description = true;
+            __field = Field.DESCRIPTION;
         } else if (qName.equalsIgnoreCase("link")) {
-            __link = true;
+            __field = Field.LINK;
         } else if (qName.equalsIgnoreCase("guid")) {
-            __guid = true;
+            __field = Field.GUID;
         } else if (qName.equalsIgnoreCase("category")) {
-            __category = true;
+            __field = Field.CATEGORY;
         } else if (qName.equalsIgnoreCase("enclosure")) {
             try {
-                articleBuilder.imageUrl(attributes.getValue("url"));
+                __articleBuilder.imageUrl(attributes.getValue("url"));
             } finally {
                 
             }
@@ -62,9 +57,9 @@ public class ArticlesListHandler extends DefaultHandler {
         if (qName.equalsIgnoreCase("item")) {
             //add Employee object to list
             try {
-                articles.add(articleBuilder.build());
+                articles.add(__articleBuilder.build());
             } finally {
-                articleBuilder = null;
+                __articleBuilder = null;
             }
         }
     }
@@ -72,20 +67,30 @@ public class ArticlesListHandler extends DefaultHandler {
     @Override
     public void characters(char ch[], int start, int length) throws SAXException {
         try {
-            if (__title) {
-                articleBuilder.title(new String(ch, start, length));
-            } else if (__description) {
-                articleBuilder.description(org.apache.commons.lang3.StringEscapeUtils.unescapeHtml3(new String(ch, start, length)));
-            } else if (__link) {
-                articleBuilder.link(new String(ch, start, length));
-            } else if (__guid) {
-                articleBuilder.guid(new String(ch, start, length));
-            } else if (__category) {
-                articleBuilder.tags(new String(ch, start, length));
+            switch (__field) {
+                case TITLE:
+                    __articleBuilder.title(new String(ch, start, length));
+                    break;
+                case DESCRIPTION:
+                    __articleBuilder.description(org.apache.commons.lang3.StringEscapeUtils.unescapeHtml3(new String(ch, start, length)));
+                    break;
+                case LINK:
+                    __articleBuilder.link(new String(ch, start, length));
+                    break;
+                case GUID:
+                    __articleBuilder.guid(new String(ch, start, length));
+                    break;
+                case CATEGORY:
+                    __articleBuilder.tags(new String(ch, start, length));
+                    break;
             }
         } catch (Exception e) {
         } finally {
-            __title = __description = __link = __guid = __category = false;
+            __field = Field.NIL;
         }
+    }    
+    
+    private enum Field {
+        NIL, TITLE, DESCRIPTION, LINK, GUID, CATEGORY
     }
 }

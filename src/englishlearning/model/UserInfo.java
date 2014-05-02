@@ -8,6 +8,7 @@ package englishlearning.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Map;
 
 /**
  *
@@ -16,7 +17,7 @@ import java.util.Date;
 public class UserInfo implements Serializable {
     public String name;
     public Date lastUsed;
-    public ReadList readList;
+    public Map<String,Double> readList;
     public PlayState playState;
     
     // add favorite (thêm nếu có thời gian)

@@ -14,7 +14,7 @@ public class QuestionBuilder {
     // TODO
     private final Question data;
     
-    private QuestionBuilder() {
+    protected QuestionBuilder() {
         data = new Question();
     }
     

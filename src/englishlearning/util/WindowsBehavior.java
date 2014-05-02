@@ -17,20 +17,20 @@ import javafx.stage.Window;
  * @author Clicia
  */
 public class WindowsBehavior {
-    private static Double initialX;
-    private static Double initialY;
+    private static Double __initialX;
+    private static Double __initialY;
     
     public static void setDragDrop(final Pane p, final Stage s) {        
         p.setOnMousePressed((MouseEvent me) -> {
             if (me.getButton() == MouseButton.PRIMARY && !s.isMaximized()) {                
-                initialX = me.getSceneX();
-                initialY = me.getSceneY();
+                __initialX = me.getSceneX();
+                __initialY = me.getSceneY();
             }
         });
         p.setOnMouseDragged((MouseEvent me) -> {
             if (me.getButton() == MouseButton.PRIMARY && !s.isMaximized()) {
-                s.getScene().getWindow().setX(me.getScreenX() - initialX);
-                s.getScene().getWindow().setY(me.getScreenY() - initialY);
+                s.getScene().getWindow().setX(me.getScreenX() - __initialX);
+                s.getScene().getWindow().setY(me.getScreenY() - __initialY);
             }
         });
     }
