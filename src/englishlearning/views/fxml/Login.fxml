@@ -10,7 +10,7 @@
 <VBox spacing="7.0" alignment="CENTER" AnchorPane.bottomAnchor=".0" AnchorPane.leftAnchor=".0" AnchorPane.rightAnchor=".0" AnchorPane.topAnchor=".0">
     <children>
             <Label text="Hãy điền tên bạn:" styleClass="login-label" />
-            <TextField fx:id="usernameTextField" maxWidth="250" styleClass="login-textfield" />
+            <TextField fx:id="usernameTextField" maxWidth="250" styleClass="login-textfield" onKeyPressed="#onKeyPressed"  />
             <Button fx:id="loginButton" mnemonicParsing="false" text="Login" onAction="#onLogin" styleClass="login-button" />
     </children>
 </VBox>

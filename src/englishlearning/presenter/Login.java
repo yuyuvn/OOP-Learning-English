@@ -19,6 +19,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import org.controlsfx.control.textfield.TextFields;
 
 /**
@@ -71,7 +73,11 @@ public class Login extends Controller {
         });
     }
     
-    public final void onLogin(ActionEvent event) {
+    @FXML private void onLogin(ActionEvent event) {
         if (!getUsername().equals("")) setIsLoged(true);
+    }
+    
+    @FXML private void onKeyPressed(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER && !getUsername().equals("")) setIsLoged(true);
     }
 }
