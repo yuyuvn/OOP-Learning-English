@@ -7,6 +7,7 @@
 package englishlearning.controls;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.beans.property.ObjectProperty;
@@ -20,7 +21,6 @@ import javafx.scene.layout.AnchorPane;
  * @author Clicia
  */
 public class ContentControl extends AnchorPane {
-    //<editor-fold defaultstate="collapsed" desc="Property data">
     private ObjectProperty data;
     public final Object getData() { return dataProperty().get(); }
     public final void setData(Object value) { dataProperty().set(value); }
@@ -32,7 +32,7 @@ public class ContentControl extends AnchorPane {
                     this.getChildren().clear();
                     return;
                 }
-                List<Node> nodes = getResources().stream()
+                Collection<Node> nodes = getResources().stream()
                             .filter(d -> d.getDataClass().isInstance(newValue))
                             .collect(Collectors.toList());
                 if (newValue instanceof javafx.scene.Node && nodes.isEmpty()) {
@@ -49,8 +49,7 @@ public class ContentControl extends AnchorPane {
         
         return data; 
     }
-//</editor-fold>    
-    //<editor-fold defaultstate="collapsed" desc="Property resources">
+    
     private ObjectProperty<List<DataTemplate>> resources;
     public final List<DataTemplate> getResources() { return resourcesProperty().get(); }
     public final void addResources(DataTemplate value) { getResources().add(value); }
@@ -59,6 +58,5 @@ public class ContentControl extends AnchorPane {
         if (resources == null) resources = new SimpleObjectProperty<>(this, "resources", new ArrayList<>());
         return resources; 
     }
-//</editor-fold>
     
 }
