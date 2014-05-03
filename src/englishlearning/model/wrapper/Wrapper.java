@@ -13,6 +13,7 @@ package englishlearning.model.wrapper;
  */
 public class Wrapper<T> {
     private final T rawData;
+    private WrapperProperty property;
     
     public Wrapper(T data) {
         rawData = data;
@@ -20,6 +21,14 @@ public class Wrapper<T> {
     
     public T getRawData() {
         return rawData;
+    }
+
+    public WrapperProperty getProperty() {
+        return property;
+    }
+
+    public void setProperty(WrapperProperty property) {
+        this.property = property;
     }
     
     private boolean __changed;

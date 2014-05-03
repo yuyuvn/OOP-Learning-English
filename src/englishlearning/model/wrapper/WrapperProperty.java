@@ -35,4 +35,10 @@ public class WrapperProperty<T extends Wrapper> extends javafx.beans.property.Si
         super.fireValueChangedEvent();
         getValue().setChanged(false);
     }
+    
+    @Override
+    public void set(T value) {
+        value.setProperty(this);
+        super.set(value);
+    }
 }

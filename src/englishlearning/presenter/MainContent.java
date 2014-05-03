@@ -9,7 +9,6 @@ package englishlearning.presenter;
 import englishlearning.model.UserInfo;
 import englishlearning.model.wrapper.UserWrapper;
 import englishlearning.model.wrapper.WrapperProperty;
-import englishlearning.util.DataInDisk;
 
 /**
  *
@@ -24,19 +23,9 @@ public class MainContent extends Controller {
         if (user == null) user = new WrapperProperty(this, "user");
         return user; 
     }
-    public void raiseUserPropertyChange() {
-        userProperty().fireValueChangedEvent();
-    }
 //</editor-fold>    
     
     public void setUser(String username) {
-        UserWrapper<UserInfo> userwrapper = new UserWrapper(DataInDisk.getUserInfo(username));
-        setUser(userwrapper);
         
-        if (userwrapper.getRawData().playState == null) {
-        
-        } else {
-        //TODO: resume play state
-        }
     }
 }

@@ -19,31 +19,41 @@ import java.util.logging.Logger;
  */
 public class DataInDisk {
     private final static String PATH_USERSLIST = "data/users.bin";
-    private final static String PATH_USERS = "data/i%s.bin";
-    
-    public static String getRelativePath(String path) {
-        return new File(System.getProperty("user.dir"), path).getPath();
-    }
-    
-    public static UsersList getUsersList(String dataPath) {
-        UsersList list = null;
-        try (FileInputStream fileIn = new FileInputStream(dataPath); ObjectInputStream in = new ObjectInputStream(fileIn)) {
-            list = (UsersList) in.readObject();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(DataInDisk.class.getName()).log(Level.WARNING, null, ex);
-        } catch (IOException | ClassNotFoundException ex) {
-            
-        } finally {
-            if (list == null) list = new UsersList();
-        }
-        return list;
-    }
-    
+    private final static String PATH_USER = "data/i%s.bin";
+        
     public static UsersList getUsersList() {
-        return getUsersList(getRelativePath(PATH_USERSLIST));
+        UsersList userList = getData(getRelativePath(PATH_USERSLIST));
+        return userList != null ? userList : new UsersList();
     }
     
-    public static void saveUsersList(UsersList data, String dataPath) {
+    public static void saveUsersList(UsersList data) {
+        saveData(data, getRelativePath(PATH_USERSLIST));
+    }
+    
+    public static UserInfo getUserInfo(String username) {
+        UserInfo user = getData(String.format(PATH_USER, getRelativePath(MD5(username))));
+        return user != null ? user : UserInfoBuilder.create().name(username).build();
+    }
+    
+    public static void saveUserInfo(UserInfo user) {
+        saveData(user,getRelativePath(MD5(user.name)));
+    }
+    
+    
+    
+    /*
+    * Support method
+    */
+    private static <T> T getData(String dataPath) {
+        try (FileInputStream fileIn = new FileInputStream(dataPath); ObjectInputStream in = new ObjectInputStream(fileIn)) {
+            return (T) in.readObject();
+        } catch (FileNotFoundException ex) {            
+        } catch (IOException | ClassNotFoundException ex) {            
+        }
+        return null;
+    }
+    
+    private static <T> void saveData(T data, String dataPath) {
         createIfNotExists(dataPath);
         
         try (FileOutputStream fileOut = new FileOutputStream(dataPath); ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
@@ -55,11 +65,7 @@ public class DataInDisk {
         }
     }
     
-    public static void saveUsersList(UsersList data) {
-        saveUsersList(data, getRelativePath(PATH_USERSLIST));
-    }
-    
-    public static boolean createIfNotExists(String path) {        
+    private static boolean createIfNotExists(String path) {        
         File fileHandler = new File(path);
         if(!fileHandler.exists()) {
             try {
@@ -73,10 +79,22 @@ public class DataInDisk {
         return true;
     }
     
-    public static UserInfo getUserInfo(String username) {
-        // TODO
-        UserInfo user = UserInfoBuilder.create().name(username).build();
-        
-        return user;
+    private static String getRelativePath(String path) {
+        return new File(System.getProperty("user.dir"), path).getPath();
+    }
+    
+    private static String MD5(String md5) {
+        try {
+            java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+            byte[] array = md.digest(md5.getBytes("UTF-8"));
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < array.length; ++i) {
+                sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1,3));
+            }
+            return sb.toString();
+        } catch (java.security.NoSuchAlgorithmException | UnsupportedEncodingException ex) {
+
+        }
+        return null;
     }
 }
