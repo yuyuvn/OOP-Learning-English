@@ -6,13 +6,15 @@
 
 package englishlearning.model.wrapper;
 
+import englishlearning.model.model.IWrapper;
+
 
 /**
  *
  * @author Clicia
  * @param <T>
  */
-public class WrapperProperty<T extends Wrapper> extends javafx.beans.property.SimpleObjectProperty<T> {
+public class WrapperProperty<T extends IWrapper> extends javafx.beans.property.SimpleObjectProperty<T> {
 
     public WrapperProperty() {
     }

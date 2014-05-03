@@ -6,12 +6,14 @@
 
 package englishlearning.model.wrapper;
 
+import englishlearning.model.model.IWrapper;
+
 /**
  *
  * @author Clicia
  * @param <T>
  */
-public class Wrapper<T> {
+public class Wrapper<T> implements IWrapper {
     private final T rawData;
     private WrapperProperty property;
     
@@ -23,10 +25,12 @@ public class Wrapper<T> {
         return rawData;
     }
 
+    @Override
     public WrapperProperty getProperty() {
         return property;
     }
 
+    @Override
     public void setProperty(WrapperProperty property) {
         this.property = property;
     }
@@ -35,7 +39,8 @@ public class Wrapper<T> {
     boolean isChanged() {
         return __changed;
     }
-    void setChanged(boolean __changed) {
+    @Override
+    public void setChanged(boolean __changed) {
         this.__changed = __changed;
     }    
     

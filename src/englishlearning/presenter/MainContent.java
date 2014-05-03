@@ -6,8 +6,7 @@
 
 package englishlearning.presenter;
 
-import englishlearning.model.UserInfo;
-import englishlearning.model.wrapper.UserWrapper;
+import englishlearning.model.model.IUser;
 import englishlearning.model.wrapper.WrapperProperty;
 
 /**
@@ -16,10 +15,10 @@ import englishlearning.model.wrapper.WrapperProperty;
  */
 public class MainContent extends Controller {    
     //<editor-fold defaultstate="collapsed" desc="Property User">
-    private WrapperProperty<UserWrapper<UserInfo>> user;
-    public final UserWrapper<UserInfo> getUser() { return userProperty().get(); }
-    protected final void setUser(UserWrapper<UserInfo> value) { userProperty().set(value); }
-    public final WrapperProperty<UserWrapper<UserInfo>> userProperty() { 
+    private WrapperProperty<IUser> user;
+    public final IUser getUser() { return userProperty().get(); }
+    protected final void setUser(IUser value) { userProperty().set(value); }
+    public final WrapperProperty<IUser> userProperty() { 
         if (user == null) user = new WrapperProperty(this, "user");
         return user; 
     }

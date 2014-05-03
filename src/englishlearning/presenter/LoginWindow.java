@@ -7,8 +7,6 @@
 package englishlearning.presenter;
 
 import englishlearning.presenter.Controller.FXMLPath;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.stage.Stage;
 
