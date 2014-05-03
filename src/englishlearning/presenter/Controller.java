@@ -12,12 +12,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.net.URL;
 import java.util.logging.*;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
+import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 /**
  *
  * @author Clicia
  */
-public abstract class Controller extends AnchorPane {     
+public abstract class Controller extends Region {     
     private final String __resourceDir = "/englishlearning/views/fxml/";
 
     public Controller() {
@@ -27,12 +31,15 @@ public abstract class Controller extends AnchorPane {
     protected final void loadFXML() {
         FXMLLoader loader = new FXMLLoader();
 
-        loader.setRoot(this);
+        //loader.setRoot(this);
         loader.setController(this);
         loader.setLocation(this.getViewURL());
  
         try {
-            loader.load();
+            Node root = (Node) loader.load();
+            setMaxSize(root);
+            this.getChildren().add(root);
+            
             AnchorPane.setBottomAnchor(this, .0);
             AnchorPane.setLeftAnchor(this, .0);
             AnchorPane.setRightAnchor(this, .0);
@@ -57,6 +64,21 @@ public abstract class Controller extends AnchorPane {
             }
         }
         return this.getClass().getResource(path);
+    }
+    
+    @Override
+    protected void layoutChildren() {
+        getChildren().stream().forEach((node) -> {
+            layoutInArea(node, 0, 0, getWidth(), getHeight(), 0, HPos.LEFT, VPos.TOP);
+        });
+    }
+    
+    private void setMaxSize(Node node) {
+        if (node != null && node instanceof Region) {
+            Region region = (Region) node;
+            region.setMaxWidth(Double.MAX_VALUE);
+            region.setMaxHeight(Double.MAX_VALUE);
+        }
     }
     
     /**

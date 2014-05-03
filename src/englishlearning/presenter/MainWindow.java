@@ -7,7 +7,6 @@
 package englishlearning.presenter;
 
 import englishlearning.model.model.IUser;
-import englishlearning.model.UserInfo;
 import englishlearning.model.wrapper.UserWrapper;
 import englishlearning.model.wrapper.WrapperProperty;
 import englishlearning.presenter.Controller.FXMLPath;

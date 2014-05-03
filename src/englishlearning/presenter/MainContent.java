@@ -24,7 +24,4 @@ public class MainContent extends Controller {
     }
 //</editor-fold>    
     
-    public void setUser(String username) {
-        
-    }
 }

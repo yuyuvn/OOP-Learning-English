@@ -6,12 +6,8 @@
 
 package englishlearning.presenter;
 
-import englishlearning.model.Article;
-import englishlearning.model.wrapper.ArticleWrapper;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import org.controlsfx.control.textfield.CustomTextField;
 

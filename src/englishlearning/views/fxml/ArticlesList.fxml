@@ -10,22 +10,19 @@
 <?import org.controlsfx.control.textfield.CustomTextField?>
 <?import englishlearning.util.CustomTextFields?>
 
-<fx:root type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+
+<GridPane xmlns:fx="http://javafx.com/fxml/1">
+    <rowConstraints>
+        <RowConstraints vgrow="NEVER" />
+        <RowConstraints vgrow="SOMETIMES" />
+    </rowConstraints>
     <children>
-        <GridPane>
-            <rowConstraints>
-                <RowConstraints vgrow="NEVER" />
-                <RowConstraints vgrow="SOMETIMES" />
-            </rowConstraints>
-            <children>
-                <CustomTextField fx:id="searchField" CustomTextFields.clearButtonField="true" promptText="Filter articles" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" >
-                    <GridPane.margin>
-                        <Insets bottom="5" left="5" right="5" top="5" />
-                    </GridPane.margin>
-                </CustomTextField>
-                <ListView GridPane.rowIndex="1" visible="!${controller.isLoading}" />
-                <Loading GridPane.rowIndex="1" alignment="BASELINE_CENTER" visible="${controller.isLoading}" />
-            </children>
-        </GridPane>
+        <CustomTextField fx:id="searchField" CustomTextFields.clearButtonField="true" promptText="Filter articles" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" >
+            <GridPane.margin>
+                <Insets bottom="5" left="5" right="5" top="5" />
+            </GridPane.margin>
+        </CustomTextField>
+        <ListView GridPane.rowIndex="1" visible="!${controller.isLoading}" />
+        <Loading GridPane.rowIndex="1" alignment="BASELINE_CENTER" visible="${controller.isLoading}" />
     </children>
-</fx:root>
+</GridPane>
