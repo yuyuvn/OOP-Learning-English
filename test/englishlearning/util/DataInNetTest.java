@@ -56,10 +56,10 @@ public class DataInNetTest {
         System.out.println("getArticle");
         //Article article = DataInNet.getListArticle().get(0);
         Article article = ArticleBuilder.create().guid("http://learningenglish.voanews.com/content/virginia-textbooks-sea-of-japan-east-sea/1903561.html").build();
-        System.out.println("Content of "+ article.link);
+        System.out.println("Content of "+ article.getLink());
         //Article expResult = null;
         Article result = DataInNet.getArticle(article);
-        System.out.println(result.content);
+        System.out.println(result.getContent());
         //assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");

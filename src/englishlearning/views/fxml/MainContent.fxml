@@ -28,6 +28,6 @@
                 <Label text="${controller.user.numberReadedMessage}" />
             </children>
         </VBox>
-        <ArticlesList GridPane.columnIndex="1" />
+        <ArticlesList GridPane.columnIndex="1"/>
     </children>
 </GridPane>

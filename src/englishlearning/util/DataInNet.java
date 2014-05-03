@@ -12,16 +12,15 @@ import englishlearning.util.handler.ArticlesListHandler;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collector;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -59,7 +58,7 @@ public class DataInNet {
         // TODO: load url from article.link then get content and set to it        
         // http://learningenglish.voanews.com/content/words-and-their-stories-belittle/1578052.html
         
-        Document doc = Jsoup.connect(article.link).get();
+        Document doc = Jsoup.connect(article.getLink()).get();
         Element data = doc.select(".zoomMe").first();
         
         // Remove garbage
@@ -69,7 +68,7 @@ public class DataInNet {
         data.select("br").append("\\n");
         data.select("p").append("\\n\\n");
         
-        article.content = data.text().replaceAll("\\\\n", "\n").trim();
+        article.setContent(data.text().replaceAll("\\\\n", "\n").trim());
         return article;
     }
 }

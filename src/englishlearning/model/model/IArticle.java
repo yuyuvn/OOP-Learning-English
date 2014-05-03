@@ -1,5 +1,8 @@
 package englishlearning.model.model;
 
+import englishlearning.model.Article;
+import javafx.scene.image.Image;
+
 
 /**
  *
@@ -7,5 +10,7 @@ package englishlearning.model.model;
  */
 public interface IArticle extends IWrapper {
 //TODO
+    Article getArticle();
     
+    Image getThumbnail();
 }

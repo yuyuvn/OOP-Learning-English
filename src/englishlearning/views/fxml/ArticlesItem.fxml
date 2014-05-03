@@ -9,24 +9,16 @@
 <?import javafx.scene.shape.*?>
 <?import englishlearning.controls.*?>
 
-<StackPane xmlns:fx="http://javafx.com/fxml/1">
-    <Rectangle width="${controller.width}" height="${controller.height}" fill="${controller.color}" />
-    <ContentControl data="${controller.data}">
-        <resources>
-            <DataTemplate dataType="englishlearning.model.model.IArticle">
-                <GridPane>
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="NEVER" prefWidth="200"  />
-                        <ColumnConstraints hgrow="SOMETIMES" />
-                    </columnConstraints>
-                    <children>
-                        <ImageView>
-                            <Image url="${controller.imageUrl}"></Image>
-                        </ImageView>
-                        <Label text="${controller.title" wrapText="true" /> 
-                    </children>
-                </GridPane>
-            </DataTemplate>
-        </resources>
-    </ContentControl>
-</StackPane>
+<GridPane xmlns:fx="http://javafx.com/fxml/1">
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints />
+    </columnConstraints>
+    <children>
+        <StackPane>
+            <!-- TODO create loading image -->
+            <ImageView image="${controller.data.thumbnail}" styleClass="thumbnail-image" />
+        </StackPane>
+        <Label GridPane.columnIndex="1" text="${controller.data.article.title}" styleClass="articles-item-title" wrapText="true"/>
+    </children>
+</GridPane>

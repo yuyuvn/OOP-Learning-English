@@ -8,6 +8,7 @@
 <?import englishlearning.controls.*?>
 <?import javafx.geometry.Insets?>
 <?import org.controlsfx.control.textfield.CustomTextField?>
+<?import englishlearning.presenter.callback.ArticlesItemFactory?>
 <?import englishlearning.util.CustomTextFields?>
 
 
@@ -22,7 +23,9 @@
                 <Insets bottom="5" left="5" right="5" top="5" />
             </GridPane.margin>
         </CustomTextField>
-        <ListView GridPane.rowIndex="1" visible="!${controller.isLoading}" />
-        <Loading GridPane.rowIndex="1" alignment="BASELINE_CENTER" visible="${controller.isLoading}" />
+        <ListView GridPane.rowIndex="1" visible="${controller.notLoading}" items="${controller.articles}" minWidth="400">
+            <cellFactory><ArticlesItemFactory /></cellFactory>
+        </ListView>
+        <Loading GridPane.rowIndex="1" alignment="BASELINE_CENTER" visible="${controller.loading}" />
     </children>
 </GridPane>

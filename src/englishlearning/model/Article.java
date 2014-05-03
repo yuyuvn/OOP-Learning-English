@@ -7,7 +7,6 @@
 package englishlearning.model;
 
 import java.io.Serializable;
-import java.net.URL;
 import java.util.List;
 
 /**
@@ -15,19 +14,77 @@ import java.util.List;
  * @author Clicia
  */
 public class Article implements Serializable {
-    public String guid;
-    public String title;
-    public String description;
-    public String link;
-    public List<String> tags;
-    public URL imageUrl;
-    public String content;
+    private String guid;
+    private String title;
+    private String description;
+    private String link;
+    private List<String> tags;
+    private String imageUrl;
+    private String content;
     
     //<editor-fold defaultstate="collapsed" desc="Must use builder">
     Article() {
     }
 
 //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Getter & setter">
+    public String getGuid() {
+        return guid;
+    }
+    
+    public void setGuid(String guid) {
+        this.guid = guid;
+    }
+    
+    public String getTitle() {
+        return title;
+    }
+    
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+    
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
+    public String getLink() {
+        return link;
+    }
+    
+    public void setLink(String link) {
+        this.link = link;
+    }
+    
+    public List<String> getTags() {
+        return tags;
+    }
+    
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+    
+    public String getImageUrl() {
+        return imageUrl;
+    }
+    
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+    
+    public String getContent() {
+        return content;
+    }
+    
+    public void setContent(String content) {
+        this.content = content;
+    }
+//</editor-fold>
+    
     
     @Override
     public String toString() {
