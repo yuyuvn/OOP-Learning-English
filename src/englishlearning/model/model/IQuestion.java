@@ -10,6 +10,6 @@ package englishlearning.model.model;
  *
  * @author PC
  */
-public interface IQuestion {
+public interface IQuestion extends IWrapper {
     
 }
