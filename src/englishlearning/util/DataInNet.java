@@ -50,6 +50,12 @@ public class DataInNet {
     }
     
     public static Articles<Article> getListArticle() throws MalformedURLException {
+        Articles<Article> value;
+        value = DataInDisk.getData(DataInDisk.getRelativePath("debug/cacheAL.bin"));
+        if (value == null) {
+            value = getListArticle(URL_RSS);
+            DataInDisk.saveData(value, DataInDisk.getRelativePath("debug/cacheAL.bin"));
+        }
         return getListArticle(URL_RSS);
     }
     

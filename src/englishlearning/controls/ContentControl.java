@@ -36,7 +36,7 @@ public class ContentControl extends Pane {
                 }
                 Collection<Node> nodes = getResources().stream()
                             .filter(d -> d.getDataClass().isInstance(newValue))
-                            .flatMap(d -> d.getChildren().stream())
+                            .flatMap(d -> d.getResources().stream())
                             .collect(Collectors.toList());
                 if (newValue instanceof javafx.scene.Node && nodes.isEmpty()) {
                     this.getChildren().clear();

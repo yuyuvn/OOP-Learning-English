@@ -6,20 +6,22 @@
 
 package englishlearning.controls;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.DefaultProperty;
-import javafx.collections.ObservableList;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.layout.Region;
 
 /**
  *
  * @author Clicia
  */
-@DefaultProperty("children")
-public class DataTemplate extends Region {
+@DefaultProperty("resources")
+public class DataTemplate extends Parent {
 
     private String dataType;
     public String getDataType() { return dataType; }
@@ -39,7 +41,12 @@ public class DataTemplate extends Region {
         this.dataType = dataClass.getCanonicalName();
     }
     
-    @Override public ObservableList<Node> getChildren() {
-        return super.getChildren();
+    private ObjectProperty<List<Node>> resources;
+    public final List<Node> getResources() { return resourcesProperty().get(); }
+    public final void addResources(Node value) { getResources().add(value); }
+    public final void clearResources(Node value) { getResources().clear(); }
+    public final ObjectProperty<List<Node>> resourcesProperty() { 
+        if (resources == null) resources = new SimpleObjectProperty<>(this, "resources", new ArrayList<>());
+        return resources; 
     }
 }

@@ -26,12 +26,19 @@
             <children>
                 <Label text="${'Welcome ' + controller.user.user.name}" wrapText="true"/>
                 <Label text="${'You have readed ' + controller.user.readedArticles + ' articles'}" wrapText="true"/>
-            </children>
+                <ContentControl data="${controller.data}">
+                    <resources>
+                        <DataTemplate dataType="englishlearning.model.model.IArticle">
+                            <Button text="Back" onAction="#onReturn" />
+                        </DataTemplate>
+                    </resources>
+                </ContentControl> 
+           </children>
         </VBox>
         <ContentControl GridPane.columnIndex="1" data="${controller.data}">
             <resources>
                 <DataTemplate dataType="englishlearning.model.model.IArticle">
-                    <!-- TODO -->
+                    <Label text="${controller.data.article.title}" alignment="TOP_CENTER" /> 
                 </DataTemplate>
                 <DataTemplate dataType="englishlearning.model.model.IUser">
                     <ArticlesList fx:id="articlesList" />
@@ -40,12 +47,12 @@
         </ContentControl>
         
         <ContentControl GridPane.columnIndex="2" data="${controller.data}">
+            <GridPane.margin>
+                <Insets bottom="5" left="25" right="5" top="5" />
+            </GridPane.margin>
             <resources>
                 <DataTemplate dataType="englishlearning.model.model.IUser">
                     <ContentControl data="${articlesList.selectedArticle}">
-                        <GridPane.margin>
-                            <Insets bottom="5" left="25" right="5" top="5" />
-                        </GridPane.margin>
                         <resources>
                             <DataTemplate dataType="englishlearning.model.model.IArticle">
                                 <TextArea text="${articlesList.selectedArticle.article.description}" wrapText="true" />

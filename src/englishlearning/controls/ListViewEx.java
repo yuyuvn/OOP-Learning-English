@@ -6,7 +6,10 @@
 
 package englishlearning.controls;
 
+import englishlearning.model.wrapper.WrapperProperty;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
@@ -16,20 +19,18 @@ import javafx.scene.control.ListView;
  * @author Clicia
  */
 public class ListViewEx extends ListView {
-    private ObjectProperty selectedItem;
+    private BooleanProperty selected;
 
-    public Object getSelectedItem() {
-        return selectedItemProperty().get();
+    public void fireSelected() {
+        BooleanProperty property = selectedProperty();
+        property.set(!property.get());
     }
 
-    public void setSelectedItem(Object value) {
-        selectedItemProperty().set(value);
+    public BooleanProperty selectedProperty() {
+        if (selected == null) selected = new SimpleBooleanProperty(this, "selected", false);
+        return selected;
     }
-
-    public ObjectProperty selectedItemProperty() {
-        if (selectedItem == null) selectedItem = new SimpleObjectProperty(this, "selectedItem");
-        return selectedItem;
-    }
+    
 
     public ListViewEx() {
     }

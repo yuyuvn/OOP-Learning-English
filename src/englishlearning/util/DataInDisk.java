@@ -44,7 +44,7 @@ public class DataInDisk {
     /*
     * Support method
     */
-    private static <T> T getData(String dataPath) {
+    static <T> T getData(String dataPath) {
         try (FileInputStream fileIn = new FileInputStream(dataPath); ObjectInputStream in = new ObjectInputStream(fileIn)) {
             return (T) in.readObject();
         } catch (FileNotFoundException ex) {            
@@ -53,7 +53,7 @@ public class DataInDisk {
         return null;
     }
     
-    private static <T> void saveData(T data, String dataPath) {
+    static <T> void saveData(T data, String dataPath) {
         createIfNotExists(dataPath);
         
         try (FileOutputStream fileOut = new FileOutputStream(dataPath); ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
@@ -65,7 +65,7 @@ public class DataInDisk {
         }
     }
     
-    private static boolean createIfNotExists(String path) {        
+    static boolean createIfNotExists(String path) {        
         File fileHandler = new File(path);
         if(!fileHandler.exists()) {
             try {
@@ -79,11 +79,11 @@ public class DataInDisk {
         return true;
     }
     
-    private static String getRelativePath(String path) {
+    static String getRelativePath(String path) {
         return new File(System.getProperty("user.dir"), path).getPath();
     }
     
-    private static String MD5(String md5) {
+    static String MD5(String md5) {
         try {
             java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
             byte[] array = md.digest(md5.getBytes("UTF-8"));

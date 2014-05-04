@@ -17,18 +17,16 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyBooleanProperty;
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleListProperty;
-import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableBooleanValue;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
 import org.controlsfx.control.textfield.CustomTextField;
 
 /**
@@ -37,7 +35,7 @@ import org.controlsfx.control.textfield.CustomTextField;
  */
 public class ArticlesList extends Controller {   
     @FXML private CustomTextField searchField;
-    @FXML private ListViewEx listView;
+    @FXML public ListViewEx listView;
     //<editor-fold defaultstate="collapsed" desc="Property articles">
     private ListProperty<IArticle> articles;
     
@@ -65,45 +63,32 @@ public class ArticlesList extends Controller {
         selectedArticleProperty().set(value);
     }
     
-    public WrapperProperty<IArticle> selectedArticleProperty() {
+    public final WrapperProperty<IArticle> selectedArticleProperty() {
         if (selectedArticle == null) {            
             selectedArticle = new WrapperProperty<>(this, "selectedArticle");
         }
         return selectedArticle;
     }
-//</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Property readArticle">
-    private WrapperProperty<IArticle> readArticle;
-    
-    public IArticle getReadArticle() {
-        return readArticle.get();
+//</editor-fold>    
+    //<editor-fold defaultstate="collapsed" desc="Property selected">
+    private BooleanProperty selected;
+
+    public final void fireSelected() {
+        BooleanProperty property = selectedProperty();
+        property.set(!property.get());
     }
-    
-    public void setReadArticle(IArticle value) {
-        readArticle.set(value);
-    }
-    
-    public WrapperProperty<IArticle> readArticleProperty() {
-        if (readArticle == null) readArticle = new WrapperProperty<>(this, "readArticle");
-        return readArticle;
+
+    public BooleanProperty selectedProperty() {
+        if (selected == null) selected = new SimpleBooleanProperty(this, "selected", false);
+        return selected;
     }
 //</editor-fold>
-    
     
     public ArticlesList() {
         getData();
-        listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<IArticle>() {
-
-            @Override
-            public void changed(ObservableValue<? extends IArticle> observable, IArticle oldValue, IArticle newValue) {
-                setSelectedArticle(newValue);
-            }
-        });
-        listView.selectedItemProperty().addListener((ObservableValue observable, Object oldValue, Object newValue) -> {
-            if (newValue instanceof IArticle) {
-                setReadArticle((IArticle)newValue);
-                setSelectedArticle(null);
-            }
+        selectedArticleProperty().bind(listView.getSelectionModel().selectedItemProperty());
+        listView.selectedProperty().addListener((e) -> {
+            fireSelected();
         });
     }
     
@@ -123,5 +108,9 @@ public class ArticlesList extends Controller {
         });
         
         executor.submit(task);
+    }
+    
+    public void clearSelection() {
+        listView.getSelectionModel().clearSelection();
     }
 }

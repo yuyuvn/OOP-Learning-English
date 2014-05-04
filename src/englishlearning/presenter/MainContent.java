@@ -14,6 +14,7 @@ import java.util.Map;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 /**
@@ -52,10 +53,20 @@ public class MainContent extends Controller {
     
     public MainContent() {
         setData(getUser());
-        articlesList.readArticleProperty().addListener((ObservableValue<? extends IArticle> observable, IArticle oldValue, IArticle newValue) -> {
-            setData(newValue);
-            getUser().getUser().getReadList().putIfAbsent(newValue.getArticle().getGuid(), 0.0);
-            getUser().getProperty().fireValueChangedEvent();
+        articlesList.selectedProperty().addListener(e -> {
+            IArticle article = articlesList.getSelectedArticle();
+            if (article != null) {
+                getUser().getUser().getReadList().putIfAbsent(article.getArticle().getGuid(), 0.0);
+                setData(article);
+                // Don't know need to fire 2 times? bug some where or java sync like shit?
+                getUser().getProperty().fireValueChangedEvent();
+                getUser().getProperty().fireValueChangedEvent();
+            }
         });
+    }
+    
+    @FXML
+    public void onReturn(ActionEvent event) {
+        setData(getUser());
     }
 }
