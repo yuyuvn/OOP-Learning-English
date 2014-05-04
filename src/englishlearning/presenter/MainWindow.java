@@ -39,7 +39,7 @@ public class MainWindow extends Window {
         IUser _user = new UserWrapper(DataInDisk.getUserInfo(username));
         setUser(_user);
         
-        if (_user.getUser().playState == null) {
+        if (_user.getUser().getPlayState() == null) {
             MainContent mainContent = new MainContent();
             Bindings.bindBidirectional(
                     mainContent.userProperty(),

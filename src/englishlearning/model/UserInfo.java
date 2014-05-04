@@ -15,10 +15,10 @@ import java.util.Map;
  * @author Clicia
  */
 public class UserInfo implements Serializable {
-    public String name;
-    public Date lastUsed;
-    public Map<String,Double> readList;
-    public PlayState playState;
+    private String name;
+    private String lastUsed;
+    private Map<String,Double> readList;
+    private PlayState playState;
     
     // add favorite (thêm nếu có thời gian)
     // public List<String> favorite;
@@ -26,5 +26,40 @@ public class UserInfo implements Serializable {
     //<editor-fold defaultstate="collapsed" desc="Must use builder">
     UserInfo() {
     }
+
 //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Setter & getter">
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public String getLastUsed() {
+        return lastUsed;
+    }
+    
+    public void setLastUsed(String lastUsed) {
+        this.lastUsed = lastUsed;
+    }
+    
+    public Map<String, Double> getReadList() {
+        return readList;
+    }
+    
+    public void setReadList(Map<String, Double> readList) {
+        this.readList = readList;
+    }
+    
+    public PlayState getPlayState() {
+        return playState;
+    }
+    
+    public void setPlayState(PlayState playState) {
+        this.playState = playState;
+    }
+//</editor-fold>
+        
 }

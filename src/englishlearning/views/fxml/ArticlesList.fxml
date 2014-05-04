@@ -23,9 +23,9 @@
                 <Insets bottom="5" left="5" right="5" top="5" />
             </GridPane.margin>
         </CustomTextField>
-        <ListView GridPane.rowIndex="1" visible="${controller.notLoading}" items="${controller.articles}" minWidth="400">
+        <ListViewEx fx:id="listView" GridPane.rowIndex="1" items="${controller.articles}" prefWidth="${controller.width}" >
             <cellFactory><ArticlesItemFactory /></cellFactory>
-        </ListView>
-        <Loading GridPane.rowIndex="1" alignment="BASELINE_CENTER" visible="${controller.loading}" />
+            <placeholder><Loading alignment="BASELINE_CENTER" /></placeholder>
+        </ListViewEx>        
     </children>
 </GridPane>

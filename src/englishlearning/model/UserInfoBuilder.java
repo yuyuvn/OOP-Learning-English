@@ -6,8 +6,6 @@
 
 package englishlearning.model;
 
-import java.util.Date;
-
 /**
  *
  * @author Clicia
@@ -23,31 +21,31 @@ public class UserInfoBuilder {
     public static UserInfoBuilder create() {
         return new UserInfoBuilder();
     }
-    
+        
     @SuppressWarnings("unchecked")
     public UserInfoBuilder name(String name) {
-        data.name = name;
+        data.setName(name);
         return this;
     }
     @SuppressWarnings("unchecked")
-    public UserInfoBuilder lastUsed(Date lastUsed) {
-        data.lastUsed = lastUsed;
+    public UserInfoBuilder lastUsed(String lastUsed) {
+        data.setLastUsed(lastUsed);
         return this;
     }
     @SuppressWarnings("unchecked")
     public UserInfoBuilder readList(ReadList readList) {
-        data.readList = readList;
+        data.setReadList(readList);
         return this;
     }
     @SuppressWarnings("unchecked")
     public UserInfoBuilder playState(PlayState playState) {
-        data.playState = playState;
+        data.setPlayState(playState);
         return this;
     }
     
     public UserInfo build() {
-        if (data.name == null) throw new RuntimeException("Name is not set");
-        if (data.readList == null) data.readList = new ReadList();
+        if (data.getName() == null) throw new RuntimeException("Name is not set");
+        if (data.getReadList() == null) data.setReadList(new ReadList());
         return data;
     }
 }

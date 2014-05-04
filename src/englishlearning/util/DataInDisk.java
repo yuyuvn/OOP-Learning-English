@@ -36,7 +36,7 @@ public class DataInDisk {
     }
     
     public static void saveUserInfo(UserInfo user) {
-        saveData(user,getRelativePath(MD5(user.name)));
+        saveData(user,getRelativePath(MD5(user.getName())));
     }
     
     

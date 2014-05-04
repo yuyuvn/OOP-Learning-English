@@ -29,6 +29,5 @@ public class ArticlesItem extends Controller {
         if (data == null) data = new WrapperProperty<>(this,"data");
         return data;
     }
-//</editor-fold>    
-    
+//</editor-fold>
 }

@@ -14,6 +14,4 @@ import englishlearning.model.UserInfo;
  */
 public interface IUser extends IWrapper {
     public UserInfo getUser();
-    public String getWelcomeMessage();
-    public String getNumberReadedMessage();
 }

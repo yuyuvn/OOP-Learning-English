@@ -8,14 +8,18 @@ package englishlearning.controls;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.DefaultProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.layout.Region;
 
 /**
  *
  * @author Clicia
  */
-public class DataTemplate extends javafx.scene.layout.AnchorPane {
+@DefaultProperty("children")
+public class DataTemplate extends Region {
 
     private String dataType;
     public String getDataType() { return dataType; }
@@ -34,9 +38,8 @@ public class DataTemplate extends javafx.scene.layout.AnchorPane {
         this.dataClass = dataClass;
         this.dataType = dataClass.getCanonicalName();
     }
-        
-    @Override
-    public ObservableList<Node> getChildren() {
+    
+    @Override public ObservableList<Node> getChildren() {
         return super.getChildren();
     }
 }

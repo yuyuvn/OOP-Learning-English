@@ -7,10 +7,8 @@
 package englishlearning.model.wrapper;
 
 import englishlearning.model.Article;
+import englishlearning.model.ArticleBuilder;
 import englishlearning.model.model.IArticle;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import javafx.concurrent.Task;
 import javafx.scene.image.Image;
 
 /**
@@ -24,6 +22,10 @@ public class ArticleWrapper<T extends Article> extends Wrapper<T> implements IAr
         super(data);
     }
     
+    public ArticleWrapper() {
+        super((T)ArticleBuilder.create().guid("").build());
+    }
+    
     @Override
     public Article getArticle() {
         return getRawData();
@@ -33,7 +35,7 @@ public class ArticleWrapper<T extends Article> extends Wrapper<T> implements IAr
     @Override
     public Image getThumbnail() {
         if (__thumb == null) {
-            __thumb = new Image(getRawData().getImageUrl(), 200.0, 100.0, true, true, true);
+            __thumb = new Image(getRawData().getImageUrl(), 0.0, 0.0, false, false, true);
         }
         
         return __thumb;

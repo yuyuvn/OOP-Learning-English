@@ -13,14 +13,16 @@ import java.util.stream.Collectors;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 /**
  *
  * @author Clicia
  */
-public class ContentControl extends AnchorPane {
+public class ContentControl extends Pane {
     private ObjectProperty data;
     public final Object getData() { return dataProperty().get(); }
     public final void setData(Object value) { dataProperty().set(value); }
@@ -34,6 +36,7 @@ public class ContentControl extends AnchorPane {
                 }
                 Collection<Node> nodes = getResources().stream()
                             .filter(d -> d.getDataClass().isInstance(newValue))
+                            .flatMap(d -> d.getChildren().stream())
                             .collect(Collectors.toList());
                 if (newValue instanceof javafx.scene.Node && nodes.isEmpty()) {
                     this.getChildren().clear();
@@ -41,6 +44,10 @@ public class ContentControl extends AnchorPane {
                 } else {
                     if (oldValue == null || !newValue.getClass().equals(oldValue.getClass())) {
                         this.getChildren().clear();
+                        nodes.stream().forEach((node -> {
+                            node.maxWidth(getWidth());
+                            node.maxHeight(getHeight());
+                        }));
                         this.getChildren().addAll(nodes);
                     }
                 }
@@ -59,4 +66,10 @@ public class ContentControl extends AnchorPane {
         return resources; 
     }
     
+    @Override
+    protected void layoutChildren() {
+        getChildren().stream().forEach((node) -> {
+            layoutInArea(node, 0, 0, getWidth(), getHeight(), 0, HPos.LEFT, VPos.TOP);
+        });
+    }
 }

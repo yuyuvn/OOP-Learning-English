@@ -9,16 +9,20 @@
 <?import javafx.scene.shape.*?>
 <?import englishlearning.controls.*?>
 
-<GridPane xmlns:fx="http://javafx.com/fxml/1">
+<GridPane xmlns:fx="http://javafx.com/fxml/1" >
     <columnConstraints>
-        <ColumnConstraints />
-        <ColumnConstraints />
+        <ColumnConstraints prefWidth="160" fx:id="firstColumn" />
+        <ColumnConstraints fillWidth="true" />
     </columnConstraints>
     <children>
-        <StackPane>
+        <StackPane fx:id="thumbnail" maxHeight="100" >
             <!-- TODO create loading image -->
-            <ImageView image="${controller.data.thumbnail}" styleClass="thumbnail-image" />
+            <ImageView image="${controller.data.thumbnail}" 
+                       styleClass="thumbnail-image"
+                       fitWidth="${firstColumn.prefWidth}" 
+                       preserveRatio="true"
+            />
         </StackPane>
-        <Label GridPane.columnIndex="1" text="${controller.data.article.title}" styleClass="articles-item-title" wrapText="true"/>
+        <Label GridPane.columnIndex="1" text="${controller.data.article.title}" styleClass="articles-item-title" wrapText="true" maxWidth="${controller.width - firstColumn.prefWidth}" maxHeight="${thumbnail.height}" />
     </children>
 </GridPane>

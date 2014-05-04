@@ -6,8 +6,9 @@
 
 package englishlearning.model.wrapper;
 
-import englishlearning.model.model.IUser;
 import englishlearning.model.UserInfo;
+import englishlearning.model.UserInfoBuilder;
+import englishlearning.model.model.IUser;
 
 /**
  *
@@ -19,18 +20,12 @@ public class UserWrapper<T extends UserInfo> extends Wrapper<T> implements IUser
         super(data);
     }
     
-    @Override
-    public String getWelcomeMessage() {
-        return "Welcome " + getRawData().name;
+    public UserWrapper() {
+        super((T) UserInfoBuilder.create().name("").build());
     }
-    
-    @Override
-    public String getNumberReadedMessage() {
-        return String.format("You have readed %s articles", getReadedArticles());
-    }
-    
-    public int getReadedArticles() {
-        return getRawData().readList.size();
+        
+    public Integer getReadedArticles() {
+        return getRawData().getReadList().size();
     }
 
     @Override

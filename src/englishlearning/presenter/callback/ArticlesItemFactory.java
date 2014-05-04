@@ -6,10 +6,13 @@
 
 package englishlearning.presenter.callback;
 
+import englishlearning.controls.ListViewEx;
 import englishlearning.model.model.IArticle;
 import englishlearning.presenter.ArticlesItem;
+import javafx.event.EventType;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
 /**
@@ -30,6 +33,13 @@ public class ArticlesItemFactory<V,C> implements Callback<ListView<?>,ListCell<?
                     ArticlesItem data = new ArticlesItem();
                     data.setData(article);
                     setGraphic(data);
+                    
+                    if (param instanceof ListViewEx) {
+                        ListViewEx listView = (ListViewEx) param;
+                        data.setOnMouseClicked(e -> {
+                            if (e.getClickCount() > 1) listView.setSelectedItem(article);
+                        });
+                    }
                 }
             }
         };
