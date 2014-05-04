@@ -15,14 +15,14 @@ import java.util.List;
  * @author Clicia
  */
 public class Parser {
-    List<String> exclude;
-
-    public Parser() {
-        exclude = new ArrayList<>(Arrays.asList("and", "an", "the", "be", "has", "was", "will",
+    private final static List<String> exclude = new ArrayList<>(Arrays.asList("and", "an", "the", "be", "has", "was", "will",
             "but", "a", "in", "from", "as", "on", "of", "for",
             "is", "at", "to", "out", "by", "voa", "us", "s",
             "not", "no", "yes", "it", "that", "had", "been",
             "off", "ap", "afp", "reuters", "he", "she", "it",
             "its", "are", "or", "go", "this", "we"));
+
+    public static String convert2link(String input) {
+        return input.split("%s").toString();
     }
 }

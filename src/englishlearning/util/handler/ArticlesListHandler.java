@@ -73,8 +73,8 @@ public class ArticlesListHandler extends DefaultHandler {
             if (qName.equalsIgnoreCase("title")) {
                 __articleBuilder.title(__buffer.toString());
             } else if (qName.equalsIgnoreCase("description")) {
-                String data = unescapeHtml3(__buffer.toString()).replaceAll("\\[.*?\\]", "").replace(String.valueOf((char) 160), " ").trim();
-                __articleBuilder.description(StringUtils.trim(StringUtils.join(data.split(" ", 101)," ", 0, 99)) + "...");
+                String data = unescapeHtml3(StringUtils.strip(__buffer.toString()).replaceAll("\\[.*?\\]", "").replace(String.valueOf((char) 160), "").trim()).replaceAll("(?m)^[ \\t]*\\r?\\n", "");
+                __articleBuilder.description(StringUtils.join(data.split(" ", 101)," ", 0, 99) + "...");
                 __articleBuilder.content(data);
             } else if (qName.equalsIgnoreCase("link")) {
                 __articleBuilder.link(__buffer.toString());
