@@ -47,7 +47,7 @@ public class DataInDisk {
     static <T> T getData(String dataPath) {
         try (FileInputStream fileIn = new FileInputStream(dataPath); ObjectInputStream in = new ObjectInputStream(fileIn)) {
             return (T) in.readObject();
-        } catch (FileNotFoundException ex) {            
+        } catch (FileNotFoundException ex) {
         } catch (IOException | ClassNotFoundException ex) {            
         }
         return null;
