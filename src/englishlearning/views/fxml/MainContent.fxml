@@ -37,7 +37,7 @@
         <ContentControl GridPane.columnIndex="1" data="${controller.data}">
             <resources>
                 <DataTemplate dataType="englishlearning.model.model.IArticle">
-                    <ReadArticle article="${controller.article}"/>
+                    <ReadArticle />
                 </DataTemplate>
                 <DataTemplate dataType="englishlearning.model.model.IUser">
                     <ArticlesList fx:id="articlesList" />

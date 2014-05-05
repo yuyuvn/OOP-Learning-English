@@ -16,6 +16,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
@@ -45,11 +46,8 @@ public class ContentControl extends Pane {
                     this.getChildren().add((Node) newValue);
                 } else {
                     if (oldValue == null || !newValue.getClass().equals(oldValue.getClass())) {
-                        nodes.stream().forEach(n -> {
-                            if (n instanceof DataReceivable) {
-                                DataReceivable dr = (DataReceivable)n;
-                                dr.setData(newValue);
-                            }
+                        nodes.forEach(n -> {
+                            setData(n,newValue);
                         });
                         addNodes(nodes);
                     }
@@ -85,6 +83,20 @@ public class ContentControl extends Pane {
             node.maxHeight(getHeight());
         }));
         this.getChildren().addAll(nodes);
+    }
+    
+    private void setData(Node node, Object value) {
+        if (node instanceof DataReceivable) {
+            DataReceivable dr = (DataReceivable)node;
+            dr.setData(value);
+        }
+        if (node instanceof Group) {
+            Group g = (Group)node;
+            g.getChildren().forEach(n -> setData(n, value));
+        } else if (node instanceof Pane) {
+            Pane p = (Pane)node;
+            p.getChildren().forEach(n -> setData(n, value));
+        }
     }
     
     @Override

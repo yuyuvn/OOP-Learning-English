@@ -8,7 +8,6 @@ package englishlearning.views.callback;
 
 import englishlearning.controls.ListViewEx;
 import englishlearning.model.model.IArticle;
-import englishlearning.model.property.WrapperProperty;
 import englishlearning.views.ArticlesItem;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;

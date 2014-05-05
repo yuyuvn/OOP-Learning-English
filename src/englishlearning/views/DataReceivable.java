@@ -6,13 +6,10 @@
 
 package englishlearning.views;
 
-import javafx.beans.property.ObjectProperty;
-
 /**
  *
  * @author Clicia
  */
 public interface DataReceivable {
     void setData(Object value);
-    ObjectProperty dataProperty();
 }

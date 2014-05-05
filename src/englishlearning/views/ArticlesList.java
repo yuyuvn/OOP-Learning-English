@@ -13,6 +13,7 @@ import englishlearning.model.property.ReadOnlyWrapperProperty;
 import java.util.Collection;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListProperty;
+import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.StringProperty;
@@ -71,16 +72,8 @@ public class ArticlesList extends Controller {
     }
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Property selected">
-    private BooleanProperty selected;
-
-    public final void fireSelected() {
-        BooleanProperty property = selectedProperty();
-        property.set(!property.get());
-    }
-
     public BooleanProperty selectedProperty() {
-        if (selected == null) selected = new SimpleBooleanProperty(this, "selected", false);
-        return selected;
+        return listView.selectedProperty();
     }
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Property filterText">
@@ -93,9 +86,9 @@ public class ArticlesList extends Controller {
     
     public ArticlesList() {
         _selectedArticleProperty().bind(listView.getSelectionModel().selectedItemProperty());
-        listView.selectedProperty().addListener((e) -> {
-            fireSelected();
-        });
+        /*listView.selectedProperty().addListener((e) -> {
+        fireSelected();
+        });*/
     }
     
     public void clearSelection() {

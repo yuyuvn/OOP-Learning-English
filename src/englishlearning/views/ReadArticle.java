@@ -9,6 +9,7 @@ package englishlearning.views;
 import englishlearning.model.model.IArticle;
 import englishlearning.model.property.WrapperProperty;
 import englishlearning.model.wrapper.ArticleWrapper;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.ReadOnlyStringWrapper;
 
@@ -16,7 +17,7 @@ import javafx.beans.property.ReadOnlyStringWrapper;
  *
  * @author Clicia
  */
-public class ReadArticle extends Controller {
+public class ReadArticle extends Controller implements DataReceivable {
     //<editor-fold defaultstate="collapsed" desc="Property selectedText">
     private ReadOnlyStringWrapper selectedText;
     
@@ -49,4 +50,9 @@ public class ReadArticle extends Controller {
         return article;
     }
 //</editor-fold>
+
+    @Override
+    public void setData(Object value) {
+        setArticle((IArticle)value);
+    }
 }
