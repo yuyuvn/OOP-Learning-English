@@ -10,6 +10,8 @@ import englishlearning.model.UserInfo;
 import englishlearning.model.UserInfoBuilder;
 import englishlearning.model.UsersList;
 import java.io.*;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,9 +23,9 @@ public class DataInDisk {
     private final static String PATH_USERSLIST = "data/users.bin";
     private final static String PATH_USER = "data/i%s.bin";
         
-    public static UsersList getUsersList() {
-        UsersList userList = getData(getRelativePath(PATH_USERSLIST));
-        return userList != null ? userList : new UsersList();
+    public static UsersList<String> getUsersList() {
+        UsersList<String> userList = getData(getRelativePath(PATH_USERSLIST));
+        return userList != null ? userList : new UsersList<>();
     }
     
     public static void saveUsersList(UsersList data) {
@@ -53,7 +55,7 @@ public class DataInDisk {
         return null;
     }
     
-    static <T> void saveData(T data, String dataPath) {
+    static <T extends Serializable> void saveData(T data, String dataPath) {
         createIfNotExists(dataPath);
         
         try (FileOutputStream fileOut = new FileOutputStream(dataPath); ObjectOutputStream out = new ObjectOutputStream(fileOut)) {

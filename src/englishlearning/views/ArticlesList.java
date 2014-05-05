@@ -4,12 +4,13 @@
  * and open the template in the editor.
  */
 
-package englishlearning.presenter;
+package englishlearning.views;
 
+import englishlearning.views.Controller;
 import englishlearning.controls.ListViewEx;
 import englishlearning.model.model.IArticle;
 import englishlearning.model.wrapper.ArticleWrapper;
-import englishlearning.model.wrapper.WrapperProperty;
+import englishlearning.model.property.WrapperProperty;
 import englishlearning.util.DataInNet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -19,13 +20,9 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleListProperty;
-import javafx.beans.value.ObservableBooleanValue;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import org.controlsfx.control.textfield.CustomTextField;
 

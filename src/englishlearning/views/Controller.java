@@ -4,14 +4,16 @@
  * and open the template in the editor.
  */
 
-package englishlearning.presenter;
+package englishlearning.views;
 
 import java.io.IOException;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.logging.*;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;

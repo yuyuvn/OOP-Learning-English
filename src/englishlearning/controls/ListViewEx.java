@@ -6,7 +6,7 @@
 
 package englishlearning.controls;
 
-import englishlearning.model.wrapper.WrapperProperty;
+import englishlearning.model.property.WrapperProperty;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;

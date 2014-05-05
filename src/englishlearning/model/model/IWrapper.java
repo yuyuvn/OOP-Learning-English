@@ -6,7 +6,7 @@
 
 package englishlearning.model.model;
 
-import englishlearning.model.wrapper.WrapperProperty;
+import englishlearning.model.property.WrapperProperty;
 
 /**
  *

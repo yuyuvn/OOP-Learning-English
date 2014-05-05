@@ -4,18 +4,18 @@
  * and open the template in the editor.
  */
 
-package englishlearning.presenter;
+package englishlearning.views;
 
-import englishlearning.model.UsersList;
-import englishlearning.util.DataInDisk;
+import java.util.Collection;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.ReadOnlyBooleanProperty;
+import javafx.beans.property.ReadOnlyBooleanWrapper;
+import javafx.beans.property.SetProperty;
+import javafx.beans.property.SimpleSetProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -29,16 +29,22 @@ import org.controlsfx.control.textfield.TextFields;
  */
 public class Login extends Controller {
     @FXML TextField usernameTextField;
-    
+        
     //<editor-fold defaultstate="collapsed" desc="Property isLoged">
-    private BooleanProperty isLoged;
-    public final Boolean getIsLoged() { return isLogedProperty().get(); }
-    public final void setIsLoged(Boolean value) { isLogedProperty().set(value); }
-    public final BooleanProperty isLogedProperty() { 
-        if (isLoged == null) {
-            isLoged = new SimpleBooleanProperty(this, "isLoged", false);
-        }
-        return isLoged; 
+    private ReadOnlyBooleanWrapper loged;
+
+    private void setLoged(boolean value) {
+        logedProperty();
+        loged.set(value);
+    }
+    
+    public final boolean isLoged() {
+        return logedProperty().get();
+    }
+
+    public final ReadOnlyBooleanProperty logedProperty() {
+        if (loged==null) loged = new ReadOnlyBooleanWrapper(this, "isLoged", false);
+        return loged;
     }
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Property username">
@@ -53,31 +59,38 @@ public class Login extends Controller {
     }
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Property users">
-    private final ObjectProperty<UsersList> users = new SimpleObjectProperty<>(this, "users");
-    public final UsersList getUsers() { return users.get(); }
-    public final void setUsers(UsersList value) { users.set(value); }
-    public final ObjectProperty<UsersList> usersProperty() { return users; }
+    private SetProperty<String> users;
+
+    public final ObservableSet<String> getUsers() {
+        return usersProperty().get();
+    }
+
+    public final void setUsers(ObservableSet value) {
+        usersProperty().set(value);
+    }
+
+    public final SetProperty<String> usersProperty() {
+        if (users == null) users = new SimpleSetProperty<>(this, "users", FXCollections.observableSet());
+        return users;
+    }
+    
 //</editor-fold>
         
     public Login() {        
         Bindings.bindBidirectional(
                 usernameProperty(),
                 usernameTextField.textProperty());
-        
-        setUsers(DataInDisk.getUsersList());
-        TextFields.bindAutoCompletion(usernameTextField, getUsers());
-        
-        isLogedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            getUsers().add(getUsername());
-            DataInDisk.saveUsersList(getUsers());
-        });
     }
     
     @FXML private void onLogin(ActionEvent event) {
-        if (!getUsername().equals("")) setIsLoged(true);
+        if (!getUsername().equals("")) setLoged(true);
     }
     
     @FXML private void onKeyPressed(KeyEvent keyEvent) {
-        if (keyEvent.getCode() == KeyCode.ENTER && !getUsername().equals("")) setIsLoged(true);
+        if (keyEvent.getCode() == KeyCode.ENTER && !getUsername().equals("")) setLoged(true);
+    }
+    
+    public void setAutoCompletion(Collection<?> dataProvider) {
+        TextFields.bindAutoCompletion(usernameTextField, dataProvider);
     }
 }

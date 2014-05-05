@@ -32,6 +32,7 @@ public class ContentControl extends Pane {
             data.addListener((ObservableValue observable, Object oldValue, Object newValue) -> {
                 if (newValue == null) {
                     this.getChildren().clear();
+                    addNodes(getDefResources());
                     return;
                 }
                 Collection<Node> nodes = getResources().stream()
@@ -43,12 +44,7 @@ public class ContentControl extends Pane {
                     this.getChildren().add((Node) newValue);
                 } else {
                     if (oldValue == null || !newValue.getClass().equals(oldValue.getClass())) {
-                        this.getChildren().clear();
-                        nodes.stream().forEach((node -> {
-                            node.maxWidth(getWidth());
-                            node.maxHeight(getHeight());
-                        }));
-                        this.getChildren().addAll(nodes);
+                        addNodes(nodes);
                     }
                 }
             });
@@ -64,6 +60,24 @@ public class ContentControl extends Pane {
     public final ObjectProperty<List<DataTemplate>> resourcesProperty() { 
         if (resources == null) resources = new SimpleObjectProperty<>(this, "resources", new ArrayList<>());
         return resources; 
+    }
+            
+    private ObjectProperty<List<Node>> defResources;
+    public final List<Node> getDefResources() { return defResourcesProperty().get(); }
+    public final void addDefResources(Node value) { getDefResources().add(value); }
+    public final void clearDefResources(Node value) { getDefResources().clear(); }
+    public final ObjectProperty<List<Node>> defResourcesProperty() { 
+        if (defResources == null) defResources = new SimpleObjectProperty<>(this, "defResources", new ArrayList<>());
+        return defResources; 
+    }
+    
+    private void addNodes(Collection<Node> nodes) {
+        this.getChildren().clear();
+        nodes.stream().forEach((node -> {
+            node.maxWidth(getWidth());
+            node.maxHeight(getHeight());
+        }));
+        this.getChildren().addAll(nodes);
     }
     
     @Override

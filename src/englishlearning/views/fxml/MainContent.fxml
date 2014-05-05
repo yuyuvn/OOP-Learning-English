@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import englishlearning.controls.*?>
-<?import englishlearning.presenter.*?>
+<?import englishlearning.views.*?>
 <?import javafx.geometry.Insets?>
 
 <GridPane AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" xmlns:fx="http://javafx.com/fxml/1">

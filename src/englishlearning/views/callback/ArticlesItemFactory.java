@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 
-package englishlearning.presenter.callback;
+package englishlearning.views.callback;
 
 import englishlearning.controls.ListViewEx;
 import englishlearning.model.model.IArticle;
-import englishlearning.model.wrapper.WrapperProperty;
-import englishlearning.presenter.ArticlesItem;
+import englishlearning.model.property.WrapperProperty;
+import englishlearning.views.ArticlesItem;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;

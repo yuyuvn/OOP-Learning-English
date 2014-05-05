@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-package englishlearning.presenter;
+package englishlearning.views;
 
+import englishlearning.presenter.Presenter;
 import insidefx.undecorator.Undecorator;
 import insidefx.undecorator.UndecoratorScene;
 import javafx.beans.property.ObjectProperty;
@@ -44,10 +45,16 @@ public class Window extends Controller {
 //</editor-fold>
     
     private final Stage stage;
+    private Presenter presenter; // Only for garbage collector
     
     public Window(Stage stage) {
         super();
         this.stage = stage;
+    }
+    
+    public Window(Stage stage, Presenter presenter) {
+        this(stage);
+        setPresenter(presenter);
     }
     
     public void showWindow() {
@@ -67,5 +74,10 @@ public class Window extends Controller {
     
     public void closeWindow() {
         stage.close();
+    }
+    
+    private void setPresenter(Presenter presenter) {
+        this.presenter = presenter;
+        presenter.setView(this);
     }
 }

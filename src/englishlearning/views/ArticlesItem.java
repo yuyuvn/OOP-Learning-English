@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-package englishlearning.presenter;
+package englishlearning.views;
 
 import englishlearning.model.model.IArticle;
-import englishlearning.model.wrapper.WrapperProperty;
+import englishlearning.model.property.WrapperProperty;
 
 /**
  *

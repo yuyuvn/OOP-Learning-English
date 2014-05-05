@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package englishlearning.model.wrapper;
+package englishlearning.model.property;
 
 import englishlearning.model.model.IWrapper;
 
@@ -14,7 +14,7 @@ import englishlearning.model.model.IWrapper;
  * @author Clicia
  * @param <T>
  */
-public class WrapperProperty<T extends IWrapper> extends javafx.beans.property.SimpleObjectProperty<T> {
+public class WrapperProperty<T extends IWrapper> extends javafx.beans.property.SimpleObjectProperty<T> implements ReadOnlyWrapperProperty<T> {
 
     public WrapperProperty() {
     }

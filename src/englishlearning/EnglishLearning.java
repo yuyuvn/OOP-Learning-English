@@ -6,8 +6,9 @@
 
 package englishlearning;
 
-import englishlearning.presenter.Window;
-import englishlearning.presenter.LoginWindow;
+import englishlearning.presenter.LoginPresenter;
+import englishlearning.views.Controller;
+import englishlearning.views.LoginWindow;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -16,10 +17,10 @@ import javafx.stage.Stage;
  *
  * @author Clicia
  */
-public class EnglishLearning extends Application {    
+public class EnglishLearning extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        Window loginWindow = new LoginWindow(stage);
+        Controller loginView =  new LoginWindow(stage, new LoginPresenter());
     }
 
     /**

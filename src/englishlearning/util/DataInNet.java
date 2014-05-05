@@ -52,7 +52,6 @@ public class DataInNet {
     public static Articles<Article> getListArticle() throws MalformedURLException {
         Articles<Article> value;
         value = DataInDisk.getData(DataInDisk.getRelativePath("data/debug/cacheAL.bin"));
-        System.out.println(value);
         if (value == null) {
             value = getListArticle(URL_RSS);
             DataInDisk.saveData(value, DataInDisk.getRelativePath("data/debug/cacheAL.bin"));

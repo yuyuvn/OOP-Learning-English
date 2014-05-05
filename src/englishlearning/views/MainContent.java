@@ -4,17 +4,18 @@
  * and open the template in the editor.
  */
 
-package englishlearning.presenter;
+package englishlearning.views;
 
 import englishlearning.model.model.IArticle;
 import englishlearning.model.model.IUser;
+import englishlearning.model.property.WrapperProperty;
 import englishlearning.model.wrapper.UserWrapper;
-import englishlearning.model.wrapper.WrapperProperty;
-import java.util.Map;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
 /**
@@ -22,8 +23,9 @@ import javafx.fxml.FXML;
  * @author Clicia
  */
 public class MainContent extends Controller {
-    @FXML private ArticlesList articlesList;
-            
+    @FXML ArticlesList articlesList;
+    public ArticlesList getArticlesList() {return articlesList;}
+    
     //<editor-fold defaultstate="collapsed" desc="Property User">
     private WrapperProperty<IUser> user;
     public final IUser getUser() { return userProperty().get(); }
@@ -50,22 +52,12 @@ public class MainContent extends Controller {
     }
 //</editor-fold>
     
-    
-    public MainContent() {
-        setData(getUser());
-        articlesList.selectedProperty().addListener(e -> {
-            IArticle article = articlesList.getSelectedArticle();
-            if (article != null) {
-                getUser().getUser().getReadList().putIfAbsent(article.getArticle().getGuid(), 0.0);
-                setData(article);
-                // Don't know need to fire 2 times? bug some where or java sync like shit?
-                getUser().getProperty().fireValueChangedEvent();
-                getUser().getProperty().fireValueChangedEvent();
-            }
-        });
+    @FXML
+    private EventHandler onReturn;
+    public void setOnReturn(EventHandler eventHandler) {
+        onReturn = eventHandler;
     }
     
-    @FXML
     public void onReturn(ActionEvent event) {
         setData(getUser());
     }
