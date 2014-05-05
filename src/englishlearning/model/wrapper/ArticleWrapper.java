@@ -9,6 +9,7 @@ package englishlearning.model.wrapper;
 import englishlearning.model.Article;
 import englishlearning.model.ArticleBuilder;
 import englishlearning.model.model.IArticle;
+import englishlearning.util.Parser;
 import javafx.scene.image.Image;
 
 /**
@@ -39,5 +40,10 @@ public class ArticleWrapper<T extends Article> extends Wrapper<T> implements IAr
         }
         
         return __thumb;
+    }
+
+    @Override
+    public String getParsedContent() {
+        return Parser.convert2link(getRawData().getContent());
     }
 }

@@ -25,7 +25,7 @@ public class Parser {
     private static String __buffer;
     public static String convert2link(String input) {
         __buffer = input.replaceAll("[a-zA-Z][a-zA-Z]+", "[$0]");
-        exclude.stream().forEach(s -> __buffer = __buffer.replace("[" + s + "]", s));
+        exclude.stream().forEach(s -> __buffer = __buffer.replaceAll("(?i)\\[" + s + "\\]", s));
         return __buffer;
     }
 }

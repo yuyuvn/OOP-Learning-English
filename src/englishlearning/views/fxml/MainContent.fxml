@@ -8,6 +8,7 @@
 <?import englishlearning.controls.*?>
 <?import englishlearning.views.*?>
 <?import javafx.geometry.Insets?>
+<?import org.controlsfx.control.*?>
 
 <GridPane AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
@@ -38,7 +39,19 @@
         <ContentControl GridPane.columnIndex="1" data="${controller.data}">
             <resources>
                 <DataTemplate dataType="englishlearning.model.model.IArticle">
-                    <Label text="${controller.data.article.title}" alignment="TOP_CENTER" /> 
+                    <GridPane>
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" />
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints vgrow="NEVER" />
+                            <RowConstraints vgrow="SOMETIMES" fillHeight="true" />
+                        </rowConstraints>
+                        <Label text="${controller.data.article.title}" alignment="TOP_CENTER" /> 
+                        <ScrollPane hbarPolicy="NEVER" GridPane.rowIndex="1">
+                            <HyperlinkLabel fx:id="content" text="${controller.data.parsedContent}"/>
+                        </ScrollPane>  
+                    </GridPane>
                 </DataTemplate>
                 <DataTemplate dataType="englishlearning.model.model.IUser">
                     <ArticlesList fx:id="articlesList" />

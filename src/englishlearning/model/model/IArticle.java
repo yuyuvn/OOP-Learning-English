@@ -13,4 +13,5 @@ public interface IArticle extends IWrapper {
     Article getArticle();
     
     Image getThumbnail();
+    String getParsedContent();
 }
