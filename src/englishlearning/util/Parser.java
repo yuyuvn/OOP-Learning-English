@@ -20,9 +20,12 @@ public class Parser {
             "is", "at", "to", "out", "by", "voa", "us", "s",
             "not", "no", "yes", "it", "that", "had", "been",
             "off", "ap", "afp", "reuters", "he", "she", "it",
-            "its", "are", "or", "go", "this", "we"));
+            "its", "are", "or", "go", "this", "we", "am", "me"));
 
+    private static String __buffer;
     public static String convert2link(String input) {
-        return input.split("%s").toString();
+        __buffer = input.replaceAll("[a-zA-Z][a-zA-Z]+", "[$0]");
+        exclude.stream().forEach(s -> __buffer = __buffer.replace("[" + s + "]", s));
+        return __buffer;
     }
 }
