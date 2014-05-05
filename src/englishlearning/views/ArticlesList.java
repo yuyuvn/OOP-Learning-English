@@ -10,7 +10,6 @@ import englishlearning.controls.ListViewEx;
 import englishlearning.model.model.IArticle;
 import englishlearning.model.property.ReadOnlyWrapper;
 import englishlearning.model.property.ReadOnlyWrapperProperty;
-import englishlearning.model.property.WrapperProperty;
 import java.util.Collection;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListProperty;

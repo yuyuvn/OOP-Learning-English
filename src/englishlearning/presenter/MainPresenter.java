@@ -59,7 +59,7 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
             IArticle article = articlesList.getSelectedArticle();
             if (article != null) {
                 getUser().getUser().getReadList().putIfAbsent(article.getArticle().getGuid(), 0.0);
-                mainContent.setData(article);
+                mainContent.setArticle(article);
                 // Don't know why need to fire 2 times.
                 // bug some where or java sync like shit?
                 getUser().getProperty().fireValueChangedEvent();

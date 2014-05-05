@@ -6,6 +6,7 @@
 
 package englishlearning.controls;
 
+import englishlearning.views.DataReceivable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -44,6 +45,12 @@ public class ContentControl extends Pane {
                     this.getChildren().add((Node) newValue);
                 } else {
                     if (oldValue == null || !newValue.getClass().equals(oldValue.getClass())) {
+                        nodes.stream().forEach(n -> {
+                            if (n instanceof DataReceivable) {
+                                DataReceivable dr = (DataReceivable)n;
+                                dr.setData(newValue);
+                            }
+                        });
                         addNodes(nodes);
                     }
                 }

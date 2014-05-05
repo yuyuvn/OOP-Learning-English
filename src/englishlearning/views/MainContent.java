@@ -6,8 +6,10 @@
 
 package englishlearning.views;
 
+import englishlearning.model.model.IArticle;
 import englishlearning.model.model.IUser;
 import englishlearning.model.property.WrapperProperty;
+import englishlearning.model.wrapper.ArticleWrapper;
 import englishlearning.model.wrapper.UserWrapper;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -22,6 +24,8 @@ import javafx.fxml.FXML;
 public class MainContent extends Controller {
     @FXML ArticlesList articlesList;
     public ArticlesList getArticlesList() {return articlesList;}
+    @FXML ReadArticle readArticle;
+    public ReadArticle getReadArticle() {return readArticle;}
     
     //<editor-fold defaultstate="collapsed" desc="Property User">
     private WrapperProperty<IUser> user;
@@ -46,6 +50,23 @@ public class MainContent extends Controller {
     public final ObjectProperty dataProperty() {
         if (data == null) data = new SimpleObjectProperty(this, "data");
         return data;
+    }
+//</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Property article">
+    private WrapperProperty<IArticle> article;
+    
+    public final IArticle getArticle() {
+        return articleProperty().get();
+    }
+    
+    public void setArticle(IArticle value) {
+        setData(value);
+        articleProperty().set(value);
+    }
+    
+    public WrapperProperty<IArticle> articleProperty() {
+        if (article == null) article = new WrapperProperty<>(this, "article", new ArticleWrapper());
+        return article;
     }
 //</editor-fold>
     

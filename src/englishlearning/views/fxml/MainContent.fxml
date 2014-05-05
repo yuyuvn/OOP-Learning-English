@@ -8,13 +8,11 @@
 <?import englishlearning.controls.*?>
 <?import englishlearning.views.*?>
 <?import javafx.geometry.Insets?>
-<?import org.controlsfx.control.*?>
 
 <GridPane AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints hgrow="NEVER" minWidth="200"/>
-        <ColumnConstraints hgrow="SOMETIMES" percentWidth="40" />
-        <ColumnConstraints hgrow="SOMETIMES" fillWidth="true"  />
+        <ColumnConstraints hgrow="SOMETIMES" fillWidth="true" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints vgrow="SOMETIMES" />
@@ -39,39 +37,10 @@
         <ContentControl GridPane.columnIndex="1" data="${controller.data}">
             <resources>
                 <DataTemplate dataType="englishlearning.model.model.IArticle">
-                    <GridPane>
-                        <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" />
-                        </columnConstraints>
-                        <rowConstraints>
-                            <RowConstraints vgrow="NEVER" />
-                            <RowConstraints vgrow="SOMETIMES" fillHeight="true" />
-                        </rowConstraints>
-                        <Label text="${controller.data.article.title}" alignment="TOP_CENTER" /> 
-                        <ScrollPane hbarPolicy="NEVER" GridPane.rowIndex="1">
-                            <HyperlinkLabel fx:id="content" text="${controller.data.parsedContent}"/>
-                        </ScrollPane>  
-                    </GridPane>
+                    <ReadArticle article="${controller.article}"/>
                 </DataTemplate>
                 <DataTemplate dataType="englishlearning.model.model.IUser">
                     <ArticlesList fx:id="articlesList" />
-                </DataTemplate>
-            </resources>
-        </ContentControl>
-        
-        <ContentControl GridPane.columnIndex="2" data="${controller.data}">
-            <GridPane.margin>
-                <Insets bottom="5" left="25" right="5" top="5" />
-            </GridPane.margin>
-            <resources>
-                <DataTemplate dataType="englishlearning.model.model.IUser">
-                    <ContentControl data="${articlesList.selectedArticle}">
-                        <resources>
-                            <DataTemplate dataType="englishlearning.model.model.IArticle">
-                                <TextArea text="${articlesList.selectedArticle.article.description}" wrapText="true" />
-                            </DataTemplate>
-                        </resources>
-                    </ContentControl>
                 </DataTemplate>
             </resources>
         </ContentControl>
