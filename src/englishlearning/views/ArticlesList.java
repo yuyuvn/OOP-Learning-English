@@ -8,6 +8,8 @@ package englishlearning.views;
 
 import englishlearning.controls.ListViewEx;
 import englishlearning.model.model.IArticle;
+import englishlearning.model.property.ReadOnlyWrapper;
+import englishlearning.model.property.ReadOnlyWrapperProperty;
 import englishlearning.model.property.WrapperProperty;
 import java.util.Collection;
 import javafx.beans.property.BooleanProperty;
@@ -48,23 +50,27 @@ public class ArticlesList extends Controller {
     }
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Property selectedArticle">
-    private WrapperProperty<IArticle> selectedArticle;
+    private ReadOnlyWrapper<IArticle> selectedArticle;
     
     public final IArticle getSelectedArticle() {
         return selectedArticleProperty().get();
     }
     
     private void setSelectedArticle(IArticle value) {
-        selectedArticleProperty().set(value);
+        _selectedArticleProperty().set(value);
     }
     
-    public final WrapperProperty<IArticle> selectedArticleProperty() {
+    public final ReadOnlyWrapperProperty<IArticle> selectedArticleProperty() {
+        return _selectedArticleProperty();
+    }
+    
+    private ReadOnlyWrapper<IArticle> _selectedArticleProperty() {
         if (selectedArticle == null) {            
-            selectedArticle = new WrapperProperty<>(this, "selectedArticle");
+            selectedArticle = new ReadOnlyWrapper<>(this, "selectedArticle");
         }
         return selectedArticle;
     }
-//</editor-fold>    
+//</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Property selected">
     private BooleanProperty selected;
 
@@ -87,7 +93,7 @@ public class ArticlesList extends Controller {
     
     
     public ArticlesList() {
-        selectedArticleProperty().bind(listView.getSelectionModel().selectedItemProperty());
+        _selectedArticleProperty().bind(listView.getSelectionModel().selectedItemProperty());
         listView.selectedProperty().addListener((e) -> {
             fireSelected();
         });

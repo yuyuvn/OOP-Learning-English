@@ -7,7 +7,7 @@
 package englishlearning.model.property;
 
 import com.sun.javafx.binding.ExpressionHelper;
-import englishlearning.model.wrapper.Wrapper;
+import englishlearning.model.model.IWrapper;
 import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
 
@@ -16,7 +16,7 @@ import javafx.beans.value.ChangeListener;
  * @author Clicia
  * @param <T>
  */
-public class ReadOnlyWrapper<T extends Wrapper> extends WrapperProperty<T> {
+public class ReadOnlyWrapper<T extends IWrapper> extends WrapperProperty<T> {
 
     private ReadOnlyPropertyImpl readOnlyProperty;
     

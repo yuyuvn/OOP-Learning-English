@@ -6,13 +6,10 @@
 
 package englishlearning.views;
 
-import englishlearning.model.model.IArticle;
 import englishlearning.model.model.IUser;
 import englishlearning.model.property.WrapperProperty;
 import englishlearning.model.wrapper.UserWrapper;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -29,7 +26,7 @@ public class MainContent extends Controller {
     //<editor-fold defaultstate="collapsed" desc="Property User">
     private WrapperProperty<IUser> user;
     public final IUser getUser() { return userProperty().get(); }
-    protected final void setUser(IUser value) { userProperty().set(value); }
+    public final void setUser(IUser value) { userProperty().set(value); }
     public final WrapperProperty<IUser> userProperty() { 
         if (user == null) user = new WrapperProperty(this, "user", new UserWrapper());
         return user; 
