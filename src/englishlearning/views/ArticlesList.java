@@ -6,23 +6,17 @@
 
 package englishlearning.views;
 
-import englishlearning.views.Controller;
 import englishlearning.controls.ListViewEx;
 import englishlearning.model.model.IArticle;
-import englishlearning.model.wrapper.ArticleWrapper;
 import englishlearning.model.property.WrapperProperty;
-import englishlearning.util.DataInNet;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Collection;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import org.controlsfx.control.textfield.CustomTextField;
 
@@ -30,21 +24,25 @@ import org.controlsfx.control.textfield.CustomTextField;
  *
  * @author Clicia
  */
-public class ArticlesList extends Controller {   
-    @FXML private CustomTextField searchField;
+public class ArticlesList extends Controller {
+    
     @FXML public ListViewEx listView;
     //<editor-fold defaultstate="collapsed" desc="Property articles">
     private ListProperty<IArticle> articles;
     
-    public ObservableList<IArticle> getArticles() {
+    public final ObservableList<IArticle> getArticles() {
         return articlesProperty().get();
     }
     
-    private void setArticles(ObservableList<IArticle> value) {
+    public final void setArticles(ObservableList<IArticle> value) {
         articlesProperty().set(value);
     }
     
-    public ListProperty<IArticle> articlesProperty() {
+    public final void setArticles(Collection<IArticle> value) {
+        setArticles(FXCollections.observableArrayList(value));
+    }
+    
+    public final ListProperty<IArticle> articlesProperty() {
         if (articles == null) articles = new SimpleListProperty<>(this, "articles");
         return articles;
     }
@@ -52,7 +50,7 @@ public class ArticlesList extends Controller {
     //<editor-fold defaultstate="collapsed" desc="Property selectedArticle">
     private WrapperProperty<IArticle> selectedArticle;
     
-    public IArticle getSelectedArticle() {
+    public final IArticle getSelectedArticle() {
         return selectedArticleProperty().get();
     }
     
@@ -80,31 +78,19 @@ public class ArticlesList extends Controller {
         return selected;
     }
 //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Property filterText">
+    @FXML private CustomTextField searchField;
+    public String getFilterText() { return filterTextProperty().get(); }
+    public void setFilterText(String value) { filterTextProperty().set(value); }
+    public StringProperty filterTextProperty() { return searchField.textProperty(); }
+//</editor-fold>
+    
     
     public ArticlesList() {
-        getData();
         selectedArticleProperty().bind(listView.getSelectionModel().selectedItemProperty());
         listView.selectedProperty().addListener((e) -> {
             fireSelected();
         });
-    }
-    
-    private void getData() {
-        ExecutorService executor = Executors.newCachedThreadPool();
-        Task<ObservableList<IArticle>> task = new Task<ObservableList<IArticle>>() {
-            @Override
-            protected ObservableList<IArticle> call() throws Exception {
-                return FXCollections.observableArrayList(DataInNet.getListArticle().stream()
-                    .flatMap(a -> Stream.of(new ArticleWrapper(a)))
-                    .collect(Collectors.toList()));
-            }            
-        };
-        
-        task.valueProperty().addListener(t -> {
-            setArticles(task.getValue());
-        });
-        
-        executor.submit(task);
     }
     
     public void clearSelection() {

@@ -7,12 +7,10 @@
 package englishlearning.views;
 
 import java.util.Collection;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyBooleanWrapper;
 import javafx.beans.property.SetProperty;
 import javafx.beans.property.SimpleSetProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
@@ -48,15 +46,9 @@ public class Login extends Controller {
     }
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Property username">
-    private StringProperty username;
     public final String getUsername() { return usernameProperty().get(); }
     public final void setUsername(String value) { usernameProperty().set(value); }
-    public final StringProperty usernameProperty() {
-        if (username == null) {
-            username = new SimpleStringProperty(this, "username", "");
-        }
-        return username; 
-    }
+    public final StringProperty usernameProperty() { return usernameTextField.textProperty(); }
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Property users">
     private SetProperty<String> users;
@@ -75,12 +67,6 @@ public class Login extends Controller {
     }
     
 //</editor-fold>
-        
-    public Login() {        
-        Bindings.bindBidirectional(
-                usernameProperty(),
-                usernameTextField.textProperty());
-    }
     
     @FXML private void onLogin(ActionEvent event) {
         if (!getUsername().equals("")) setLoged(true);

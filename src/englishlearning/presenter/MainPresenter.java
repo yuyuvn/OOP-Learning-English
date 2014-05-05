@@ -9,12 +9,19 @@ package englishlearning.presenter;
 import englishlearning.model.model.IArticle;
 import englishlearning.model.model.IUser;
 import englishlearning.model.property.WrapperProperty;
+import englishlearning.model.wrapper.ArticleWrapper;
 import englishlearning.model.wrapper.UserWrapper;
+import englishlearning.util.DataInNet;
 import englishlearning.views.ArticlesList;
 import englishlearning.views.MainContent;
 import englishlearning.views.MainWindow;
-import javafx.beans.value.ChangeListener;
+import java.util.Collection;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 
 /**
  *
@@ -42,6 +49,7 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
     
     @Override
     protected void initialize() {
+        setArticlesListData();
         getView().userProperty().bindBidirectional(userProperty());
         MainContent mainContent = getView().getMainContent();
         ArticlesList articlesList = mainContent.getArticlesList();
@@ -70,4 +78,22 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         userProperty().fireValueChangedEvent();
     }
     
+    private void setArticlesListData() {
+        ExecutorService executor = Executors.newCachedThreadPool();
+        Task<Collection<IArticle>> task = new Task<Collection<IArticle>>() {
+            @Override
+            protected Collection<IArticle> call() throws Exception {
+                return DataInNet.getListArticle().stream()
+                    .flatMap(a -> Stream.of(new ArticleWrapper(a)))
+                    .collect(Collectors.toList());
+            }
+        };
+        
+        task.valueProperty().addListener(t -> {
+            getView().getMainContent().getArticlesList().setArticles(task.getValue());
+            executor.shutdown();
+        });
+        
+        executor.submit(task);
+    }
 }
