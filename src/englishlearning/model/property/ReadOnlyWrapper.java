@@ -121,6 +121,7 @@ public class ReadOnlyWrapper<T extends IWrapper> extends WrapperProperty<T> {
             helper = ExpressionHelper.removeListener(helper, listener);
         }
         
+        @Override
         public void fireValueChangedEvent() {
             try {
                 getValue().setChanged(true);
