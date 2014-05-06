@@ -8,30 +8,8 @@
 <?import englishlearning.controls.*?>
 <?import englishlearning.views.*?>
 <?import javafx.geometry.Insets?>
-<?import org.controlsfx.control.PopOver?>
 
 <GridPane xmlns:fx="http://javafx.com/fxml/1">
-    <fx:define>
-        <PopOver fx:id="popOver" 
-                 arrowIndent="0.0" 
-                 arrowSize="0.0" 
-                 cornerRadius="0.0" 
-                 arrowLocation="LEFT_BOTTOM" 
-                 detachable="false" 
-        >
-            <contentNode>
-                <GridPane xmlns:fx="http://javafx.com/fxml/1">
-                    <padding><Insets bottom="8" left="8" right="8" top="4" /></padding>
-                    <rowConstraints>
-                        <RowConstraints vgrow="NEVER" />
-                        <RowConstraints vgrow="NEVER" />
-                    </rowConstraints>
-                    <Label text="${controller.selectedText}" />
-                    <Label text="${controller.wordMean}" />
-                </GridPane>
-            </contentNode>
-        </PopOver>
-    </fx:define>
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" />
     </columnConstraints>

@@ -4,53 +4,46 @@
  * and open the template in the editor.
  */
 
-package englishlearning.model.wrapper;
+package englishlearning.util;
 
 import englishlearning.model.Dictionary;
 import englishlearning.model.Word;
 import englishlearning.model.WordBuilder;
-import englishlearning.model.model.IDictionary;
 
 /**
  *
  * @author Clicia
  */
-public class DictionaryWrapper extends Wrapper implements IDictionary {
-
-    public DictionaryWrapper(Object data) {
-        super(data);
+public class Lookup {
+    private static Dictionary<String,String> __dictionary;
+    
+    public static Dictionary<String,String> getDictionary() {
+        // TODO: if __dictionary == null then read from disk
+        if (__dictionary == null) __dictionary = new Dictionary<>();
+        return __dictionary;
     }
-
-    @Override
-    public Dictionary<String,String> getDictionary() {
-        return (Dictionary<String,String>)getRawData();
-    }
-
-    @Override
-    public String get(String word) {
+    
+    public static String get(String word) {
         return getDictionary().get(word);
     }
 
-    @Override
-    public void add(String word, String mean) {
+    public static void add(String word, String mean) {
         getDictionary().put(word, mean);
+        // TODO: save to disk
     }
 
-    @Override
-    public String get(Word word) {
+    public static String get(Word word) {
         String mean = get(word.getWord());
         if (mean != null) word.setMean(mean);
         else mean = word.getMean();
         return mean;
     }
 
-    @Override
-    public void add(Word word) {
+    public static void add(Word word) {
         add(word.getWord(),word.getMean());
     }
 
-    @Override
-    public Word getWord(String word) {
+    public static Word getWord(String word) {
         String mean = get(word);
         return WordBuilder.create().word(word).mean(mean == null ? "" : mean).build();
     }

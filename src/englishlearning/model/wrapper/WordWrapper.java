@@ -7,6 +7,7 @@
 package englishlearning.model.wrapper;
 
 import englishlearning.model.Word;
+import englishlearning.model.WordBuilder;
 import englishlearning.model.model.IWord;
 
 /**
@@ -16,6 +17,10 @@ import englishlearning.model.model.IWord;
  */
 public class WordWrapper<T extends Word> extends Wrapper<T> implements IWord {
 
+    public WordWrapper() {
+        this((T)WordBuilder.create().word("").build());
+    }
+    
     public WordWrapper(T data) {
         super(data);
     }

@@ -8,6 +8,7 @@ package englishlearning.presenter;
 
 import englishlearning.model.model.IArticle;
 import englishlearning.model.model.IUser;
+import englishlearning.model.model.IWord;
 import englishlearning.model.property.WrapperProperty;
 import englishlearning.model.wrapper.ArticleWrapper;
 import englishlearning.model.wrapper.UserWrapper;
@@ -16,14 +17,17 @@ import englishlearning.util.DataInNet;
 import englishlearning.views.ArticlesList;
 import englishlearning.views.MainContent;
 import englishlearning.views.MainWindow;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.concurrent.Task;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 
 /**
  *
@@ -31,7 +35,7 @@ import javafx.concurrent.Task;
  * @param <V>
  */
 public class MainPresenter<V extends MainWindow> extends Presenter<V> {
-    //<editor-fold defaultstate="collapsed" desc="user">
+    //<editor-fold defaultstate="collapsed" desc="IUser user">
     private WrapperProperty<IUser> user;
     public final IUser getUser() { return userProperty().get(); }
     public final void setUser(IUser value) { userProperty().set(value); }
@@ -40,6 +44,7 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         return user;
     }
 //</editor-fold>
+    
     private Collection<IArticle> articles;
     
     public MainPresenter(V view) {
@@ -57,7 +62,10 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         MainContent mainContent = getView().getMainContent();
         ArticlesList articlesList = mainContent.getArticlesList();
 
-        mainContent.setOnReturn(e -> mainContent.setData(articles));
+        // User click return after read article
+        mainContent.setOnReturn(e -> returnToMain());
+        
+        // User start read article
         articlesList.selectedProperty().addListener(e -> {
             IArticle article = articlesList.getSelectedArticle();
             if (article != null) {
@@ -71,14 +79,17 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
             }
         });
         
+        // user login susscess
+        userProperty().fireValueChangedEvent();
         userProperty().addListener((ObservableValue<? extends IUser> observable, IUser oldValue, IUser newValue) -> {
             if (newValue.getUser().getPlayState() == null)
-                mainContent.setData(articles);
+                returnToMain();
             else {
                 // TODO
             }
         });
         
+        // filter articles
         articlesList.filterTextProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             if (newValue != null && !newValue.equals("")) {
                 mainContent.setData(articles.stream().filter(a -> a.getArticle().getTitle().toLowerCase().contains(newValue.toLowerCase())).collect(Collectors.toList()));
@@ -87,7 +98,29 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
             }
         });
         
-        userProperty().fireValueChangedEvent();
+        // user selected a word
+        mainContent.getReadArticle().selectedWordProperty().addListener((ObservableValue<? extends IWord> observable, IWord oldValue, IWord newValue) -> {
+            mainContent.showPopOver();
+            EventHandler<MouseEvent> hd = new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    mainContent.hidePopOver();
+                    Scene scene = (Scene)mouseEvent.getSource();
+                    scene.removeEventFilter(MouseEvent.MOUSE_PRESSED, this);
+                }
+            };
+            getView().getScene().addEventFilter(MouseEvent.MOUSE_PRESSED, hd);
+            String word = newValue.getWord().getWord();
+            if (!mainContent.getWordList().contains(word)) {
+                // TODO check if word can lookup, if not then don't add
+                mainContent.getWordList().add(word);
+            }
+        });
+        
+        // bind canCanTest to e.getList().isEmpty()
+        mainContent.getListView().getItems().addListener((ListChangeListener.Change e) -> {
+            mainContent.setCanTest(!e.getList().isEmpty());
+        });        
     }
     
     private void setArticlesListData() {
@@ -108,5 +141,11 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         });
         
         executor.submit(task);
+    }
+    
+    private void returnToMain() {
+        MainContent mainContent = getView().getMainContent();
+        mainContent.setData(articles);
+        mainContent.getWordList().clear();
     }
 }

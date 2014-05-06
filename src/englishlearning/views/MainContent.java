@@ -6,16 +6,27 @@
 
 package englishlearning.views;
 
-import englishlearning.model.model.IArticle;
 import englishlearning.model.model.IUser;
 import englishlearning.model.property.WrapperProperty;
-import englishlearning.model.wrapper.ArticleWrapper;
 import englishlearning.model.wrapper.UserWrapper;
+import java.awt.MouseInfo;
+import java.util.Collection;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyListWrapper;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
+import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
+import org.controlsfx.control.PopOver;
 
 /**
  *
@@ -27,7 +38,13 @@ public class MainContent extends Controller {
     @FXML ReadArticle readArticle;
     public ReadArticle getReadArticle() {return readArticle;}
     
-    //<editor-fold defaultstate="collapsed" desc="Property User">
+    @FXML private PopOver popOver;
+    @FXML private ListView listView;
+    public ListView getListView() {
+        return listView;
+    }
+    
+    //<editor-fold defaultstate="collapsed" desc="IUser User">
     private WrapperProperty<IUser> user;
     public final IUser getUser() { return userProperty().get(); }
     public final void setUser(IUser value) { userProperty().set(value); }
@@ -36,7 +53,7 @@ public class MainContent extends Controller {
         return user; 
     }
 //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Property data">
+    //<editor-fold defaultstate="collapsed" desc="Object binding data">
     private ObjectProperty data;
     
     public final Object getData() {
@@ -52,6 +69,39 @@ public class MainContent extends Controller {
         return data;
     }
 //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="List<String> wordList">
+    private ListProperty<String> wordList;
+    
+    public ObservableList<String> getWordList() {
+        return wordList.get();
+    }
+    
+    public void setWordList(ObservableList<String> value) {
+        wordList.set(value);
+    }
+    
+    public ListProperty wordListProperty() {
+        if (wordList == null) wordList = new ReadOnlyListWrapper<>(this, "wordList", FXCollections.observableArrayList());
+        return wordList;
+    }
+//</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Boolean canTest">
+    private BooleanProperty canTest;
+    
+    public boolean isCanTest() {
+        return canTest.get();
+    }
+    
+    public void setCanTest(boolean value) {
+        canTest.set(value);
+    }
+    
+    public BooleanProperty canTestProperty() {
+        if (canTest == null) canTest = new SimpleBooleanProperty(this, "canTest", false);
+        return canTest;
+    }
+//</editor-fold>
+    
     
     private EventHandler onReturn;
     public void setOnReturn(EventHandler eventHandler) {
@@ -60,5 +110,12 @@ public class MainContent extends Controller {
     
     public void onReturn(ActionEvent event) {
         if (onReturn != null) onReturn.handle(event);
+    }
+    
+    public void showPopOver() {
+        popOver.show(this, MouseInfo.getPointerInfo().getLocation().x, MouseInfo.getPointerInfo().getLocation().y);
+    }
+    public void hidePopOver() {
+        popOver.hide();
     }
 }

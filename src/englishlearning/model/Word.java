@@ -20,7 +20,7 @@ public class Word {
     private int choiced;
 
     //<editor-fold defaultstate="collapsed" desc="Must use builder">
-    Word() {
+    public Word() {
     }
 //</editor-fold>
 

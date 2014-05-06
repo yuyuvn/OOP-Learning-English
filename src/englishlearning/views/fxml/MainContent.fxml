@@ -8,8 +8,30 @@
 <?import englishlearning.controls.*?>
 <?import englishlearning.views.*?>
 <?import javafx.geometry.Insets?>
+<?import org.controlsfx.control.PopOver?>
 
 <GridPane AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" xmlns:fx="http://javafx.com/fxml/1">
+    <fx:define>
+        <PopOver fx:id="popOver" 
+                 arrowIndent="0.0" 
+                 arrowSize="0.0" 
+                 cornerRadius="0.0" 
+                 arrowLocation="LEFT_BOTTOM" 
+                 detachable="false" 
+        >
+            <contentNode>
+                <GridPane xmlns:fx="http://javafx.com/fxml/1">
+                    <padding><Insets bottom="8" left="8" right="8" top="4" /></padding>
+                    <rowConstraints>
+                        <RowConstraints vgrow="NEVER" />
+                        <RowConstraints vgrow="NEVER" />
+                    </rowConstraints>
+                    <Label text="${readArticle.selectedWord.word.word}" />
+                    <Label text="${readArticle.selectedWord.word.mean}" />
+                </GridPane>
+            </contentNode>
+        </PopOver>
+    </fx:define>
     <columnConstraints>
         <ColumnConstraints hgrow="NEVER" minWidth="200"/>
         <ColumnConstraints hgrow="SOMETIMES" fillWidth="true" />
@@ -28,10 +50,20 @@
                 <ContentControl data="${controller.data}">
                     <resources>
                         <DataTemplate dataType="englishlearning.model.model.IArticle">
-                            <VBox alignment="TOP_LEFT" spacing="20" >
-                                <Button text="Back" onAction="#onReturn" />
-                                <ListView />
-                            </VBox>
+                            <GridPane>
+                                <rowConstraints>
+                                    <RowConstraints vgrow="NEVER" />
+                                    <RowConstraints vgrow="SOMETIMES" fillHeight="true" />
+                                </rowConstraints>
+                                <HBox spacing="10">
+                                    <padding>
+                                        <Insets bottom="20" top="20" />
+                                    </padding>
+                                    <Button text="Back" onAction="#onReturn" />
+                                    <Button text="Do test" visible="${controller.canTest}" />
+                                </HBox>
+                                <ListView fx:id="listView" items="${controller.wordList}" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+                            </GridPane>
                         </DataTemplate>
                     </resources>
                 </ContentControl>
@@ -40,7 +72,7 @@
         <ContentControl GridPane.columnIndex="1" data="${controller.data}">
             <resources>
                 <DataTemplate dataType="englishlearning.model.model.IArticle">
-                    <ReadArticle />
+                    <ReadArticle fx:id="readArticle" />
                 </DataTemplate>
                 <DataTemplate dataType="java.util.ArrayList">
                     <ArticlesList fx:id="articlesList" />
