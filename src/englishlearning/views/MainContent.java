@@ -53,7 +53,6 @@ public class MainContent extends Controller {
     }
 //</editor-fold>
     
-    @FXML
     private EventHandler onReturn;
     public void setOnReturn(EventHandler eventHandler) {
         onReturn = eventHandler;

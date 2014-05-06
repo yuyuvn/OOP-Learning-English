@@ -96,6 +96,7 @@ public class ReadArticle extends Controller implements DataReceivable {
     }
 //</editor-fold>
     
+    private EventHandler onClick;
     
     @FXML private PopOver popOver;
     public PopOver getPopOver() {
@@ -114,6 +115,7 @@ public class ReadArticle extends Controller implements DataReceivable {
         Hyperlink link = (Hyperlink)event.getSource();
         showPopOver();
         setSelectedText(link.getText());
+        if (onClick != null) onClick.handle(event);
     }
     
     private void showPopOver() {
@@ -129,5 +131,9 @@ public class ReadArticle extends Controller implements DataReceivable {
             };
             getScene().addEventFilter(MouseEvent.MOUSE_PRESSED, hd);
         });
+    }
+    
+    public void setOnClick(ActionEvent event) {
+        if (onClick != null) onClick.handle(event);
     }
 }

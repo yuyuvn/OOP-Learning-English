@@ -45,10 +45,10 @@ public class ContentControl extends Pane {
                     this.getChildren().clear();
                     this.getChildren().add((Node) newValue);
                 } else {
+                    nodes.forEach(n -> {
+                        setData(n,newValue);
+                    });                        
                     if (oldValue == null || !newValue.getClass().equals(oldValue.getClass())) {
-                        nodes.forEach(n -> {
-                            setData(n,newValue);
-                        });
                         addNodes(nodes);
                     }
                     // if (nodes.isEmpty()) System.out.println(newValue.getClass().getCanonicalName());

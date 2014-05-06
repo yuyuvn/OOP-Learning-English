@@ -81,9 +81,9 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         
         articlesList.filterTextProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             if (newValue != null && !newValue.equals("")) {
-                articlesList.setData(articles.stream().filter(a -> a.getArticle().getTitle().toLowerCase().contains(newValue.toLowerCase())).collect(Collectors.toList()));
+                mainContent.setData(articles.stream().filter(a -> a.getArticle().getTitle().toLowerCase().contains(newValue.toLowerCase())).collect(Collectors.toList()));
             } else {
-                articlesList.setData(articles);
+                mainContent.setData(articles);
             }
         });
         
