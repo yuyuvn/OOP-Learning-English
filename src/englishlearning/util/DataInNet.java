@@ -10,10 +10,15 @@ import englishlearning.model.Article;
 import englishlearning.model.Articles;
 import englishlearning.util.handler.ArticlesListHandler;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -76,27 +81,31 @@ public class DataInNet {
         article.setContent(data.text().replaceAll("\\\\n", "\n").trim());
         return article;
     }
-    public static String getMean (String word) throws MalformedURLException, IOException{
-        URL url = new URL("http://tratu.soha.vn/dict/en_vn/"+word);
-        URLConnection con = url.openConnection();
-        Pattern p = Pattern.compile("\\w+", Pattern.UNICODE_CHARACTER_CLASS);
-        Matcher m = p.matcher(con.getContentType());
-        String charset = m.matches() ? m.group(1) : "UTF-8";
-        Reader r = new InputStreamReader(con.getInputStream(), charset);
-        StringBuilder buf = new StringBuilder();
-        while (true) {
-            int ch = r.read();
-            if (ch < 0)
-        break;
-            StringBuilder append = buf.append((char) ch);
-        }
-        String str = buf.toString();
-        Pattern p2 = Pattern.compile("<h5> <span class=\"mw-headline\">(\\w+)<", Pattern.UNICODE_CHARACTER_CLASS);
-        Matcher m2 = p2.matcher(str);
-           if( m2.find() ){
-            String match = m2.group(1);
-            return match;
+    public static String getMean (String word){
+        try {
+            URL url = new URL("http://tratu.soha.vn/dict/en_vn/"+word);
+            URLConnection con = url.openConnection();
+            Pattern p = Pattern.compile("\\w+", Pattern.UNICODE_CHARACTER_CLASS);
+            Matcher m = p.matcher(con.getContentType());
+            String charset = m.matches() ? m.group(1) : "UTF-8";
+            Reader r = new InputStreamReader(con.getInputStream(), charset);
+            StringBuilder buf = new StringBuilder();
+            while (true) {
+                int ch = r.read();
+                if (ch < 0)
+                    break;
+                StringBuilder append = buf.append((char) ch);
             }
-           return null;
+            Matcher m2 = Pattern.compile("<h5> <span class=\"mw-headline\">([\\w \\-]+)<", Pattern.UNICODE_CHARACTER_CLASS).matcher(buf.toString());
+            if( m2.find() ){
+                String match = m2.group(1);
+                return match;
+            }
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(DataInNet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DataInNet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }
