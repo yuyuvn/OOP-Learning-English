@@ -75,6 +75,7 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
             }
         });
         
+        
         userProperty().fireValueChangedEvent();
     }
     

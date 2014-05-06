@@ -8,8 +8,10 @@
 <?import englishlearning.controls.*?>
 <?import englishlearning.views.*?>
 <?import javafx.geometry.Insets?>
+<?import org.controlsfx.control.PopOver?>
 
 <GridPane xmlns:fx="http://javafx.com/fxml/1">
+    <fx:define><PopOver fx:id="popOver" arrowIndent="0.0" arrowSize="0.0" cornerRadius="0.0" arrowLocation="LEFT_BOTTOM" /></fx:define>    
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" />
     </columnConstraints>
@@ -19,7 +21,11 @@
     </rowConstraints>
     <Label text="${controller.article.article.title}" alignment="TOP_CENTER" /> 
     <ScrollPane hbarPolicy="NEVER" GridPane.rowIndex="1" fx:id="scrollPane" >
-        <HyperlinkLabel fx:id="content" text="${controller.article.parsedContent}" maxWidth="${scrollPane.width-15}" textAlignment="JUSTIFY" >
+        <HyperlinkLabel fx:id="content" text="${controller.article.parsedContent}" 
+                        maxWidth="${scrollPane.width-15}" 
+                        textAlignment="JUSTIFY"
+                        onAction="#onClick" 
+        >
             <padding>
                 <Insets bottom="15" left="15" right="15" top="15" />
             </padding>

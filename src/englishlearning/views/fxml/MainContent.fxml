@@ -28,10 +28,13 @@
                 <ContentControl data="${controller.data}">
                     <resources>
                         <DataTemplate dataType="englishlearning.model.model.IArticle">
-                            <Button text="Back" onAction="#onReturn" />
+                            <VBox alignment="TOP_LEFT" spacing="20" >
+                                <Button text="Back" onAction="#onReturn" />
+                                <ListView />
+                            </VBox>
                         </DataTemplate>
                     </resources>
-                </ContentControl> 
+                </ContentControl>
            </children>
         </VBox>
         <ContentControl GridPane.columnIndex="1" data="${controller.data}">

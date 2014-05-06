@@ -9,9 +9,15 @@ package englishlearning.views;
 import englishlearning.model.model.IArticle;
 import englishlearning.model.property.WrapperProperty;
 import englishlearning.model.wrapper.ArticleWrapper;
+import java.awt.MouseInfo;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.input.MouseEvent;
+import org.controlsfx.control.PopOver;
 
 /**
  *
@@ -23,6 +29,10 @@ public class ReadArticle extends Controller implements DataReceivable {
     
     public String getSelectedText() {
         return selectedTextProperty().get();
+    }
+    
+    private void setSelectedText(String value) {
+        _selectedTextProperty().set(value);
     }
     
     public ReadOnlyStringProperty selectedTextProperty() {
@@ -50,9 +60,19 @@ public class ReadArticle extends Controller implements DataReceivable {
         return article;
     }
 //</editor-fold>
+    @FXML private PopOver popOver;
+    public PopOver getPopOver() {
+        return popOver;
+    }
 
     @Override
     public void setData(Object value) {
         setArticle((IArticle)value);
+    }
+    
+    @FXML private void onClick(ActionEvent event) {
+        Hyperlink link = (Hyperlink)event.getSource();
+        popOver.show(this, MouseInfo.getPointerInfo().getLocation().x, MouseInfo.getPointerInfo().getLocation().y);
+        setSelectedText(link.getText());
     }
 }
