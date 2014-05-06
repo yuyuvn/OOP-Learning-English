@@ -120,7 +120,7 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
             String word = newValue.getWord().getWord();
             
             if (!mainContent.getWordList().contains(word)) {
-                if(newValue.getWord().getMean()!=null) {
+                if(newValue.getWord().getMean()!=null && !newValue.getWord().getMean().equals("")) {
                     mainContent.getWordList().add(word);
                     words.add(newValue);
                 }
