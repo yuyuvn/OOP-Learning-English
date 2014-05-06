@@ -11,6 +11,7 @@ import englishlearning.model.model.IUser;
 import englishlearning.model.property.WrapperProperty;
 import englishlearning.model.wrapper.ArticleWrapper;
 import englishlearning.model.wrapper.UserWrapper;
+import englishlearning.util.DataInDisk;
 import englishlearning.util.DataInNet;
 import englishlearning.views.ArticlesList;
 import englishlearning.views.MainContent;
@@ -22,6 +23,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 
 /**
  *
@@ -59,11 +62,12 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
             IArticle article = articlesList.getSelectedArticle();
             if (article != null) {
                 getUser().getUser().getReadList().putIfAbsent(article.getArticle().getGuid(), 0.0);
-                mainContent.setArticle(article);
+                mainContent.setData(article);
                 // Don't know why need to fire 2 times.
                 // bug some where or java sync like shit?
                 getUser().getProperty().fireValueChangedEvent();
                 getUser().getProperty().fireValueChangedEvent();
+                DataInDisk.saveUserInfo(getUser().getUser());
             }
         });
         
@@ -74,7 +78,6 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
                 // TODO
             }
         });
-        
         
         userProperty().fireValueChangedEvent();
     }
@@ -96,5 +99,9 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         });
         
         executor.submit(task);
+    }
+    
+    private interface HidePopOver<E extends Event> extends EventHandler<E> {
+        
     }
 }

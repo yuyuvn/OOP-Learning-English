@@ -6,10 +6,15 @@
 
 package englishlearning.model.model;
 
+import englishlearning.model.Word;
+
 /**
  *
  * @author PC
  */
-public interface IQuestion extends IWrapper {
+public interface IWord extends IWrapper {
+    Word getWord();
     
+    boolean isRightAnswer();
+    boolean isAnswered();
 }

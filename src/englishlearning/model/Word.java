@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Clicia
  */
-public class Question {
+public class Word {
     private String word;
     private String mean;
     private List<String> options;
@@ -20,7 +20,7 @@ public class Question {
     private int choiced;
 
     //<editor-fold defaultstate="collapsed" desc="Must use builder">
-    Question() {
+    Word() {
     }
 //</editor-fold>
 

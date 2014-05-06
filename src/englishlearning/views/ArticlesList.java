@@ -8,13 +8,10 @@ package englishlearning.views;
 
 import englishlearning.controls.ListViewEx;
 import englishlearning.model.model.IArticle;
-import englishlearning.model.property.ReadOnlyWrapper;
-import englishlearning.model.property.ReadOnlyWrapperProperty;
 import java.util.Collection;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListProperty;
-import javafx.beans.property.ReadOnlyBooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -50,26 +47,15 @@ public class ArticlesList extends Controller {
     }
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Property selectedArticle">
-    private ReadOnlyWrapper<IArticle> selectedArticle;
-    
-    public final IArticle getSelectedArticle() {
-        return selectedArticleProperty().get();
+    public IArticle getSelectedArticle() {
+        return (IArticle)selectedArticleProperty().get();
+    }
+
+    public ReadOnlyObjectProperty selectedArticleProperty() {
+        return listView.getSelectionModel().selectedItemProperty();
     }
     
-    private void setSelectedArticle(IArticle value) {
-        _selectedArticleProperty().set(value);
-    }
     
-    public final ReadOnlyWrapperProperty<IArticle> selectedArticleProperty() {
-        return _selectedArticleProperty();
-    }
-    
-    private ReadOnlyWrapper<IArticle> _selectedArticleProperty() {
-        if (selectedArticle == null) {            
-            selectedArticle = new ReadOnlyWrapper<>(this, "selectedArticle");
-        }
-        return selectedArticle;
-    }
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Property selected">
     public BooleanProperty selectedProperty() {
@@ -78,18 +64,11 @@ public class ArticlesList extends Controller {
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Property filterText">
     @FXML private CustomTextField searchField;
-    public String getFilterText() { return filterTextProperty().get(); }
-    public void setFilterText(String value) { filterTextProperty().set(value); }
+    public String getFilterText() { return searchField.getText(); }
+    public void setFilterText(String value) { searchField.setText(value); }
     public StringProperty filterTextProperty() { return searchField.textProperty(); }
 //</editor-fold>
     
-    
-    public ArticlesList() {
-        _selectedArticleProperty().bind(listView.getSelectionModel().selectedItemProperty());
-        /*listView.selectedProperty().addListener((e) -> {
-        fireSelected();
-        });*/
-    }
     
     public void clearSelection() {
         listView.getSelectionModel().clearSelection();

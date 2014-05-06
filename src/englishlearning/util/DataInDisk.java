@@ -33,12 +33,12 @@ public class DataInDisk {
     }
     
     public static UserInfo getUserInfo(String username) {
-        UserInfo user = getData(String.format(PATH_USER, getRelativePath(MD5(username))));
+        UserInfo user = getData(getRelativePath(String.format(PATH_USER, MD5(username))));
         return user != null ? user : UserInfoBuilder.create().name(username).build();
     }
     
     public static void saveUserInfo(UserInfo user) {
-        saveData(user,getRelativePath(MD5(user.getName())));
+        saveData(user,getRelativePath(String.format(PATH_USER, MD5(user.getName()))));
     }
     
     

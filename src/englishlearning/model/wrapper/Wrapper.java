@@ -22,7 +22,7 @@ public class Wrapper<T> implements IWrapper {
         rawData = data;
     }
     
-    public T getRawData() {
+    protected T getRawData() {
         return rawData;
     }
 

@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class PlayState implements Serializable {
     private final String articleGUID;    
-    private List<Question> questions;
+    private List<Word> questions;
 
     public PlayState(String articleGUID) {
         this.articleGUID = articleGUID;
@@ -25,11 +25,11 @@ public class PlayState implements Serializable {
         return articleGUID;
     }
 
-    public List<Question> getQuestions() {
+    public List<Word> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(List<Question> allQuestions) {
+    public void setQuestions(List<Word> allQuestions) {
         this.questions = allQuestions;
     }
     

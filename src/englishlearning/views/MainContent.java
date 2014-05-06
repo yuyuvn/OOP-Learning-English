@@ -52,23 +52,6 @@ public class MainContent extends Controller {
         return data;
     }
 //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Property article">
-    private WrapperProperty<IArticle> article;
-    
-    public final IArticle getArticle() {
-        return articleProperty().get();
-    }
-    
-    public void setArticle(IArticle value) {
-        setData(value);
-        articleProperty().set(value);
-    }
-    
-    public WrapperProperty<IArticle> articleProperty() {
-        if (article == null) article = new WrapperProperty<>(this, "article", new ArticleWrapper());
-        return article;
-    }
-//</editor-fold>
     
     @FXML
     private EventHandler onReturn;

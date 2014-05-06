@@ -50,23 +50,6 @@ public class Login extends Controller {
     public final void setUsername(String value) { usernameProperty().set(value); }
     public final StringProperty usernameProperty() { return usernameTextField.textProperty(); }
 //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Property users">
-    private SetProperty<String> users;
-
-    public final ObservableSet<String> getUsers() {
-        return usersProperty().get();
-    }
-
-    public final void setUsers(ObservableSet value) {
-        usersProperty().set(value);
-    }
-
-    public final SetProperty<String> usersProperty() {
-        if (users == null) users = new SimpleSetProperty<>(this, "users", FXCollections.observableSet());
-        return users;
-    }
-    
-//</editor-fold>
     
     @FXML private void onLogin(ActionEvent event) {
         if (!getUsername().equals("")) setLoged(true);
