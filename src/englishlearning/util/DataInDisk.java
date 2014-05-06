@@ -12,6 +12,8 @@ import englishlearning.model.UsersList;
 import java.io.*;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -56,15 +58,20 @@ public class DataInDisk {
     }
     
     static <T extends Serializable> void saveData(T data, String dataPath) {
-        createIfNotExists(dataPath);
-        
-        try (FileOutputStream fileOut = new FileOutputStream(dataPath); ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
-            out.writeObject(data);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(DataInDisk.class.getName()).log(Level.WARNING, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(DataInDisk.class.getName()).log(Level.WARNING, null, ex);
-        }
+        ExecutorService executor = Executors.newCachedThreadPool();
+        executor.submit(() -> {            
+            createIfNotExists(dataPath);
+
+            try (FileOutputStream fileOut = new FileOutputStream(dataPath); ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+                out.writeObject(data);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(DataInDisk.class.getName()).log(Level.WARNING, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(DataInDisk.class.getName()).log(Level.WARNING, null, ex);
+            } finally {
+                executor.shutdown();
+            }
+        });
     }
     
     static boolean createIfNotExists(String path) {        

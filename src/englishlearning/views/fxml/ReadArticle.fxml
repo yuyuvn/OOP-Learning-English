@@ -19,7 +19,7 @@
     </rowConstraints>
     <Label text="${controller.article.article.title}" alignment="TOP_CENTER" /> 
     <ScrollPane hbarPolicy="NEVER" GridPane.rowIndex="1" fx:id="scrollPane" >
-        <HyperlinkLabel fx:id="content" text="${controller.article.parsedContent}" 
+        <HyperlinkLabel fx:id="content" text="${controller.parsedContent}" 
                         maxWidth="${scrollPane.width-15}" 
                         textAlignment="JUSTIFY"
                         onAction="#onClick" 

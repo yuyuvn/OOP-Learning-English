@@ -17,6 +17,7 @@ import englishlearning.util.DataInNet;
 import englishlearning.views.ArticlesList;
 import englishlearning.views.MainContent;
 import englishlearning.views.MainWindow;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -45,6 +46,7 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
     }
 //</editor-fold>
     
+    private Collection<IWord> words = new ArrayList<>();
     private Collection<IArticle> articles;
     
     public MainPresenter(V view) {
@@ -77,6 +79,9 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
                 getUser().getProperty().fireValueChangedEvent();
                 DataInDisk.saveUserInfo(getUser().getUser());
             }
+        });
+        mainContent.getReadArticle().articleProperty().addListener(e -> {
+                setParsedContent();            
         });
         
         // user login susscess
@@ -114,13 +119,14 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
             if (!mainContent.getWordList().contains(word)) {
                 // TODO check if word can lookup, if not then don't add
                 mainContent.getWordList().add(word);
+                words.add(newValue);
             }
         });
         
         // bind canCanTest to e.getList().isEmpty()
         mainContent.getListView().getItems().addListener((ListChangeListener.Change e) -> {
             mainContent.setCanTest(!e.getList().isEmpty());
-        });        
+        });
     }
     
     private void setArticlesListData() {
@@ -143,9 +149,31 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         executor.submit(task);
     }
     
+    private void setParsedContent() {
+        getView().getMainContent().getReadArticle().setParsedContent("");
+        ExecutorService executor = Executors.newCachedThreadPool();
+        Task<String> task = new Task<String>() {
+        @Override
+        protected String call() throws Exception {
+            IArticle article = (IArticle) getView().getMainContent().getData();
+            return article.getParsedContent();
+        }
+        };
+        
+        task.valueProperty().addListener(t -> {
+            getView().getMainContent().getReadArticle().setParsedContent(task.getValue());
+            executor.shutdown();
+        });
+        
+        executor.submit(task);
+    }
+    
     private void returnToMain() {
         MainContent mainContent = getView().getMainContent();
         mainContent.setData(articles);
+        mainContent.getArticlesList().setFilterText("");
         mainContent.getWordList().clear();
+        words.clear();
+        mainContent.getArticlesList().clearSelection();
     }
 }
