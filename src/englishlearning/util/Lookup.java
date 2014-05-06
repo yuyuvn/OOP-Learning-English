@@ -24,7 +24,12 @@ public class Lookup {
     }
     
     public static String get(String word) {
-        return getDictionary().get(word);
+        String mean = getDictionary().get(word);
+        if (mean == null) {
+            mean = DataInNet.getMean(word);
+            if (mean != null) add(word,mean);
+        }
+        return mean;
     }
 
     public static void add(String word, String mean) {

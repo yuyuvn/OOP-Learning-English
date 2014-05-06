@@ -30,7 +30,7 @@
                         <RowConstraints vgrow="NEVER" />
                     </rowConstraints>
                     <Label text="${readArticle.selectedWord.word.word}" />
-                    <Label text="${readArticle.selectedWord.word.mean}" />
+                    <Label text="${readArticle.selectedWord.word.mean}" GridPane.rowIndex="1" />
                 </GridPane>
             </contentNode>
         </PopOver>

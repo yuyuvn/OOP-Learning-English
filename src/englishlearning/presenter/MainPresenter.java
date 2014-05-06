@@ -14,6 +14,7 @@ import englishlearning.model.wrapper.ArticleWrapper;
 import englishlearning.model.wrapper.UserWrapper;
 import englishlearning.util.DataInDisk;
 import englishlearning.util.DataInNet;
+import englishlearning.util.Lookup;
 import englishlearning.views.ArticlesList;
 import englishlearning.views.MainContent;
 import englishlearning.views.MainWindow;
@@ -105,6 +106,7 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         
         // user selected a word
         mainContent.getReadArticle().selectedWordProperty().addListener((ObservableValue<? extends IWord> observable, IWord oldValue, IWord newValue) -> {            
+            newValue.getWord().setMean(Lookup.get(newValue.getWord()));
             mainContent.showPopOver();
             EventHandler<MouseEvent> hd = new EventHandler<MouseEvent>() {
                 @Override
@@ -116,6 +118,7 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
             };
             getView().getScene().addEventFilter(MouseEvent.MOUSE_PRESSED, hd);
             String word = newValue.getWord().getWord();
+            
             if (!mainContent.getWordList().contains(word)) {
                 // TODO check if word can lookup, if not then don't add
                 mainContent.getWordList().add(word);

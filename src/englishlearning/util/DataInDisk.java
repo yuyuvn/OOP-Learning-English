@@ -10,8 +10,6 @@ import englishlearning.model.UserInfo;
 import englishlearning.model.UserInfoBuilder;
 import englishlearning.model.UsersList;
 import java.io.*;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;

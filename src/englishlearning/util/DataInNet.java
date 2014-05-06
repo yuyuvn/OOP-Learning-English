@@ -81,7 +81,7 @@ public class DataInNet {
         article.setContent(data.text().replaceAll("\\\\n", "\n").trim());
         return article;
     }
-    public static String getMean (String word){
+    public static String getMean(String word){
         try {
             URL url = new URL("http://tratu.soha.vn/dict/en_vn/"+word);
             URLConnection con = url.openConnection();
@@ -96,7 +96,7 @@ public class DataInNet {
                     break;
                 StringBuilder append = buf.append((char) ch);
             }
-            Matcher m2 = Pattern.compile("<h5> <span class=\"mw-headline\">([\\w \\-]+)<", Pattern.UNICODE_CHARACTER_CLASS).matcher(buf.toString());
+            Matcher m2 = Pattern.compile("<h5> <span class=\"mw-headline\">([\\w \\-]+)[<,]", Pattern.UNICODE_CHARACTER_CLASS).matcher(buf.toString());
             if( m2.find() ){
                 String match = m2.group(1);
                 return match;
