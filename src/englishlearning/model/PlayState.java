@@ -32,17 +32,4 @@ public class PlayState implements Serializable {
     public void setQuestions(List<Word> allQuestions) {
         this.questions = allQuestions;
     }
-    
-    /*public Article getArticle() {
-    if (article == null) {
-    // TODO get Article from articleGUID
-    article = new Article();
-    }
-    return article;
-    }
-    
-    public long getScore() {
-    // TODO change filter condition
-    return questions.stream().filter(q -> q.equals(q)).count();
-    }*/
 }

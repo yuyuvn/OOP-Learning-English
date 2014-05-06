@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import sun.net.www.http.HttpClient;
 
 /**
  *
@@ -24,9 +25,5 @@ import org.junit.Test;
 public class TestClass {
     @Test
     public void testMethod() throws MalformedURLException {
-        Collection<IArticle> test = DataInNet.getListArticle().stream()
-                    .flatMap(a -> Stream.of(new ArticleWrapper(a)))
-                    .collect(Collectors.toList());
-        System.out.println(test.getClass().getCanonicalName());
     }
 }

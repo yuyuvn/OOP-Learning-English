@@ -90,7 +90,7 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
             if (newValue.getUser().getPlayState() == null)
                 returnToMain();
             else {
-                // TODO
+                // TODO resume play state
             }
         });
         
