@@ -120,9 +120,10 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
             String word = newValue.getWord().getWord();
             
             if (!mainContent.getWordList().contains(word)) {
-                // TODO check if word can lookup, if not then don't add
-                mainContent.getWordList().add(word);
-                words.add(newValue);
+                if(newValue.getWord().getMean()!=null) {
+                    mainContent.getWordList().add(word);
+                    words.add(newValue);
+                }
             }
         });
         
