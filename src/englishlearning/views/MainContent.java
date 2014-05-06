@@ -60,6 +60,6 @@ public class MainContent extends Controller {
     }
     
     public void onReturn(ActionEvent event) {
-        setData(getUser());
+        if (onReturn != null) onReturn.handle(event);
     }
 }

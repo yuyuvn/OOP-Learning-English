@@ -41,6 +41,7 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         return user;
     }
 //</editor-fold>
+    private Collection<IArticle> articles;
     
     public MainPresenter(V view) {
         super(view);
@@ -57,7 +58,7 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         MainContent mainContent = getView().getMainContent();
         ArticlesList articlesList = mainContent.getArticlesList();
 
-        mainContent.setOnReturn(e -> mainContent.setData(getUser()));        
+        mainContent.setOnReturn(e -> mainContent.setData(articles));
         articlesList.selectedProperty().addListener(e -> {
             IArticle article = articlesList.getSelectedArticle();
             if (article != null) {
@@ -73,7 +74,7 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         
         userProperty().addListener((ObservableValue<? extends IUser> observable, IUser oldValue, IUser newValue) -> {
             if (newValue.getUser().getPlayState() == null)
-                mainContent.setData(getUser());
+                mainContent.setData(articles);
             else {
                 // TODO
             }
@@ -94,7 +95,8 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         };
         
         task.valueProperty().addListener(t -> {
-            getView().getMainContent().getArticlesList().setArticles(task.getValue());
+            articles = task.getValue();
+            getView().getMainContent().setData(articles);
             executor.shutdown();
         });
         

@@ -51,6 +51,7 @@ public class ContentControl extends Pane {
                         });
                         addNodes(nodes);
                     }
+                    // if (nodes.isEmpty()) System.out.println(newValue.getClass().getCanonicalName());
                 }
             });
         }

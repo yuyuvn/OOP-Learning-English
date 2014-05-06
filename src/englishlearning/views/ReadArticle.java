@@ -104,7 +104,10 @@ public class ReadArticle extends Controller implements DataReceivable {
 
     @Override
     public void setData(Object value) {
-        setArticle((IArticle)value);
+        try {
+            setArticle((IArticle)value);
+        } catch (ClassCastException e) {
+        }
     }
     
     @FXML private void onClick(ActionEvent event) {
