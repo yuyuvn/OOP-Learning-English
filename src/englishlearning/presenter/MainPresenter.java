@@ -16,6 +16,7 @@ import englishlearning.util.DataInNet;
 import englishlearning.views.ArticlesList;
 import englishlearning.views.MainContent;
 import englishlearning.views.MainWindow;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -23,8 +24,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 
 /**
  *
@@ -80,6 +79,14 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
             }
         });
         
+        articlesList.filterTextProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (newValue != null && !newValue.equals("")) {
+                articlesList.setData(articles.stream().filter(a -> a.getArticle().getTitle().toLowerCase().contains(newValue.toLowerCase())).collect(Collectors.toList()));
+            } else {
+                articlesList.setData(articles);
+            }
+        });
+        
         userProperty().fireValueChangedEvent();
     }
     
@@ -101,9 +108,5 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         });
         
         executor.submit(task);
-    }
-    
-    private interface HidePopOver<E extends Event> extends EventHandler<E> {
-        
     }
 }
