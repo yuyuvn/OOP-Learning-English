@@ -46,7 +46,7 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
     }
 //</editor-fold>
     
-    private Collection<IWord> words = new ArrayList<>();
+    private final Collection<IWord> words = new ArrayList<>();
     private Collection<IArticle> articles;
     
     public MainPresenter(V view) {
@@ -104,7 +104,7 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         });
         
         // user selected a word
-        mainContent.getReadArticle().selectedWordProperty().addListener((ObservableValue<? extends IWord> observable, IWord oldValue, IWord newValue) -> {
+        mainContent.getReadArticle().selectedWordProperty().addListener((ObservableValue<? extends IWord> observable, IWord oldValue, IWord newValue) -> {            
             mainContent.showPopOver();
             EventHandler<MouseEvent> hd = new EventHandler<MouseEvent>() {
                 @Override

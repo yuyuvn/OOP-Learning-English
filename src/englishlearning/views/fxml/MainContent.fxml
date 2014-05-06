@@ -11,13 +11,16 @@
 <?import org.controlsfx.control.PopOver?>
 
 <GridPane AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" xmlns:fx="http://javafx.com/fxml/1">
+    
     <fx:define>
         <PopOver fx:id="popOver" 
                  arrowIndent="0.0" 
                  arrowSize="0.0" 
                  cornerRadius="0.0" 
                  arrowLocation="LEFT_BOTTOM" 
-                 detachable="false" 
+                 detachable="false"
+                 autoFix="true"
+                 autoHide="true"
         >
             <contentNode>
                 <GridPane xmlns:fx="http://javafx.com/fxml/1">

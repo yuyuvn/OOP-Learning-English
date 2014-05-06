@@ -10,22 +10,18 @@ import englishlearning.model.model.IUser;
 import englishlearning.model.property.WrapperProperty;
 import englishlearning.model.wrapper.UserWrapper;
 import java.awt.MouseInfo;
-import java.util.Collection;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyListWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
 import org.controlsfx.control.PopOver;
 
 /**
