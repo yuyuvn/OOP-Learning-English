@@ -76,4 +76,28 @@ public class DataInNet {
         article.setContent(data.text().replaceAll("\\\\n", "\n").trim());
         return article;
     }
+    public static String getMean (String word) throws MalformedURLException, IOException{
+        URL url = new URL("http://tratu.soha.vn/dict/en_vn/yellow");
+        URLConnection con = url.openConnection();
+        Pattern p = Pattern.compile("\\w+", Pattern.UNICODE_CHARACTER_CLASS);
+        Matcher m = p.matcher(con.getContentType());
+        String charset = m.matches() ? m.group(1) : "UTF-8";
+        Reader r = new InputStreamReader(con.getInputStream(), charset);
+        StringBuilder buf = new StringBuilder();
+        while (true) {
+            int ch = r.read();
+            if (ch < 0)
+        break;
+            StringBuilder append = buf.append((char) ch);
+        }
+        String str = buf.toString();
+        //System.out.println(str);
+        Pattern p2 = Pattern.compile("<h5> <span class=\"mw-headline\">(\\w+)<", Pattern.UNICODE_CHARACTER_CLASS);
+        Matcher m2 = p2.matcher(str);
+           if( m2.find() ){
+            String match = m2.group(1);
+            return match;
+            }
+           return null;
+    }
 }
