@@ -77,7 +77,7 @@ public class DataInNet {
         return article;
     }
     public static String getMean (String word) throws MalformedURLException, IOException{
-        URL url = new URL("http://tratu.soha.vn/dict/en_vn/yellow");
+        URL url = new URL("http://tratu.soha.vn/dict/en_vn/"+word);
         URLConnection con = url.openConnection();
         Pattern p = Pattern.compile("\\w+", Pattern.UNICODE_CHARACTER_CLASS);
         Matcher m = p.matcher(con.getContentType());
@@ -91,7 +91,6 @@ public class DataInNet {
             StringBuilder append = buf.append((char) ch);
         }
         String str = buf.toString();
-        //System.out.println(str);
         Pattern p2 = Pattern.compile("<h5> <span class=\"mw-headline\">(\\w+)<", Pattern.UNICODE_CHARACTER_CLASS);
         Matcher m2 = p2.matcher(str);
            if( m2.find() ){
