@@ -14,6 +14,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import englishlearning.model.Dictionary;
+import java.util.Scanner;
 
 /**
  *
@@ -22,6 +24,7 @@ import java.util.logging.Logger;
 public class DataInDisk {
     private final static String PATH_USERSLIST = "data/users.bin";
     private final static String PATH_USER = "data/i%s.bin";
+    private final static String PATH_DICT = "data/dict.txt";
         
     public static UsersList getUsersList() {
         UsersList userList = getData(getRelativePath(PATH_USERSLIST));
@@ -104,4 +107,49 @@ public class DataInDisk {
         }
         return null;
     }
+    public static void saveDict(Dictionary dict){
+        StringBuilder sb = new StringBuilder();
+        dict.forEach((K,V)->{
+            String s = K+":"+V+"\n";
+            sb.append(s);
+        });
+        try {
+            try (Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(PATH_DICT), "UTF-8"))) {
+                out.write(sb.toString());
+            }
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(DataInDisk.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(DataInDisk.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DataInDisk.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
+        
+    }
+    public static Dictionary loadDict(){
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(PATH_DICT);
+            Dictionary dict = new Dictionary();
+            Scanner scanner = new Scanner(fis);
+            while(scanner.hasNextLine()){
+                String line = scanner.nextLine();
+                String[] data = line.split(":",2);
+                dict.put(data[0], data[1]);
+            }
+            return dict;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(DataInDisk.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        finally {
+            try {
+                fis.close();
+            } catch (IOException ex) {
+                Logger.getLogger(DataInDisk.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+       
+    } 
 }
