@@ -23,9 +23,9 @@ public class DataInDisk {
     private final static String PATH_USERSLIST = "data/users.bin";
     private final static String PATH_USER = "data/i%s.bin";
         
-    public static UsersList<String> getUsersList() {
-        UsersList<String> userList = getData(getRelativePath(PATH_USERSLIST));
-        return userList != null ? userList : new UsersList<>();
+    public static UsersList getUsersList() {
+        UsersList userList = getData(getRelativePath(PATH_USERSLIST));
+        return userList != null ? userList : new UsersList();
     }
     
     public static void saveUsersList(UsersList data) {

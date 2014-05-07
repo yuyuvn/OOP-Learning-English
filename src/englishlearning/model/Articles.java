@@ -6,12 +6,24 @@
 
 package englishlearning.model;
 
+import java.util.Collection;
+
 
 /**
  *
  * @author Clicia
- * @param <V>
  */
-public class Articles<V extends Article> extends java.util.ArrayList<V> {
+public class Articles extends java.util.ArrayList<Article> {
+
+    public Articles(int initialCapacity) {
+        super(initialCapacity);
+    }
+
+    public Articles() {
+    }
+
+    public Articles(Collection<? extends Article> c) {
+        super(c);
+    }
     
 }

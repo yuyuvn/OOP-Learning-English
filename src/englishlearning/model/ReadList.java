@@ -6,14 +6,31 @@
 
 package englishlearning.model;
 
-import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  *
  * @author Clicia
- * @param <K> guid of @link(Article)
- * @param <V> percent anwsered true, 0 if never played
  */
-public class ReadList<K extends String,V extends Double> extends LinkedHashMap<K,V> {
+public class ReadList extends java.util.LinkedHashMap<String,Double> {
+
+    public ReadList(int initialCapacity, float loadFactor) {
+        super(initialCapacity, loadFactor);
+    }
+
+    public ReadList(int initialCapacity) {
+        super(initialCapacity);
+    }
+
+    public ReadList() {
+    }
+
+    public ReadList(Map<? extends String, ? extends Double> m) {
+        super(m);
+    }
+
+    public ReadList(int initialCapacity, float loadFactor, boolean accessOrder) {
+        super(initialCapacity, loadFactor, accessOrder);
+    }
     
 }

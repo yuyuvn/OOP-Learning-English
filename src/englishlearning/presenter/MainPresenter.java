@@ -6,12 +6,13 @@
 
 package englishlearning.presenter;
 
+import englishlearning.model.PlayState;
+import englishlearning.model.Word;
 import englishlearning.model.model.IArticle;
 import englishlearning.model.model.IUser;
 import englishlearning.model.model.IWord;
 import englishlearning.model.property.WrapperProperty;
 import englishlearning.model.wrapper.ArticleWrapper;
-import englishlearning.model.wrapper.UserWrapper;
 import englishlearning.util.DataInDisk;
 import englishlearning.util.DataInNet;
 import englishlearning.util.Lookup;
@@ -25,7 +26,6 @@ import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.concurrent.Task;
 import javafx.event.EventHandler;
@@ -43,13 +43,14 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
     public final IUser getUser() { return userProperty().get(); }
     public final void setUser(IUser value) { userProperty().set(value); }
     public final WrapperProperty<IUser> userProperty() {
-        if (user == null) user = new WrapperProperty(this, "user", new UserWrapper());
+        if (user == null) user = new WrapperProperty(this, "user");
         return user;
     }
 //</editor-fold>
     
     private final Collection<IWord> words = new ArrayList<>();
     private Collection<IArticle> articles;
+    private ExecutorService executor;
     
     public MainPresenter(V view) {
         super(view);
@@ -61,6 +62,11 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
     
     @Override
     protected void initialize() {
+        // user login susscess
+        if (getUser().getPlayState() != null) {
+            resumeState();
+        }
+        
         setArticlesListData();
         getView().userProperty().bindBidirectional(userProperty());
         MainContent mainContent = getView().getMainContent();
@@ -86,16 +92,6 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
                 setParsedContent();            
         });
         
-        // user login susscess
-        userProperty().fireValueChangedEvent();
-        userProperty().addListener((ObservableValue<? extends IUser> observable, IUser oldValue, IUser newValue) -> {
-            if (newValue.getUser().getPlayState() == null)
-                returnToMain();
-            else {
-                // TODO resume play state
-            }
-        });
-        
         // filter articles
         articlesList.filterTextProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             if (newValue != null && !newValue.equals("")) {
@@ -118,8 +114,8 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         });
         
         // user selected a word
-        mainContent.getReadArticle().selectedWordProperty().addListener((ObservableValue<? extends IWord> observable, IWord oldValue, IWord newValue) -> {            
-            newValue.getWord().setMean(Lookup.get(newValue.getWord()));
+        mainContent.getReadArticle().selectedWordProperty().addListener((ObservableValue<? extends IWord> observable, IWord oldValue, IWord newValue) -> {
+            if (newValue == oldValue) return;
             mainContent.showPopOver();
             EventHandler<MouseEvent> hd = new EventHandler<MouseEvent>() {
                 @Override
@@ -130,24 +126,58 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
                 }
             };
             getView().getScene().addEventFilter(MouseEvent.MOUSE_PRESSED, hd);
-            String word = newValue.getWord().getWord();
             
-            if (!mainContent.getWordList().contains(word)) {
-                if(newValue.getWord().getMean()!=null && !newValue.getWord().getMean().equals("")) {
-                    mainContent.getWordList().add(word);
-                    words.add(newValue);
+            
+            if (executor != null && !executor.isTerminated()) {                
+                executor.shutdownNow();
+            }            
+            executor = Executors.newCachedThreadPool();
+            
+            Task<String> task = new Task<String>() {
+                @Override
+                protected String call() throws Exception {
+                    return Lookup.get(newValue.getWord());
                 }
-            }
+            };
+
+            task.valueProperty().addListener(t -> {
+                String word = newValue.getWord().getWord().toLowerCase();
+                if (!mainContent.getWordList().contains(word)) {
+                    if(task.getValue()!=null && !task.getValue().equals("")) {
+                        mainContent.getWordList().add(word);
+                        words.add(newValue);
+                    }
+                }
+                mainContent.getReadArticle().selectedWordProperty().fireValueChangedEvent();
+                executor.shutdown();
+            });
+
+            executor.submit(task);
+            
+            
         });
         
         // bind canCanTest to e.getList().isEmpty()
         mainContent.getListView().getItems().addListener((ListChangeListener.Change e) -> {
             mainContent.setCanTest(!e.getList().isEmpty());
         });
+        
+        // User start test
+        mainContent.setOnDoTest(e -> {
+            PlayState questions = new PlayState();
+            words.forEach(w -> {
+                Word word = w.getWord();
+                Lookup.populateOption(word);
+                questions.add(word);
+            });
+            getUser().getUser().setPlayState(questions);
+            DataInDisk.saveUserInfo(getUser().getUser());
+            resumeState();
+        });
     }
     
     private void setArticlesListData() {
-        ExecutorService executor = Executors.newCachedThreadPool();
+        ExecutorService ect = Executors.newCachedThreadPool();
         Task<Collection<IArticle>> task = new Task<Collection<IArticle>>() {
             @Override
             protected Collection<IArticle> call() throws Exception {
@@ -160,15 +190,15 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         task.valueProperty().addListener(t -> {
             articles = task.getValue();
             getView().getMainContent().setData(articles);
-            executor.shutdown();
+            ect.shutdown();
         });
         
-        executor.submit(task);
+        ect.submit(task);
     }
     
     private void setParsedContent() {
         getView().getMainContent().getReadArticle().setParsedContent("");
-        ExecutorService executor = Executors.newCachedThreadPool();
+        ExecutorService ect = Executors.newCachedThreadPool();
         Task<String> task = new Task<String>() {
         @Override
         protected String call() throws Exception {
@@ -179,10 +209,10 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         
         task.valueProperty().addListener(t -> {
             getView().getMainContent().getReadArticle().setParsedContent(task.getValue());
-            executor.shutdown();
+            ect.shutdown();
         });
         
-        executor.submit(task);
+        ect.submit(task);
     }
     
     private void returnToMain() {
@@ -192,5 +222,9 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         mainContent.getWordList().clear();
         words.clear();
         mainContent.getArticlesList().clearSelection();
+    }
+    
+    private void resumeState() {
+        System.out.println("action");
     }
 }

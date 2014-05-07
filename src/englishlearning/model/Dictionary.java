@@ -11,9 +11,7 @@ import java.util.HashMap;
 /**
  *
  * @author Clicia
- * @param <K>
- * @param <V>
  */
-public class Dictionary<K extends String,V extends String> extends HashMap<K,V> {
+public class Dictionary extends HashMap<String,String> {
     
 }

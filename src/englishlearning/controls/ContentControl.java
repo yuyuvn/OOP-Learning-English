@@ -45,9 +45,7 @@ public class ContentControl extends Pane {
                     this.getChildren().clear();
                     this.getChildren().add((Node) newValue);
                 } else {
-                    nodes.forEach(n -> {
-                        setData(n,newValue);
-                    });                        
+                    nodes.forEach(n -> setData(n,newValue));                        
                     if (oldValue == null || !newValue.getClass().equals(oldValue.getClass())) {
                         addNodes(nodes);
                     }

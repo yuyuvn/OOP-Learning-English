@@ -7,19 +7,18 @@
 package englishlearning.model;
 
 import java.util.Collection;
-import java.util.HashSet;
+
 
 /**
  *
  * @author Clicia
- * @param <T>
  */
-public class UsersList<T extends String> extends HashSet<T> {
+public class UsersList extends java.util.HashSet<String> {
 
     public UsersList() {
     }
 
-    public UsersList(Collection<? extends T> c) {
+    public UsersList(Collection<? extends String> c) {
         super(c);
     }
 

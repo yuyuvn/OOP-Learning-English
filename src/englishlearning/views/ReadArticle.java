@@ -6,6 +6,7 @@
 
 package englishlearning.views;
 
+import englishlearning.model.WordBuilder;
 import englishlearning.model.model.IArticle;
 import englishlearning.model.model.IWord;
 import englishlearning.model.property.ReadOnlyWrapper;
@@ -73,7 +74,7 @@ public class ReadArticle extends Controller implements DataReceivable {
     }
     
     private ReadOnlyWrapper<IWord> _selectedWordProperty() {
-        if (selectedWord == null) selectedWord = new ReadOnlyWrapper<>(this, "selectedWord", new WordWrapper());
+        if (selectedWord == null) selectedWord = new ReadOnlyWrapper<>(this, "selectedWord");
         return selectedWord;
     }
 //</editor-fold>
@@ -88,6 +89,6 @@ public class ReadArticle extends Controller implements DataReceivable {
     
     @FXML private void onClick(ActionEvent event) {
         Hyperlink link = (Hyperlink)event.getSource();
-        setSelectedWord(new WordWrapper(Lookup.getWord(link.getText())));
+        setSelectedWord(new WordWrapper(WordBuilder.create().word(link.getText()).build()));
     }
 }

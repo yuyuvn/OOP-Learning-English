@@ -6,30 +6,11 @@
 
 package englishlearning.model;
 
-import java.io.Serializable;
-import java.util.List;
 
 /**
  *
  * @author Clicia
  */
-public class PlayState implements Serializable {
-    private final String articleGUID;    
-    private List<Word> questions;
-
-    public PlayState(String articleGUID) {
-        this.articleGUID = articleGUID;
-    }
-
-    public String getArticleGUID() {
-        return articleGUID;
-    }
-
-    public List<Word> getQuestions() {
-        return questions;
-    }
-
-    public void setQuestions(List<Word> allQuestions) {
-        this.questions = allQuestions;
-    }
+public class PlayState extends java.util.HashSet<Word> {
+    
 }

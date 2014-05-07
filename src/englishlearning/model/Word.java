@@ -6,16 +6,18 @@
 
 package englishlearning.model;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  *
  * @author Clicia
  */
-public class Word {
+public class Word implements Serializable {
     private String word;
     private String mean;
-    private List<String> options;
+    private Set<String> options;
     private int answer;
     private int choiced;
 
@@ -41,11 +43,11 @@ public class Word {
         this.mean = mean;
     }
     
-    public List<String> getOptions() {
+    public Set<String> getOptions() {
         return options;
     }
     
-    public void setOptions(List<String> options) {
+    public void setOptions(Set<String> options) {
         this.options = options;
     }
     
@@ -64,6 +66,35 @@ public class Word {
     public void setChoiced(int choiced) {
         this.choiced = choiced;
     }
+
 //</editor-fold>
-        
+    
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 61 * hash + Objects.hashCode(this.word);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Word other = (Word) obj;
+        if (!Objects.equals(this.word, other.word)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Word{" + "word=" + word + ", mean=" + mean + ", options=" + options + ", answer=" + answer + ", choiced=" + choiced + '}';
+    }
+    
+    
 }

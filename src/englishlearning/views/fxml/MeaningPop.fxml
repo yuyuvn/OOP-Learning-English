@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import englishlearning.controls.*?>
+
+<GridPane xmlns:fx="http://javafx.com/fxml/1" >
+    <padding><Insets bottom="8" left="8" right="8" top="4" /></padding>
+    <rowConstraints>
+        <RowConstraints vgrow="NEVER" />
+        <RowConstraints vgrow="NEVER" />
+    </rowConstraints>
+    <Label text="${controller.word}" />
+    <ContentControl data="${controller.mean}" GridPane.rowIndex="1">
+        <resources>
+            <DataTemplate dataType="java.lang.String">
+                <Label text="${controller.mean}" wrapText="true" />
+            </DataTemplate>
+        </resources>
+        <defResources>
+            <Loading numberBlock="3" recSize="5" alignment="BASELINE_CENTER" />
+        </defResources>
+        <children>
+            <Loading numberBlock="3" recSize="5" alignment="BASELINE_CENTER" />
+        </children>
+    </ContentControl>
+</GridPane>

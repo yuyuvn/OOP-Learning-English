@@ -10,8 +10,11 @@
 <?import javafx.geometry.Insets?>
 <?import org.controlsfx.control.PopOver?>
 
-<GridPane AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" xmlns:fx="http://javafx.com/fxml/1">
-    
+<GridPane AnchorPane.bottomAnchor="10.0" 
+          AnchorPane.leftAnchor="10.0" 
+          AnchorPane.rightAnchor="10.0" 
+          AnchorPane.topAnchor="10.0" 
+          xmlns:fx="http://javafx.com/fxml/1">    
     <fx:define>
         <PopOver fx:id="popOver" 
                  arrowIndent="0.0" 
@@ -19,19 +22,16 @@
                  cornerRadius="0.0" 
                  arrowLocation="LEFT_BOTTOM" 
                  detachable="false"
-                 autoFix="true"
                  autoHide="true"
         >
             <contentNode>
-                <GridPane xmlns:fx="http://javafx.com/fxml/1">
-                    <padding><Insets bottom="8" left="8" right="8" top="4" /></padding>
-                    <rowConstraints>
-                        <RowConstraints vgrow="NEVER" />
-                        <RowConstraints vgrow="NEVER" />
-                    </rowConstraints>
-                    <Label text="${readArticle.selectedWord.word.word}" />
-                    <Label text="${readArticle.selectedWord.word.mean}" GridPane.rowIndex="1" />
-                </GridPane>
+                <ContentControl data="${readArticle.selectedWord}" GridPane.rowIndex="1">
+                    <resources>
+                        <DataTemplate dataType="englishlearning.model.model.IWord">
+                            <MeaningPop />
+                        </DataTemplate>
+                    </resources>
+                </ContentControl>
             </contentNode>
         </PopOver>
     </fx:define>
@@ -63,7 +63,7 @@
                                         <Insets bottom="20" top="20" />
                                     </padding>
                                     <Button text="Back" onAction="#onReturn" />
-                                    <Button text="Do test" visible="${controller.canTest}" />
+                                    <Button text="Do test" visible="${controller.canTest}" onAction="#onDoTest" />
                                 </HBox>
                                 <ListView fx:id="listView" items="${controller.wordList}" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
                             </GridPane>

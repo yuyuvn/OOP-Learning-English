@@ -7,8 +7,8 @@
 package englishlearning.model;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -17,7 +17,7 @@ import java.util.Map;
 public class UserInfo implements Serializable {
     private String name;
     private String lastUsed;
-    private Map<String,Double> readList;
+    private ReadList readList;
     private PlayState playState;
     
     // add favorite (thêm nếu có thời gian)
@@ -45,21 +45,26 @@ public class UserInfo implements Serializable {
         this.lastUsed = lastUsed;
     }
     
-    public Map<String, Double> getReadList() {
+    public ReadList getReadList() {
         return readList;
     }
     
-    public void setReadList(Map<String, Double> readList) {
+    public void setReadList(ReadList readList) {
         this.readList = readList;
     }
     
     public PlayState getPlayState() {
         return playState;
     }
-    
+
     public void setPlayState(PlayState playState) {
         this.playState = playState;
     }
+
 //</editor-fold>
-        
+    @Override
+    public String toString() {
+        return "UserInfo{" + "name=" + name + ", lastUsed=" + lastUsed + ", readList=" + readList + ", playState=" + playState + '}';
+    }
+            
 }

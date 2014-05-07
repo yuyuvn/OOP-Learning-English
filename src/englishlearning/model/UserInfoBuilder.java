@@ -15,7 +15,6 @@ public class UserInfoBuilder {
     
     @SuppressWarnings({"deprecation", "rawtypes", "unchecked"})
     protected UserInfoBuilder() {
-        
     }
     @SuppressWarnings("unchecked")
     public static UserInfoBuilder create() {
@@ -45,7 +44,7 @@ public class UserInfoBuilder {
     
     public UserInfo build() {
         if (data.getName() == null) throw new RuntimeException("Name is not set");
-        if (data.getReadList() == null) data.setReadList(new ReadList());
+        if (data.getReadList() == null) readList(new ReadList());
         return data;
     }
 }

@@ -102,10 +102,17 @@ public class MainContent extends Controller {
     private EventHandler onReturn;
     public void setOnReturn(EventHandler eventHandler) {
         onReturn = eventHandler;
-    }
-    
+    }    
     public void onReturn(ActionEvent event) {
         if (onReturn != null) onReturn.handle(event);
+    }
+    
+    private EventHandler onDoTest;
+    public void setOnDoTest(EventHandler eventHandler) {
+        onDoTest = eventHandler;
+    }    
+    @FXML private void onDoTest(ActionEvent event) {
+        if (onDoTest != null) onDoTest.handle(event);
     }
     
     public void showPopOver() {

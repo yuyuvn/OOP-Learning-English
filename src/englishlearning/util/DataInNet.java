@@ -37,7 +37,7 @@ public class DataInNet {
     private final static String URL_RSS = "http://learningenglish.voanews.com/api/epiqq";
     private final static String URL_DIC = "http://tratu.soha.vn/dict/en_vn/";
     
-    public static Articles<Article> getListArticle(String urlString) throws MalformedURLException{
+    public static Articles getListArticle(String urlString) throws MalformedURLException{
         URL url = new URL(urlString);
         SAXParserFactory spf = SAXParserFactory.newInstance();
         ArticlesListHandler handler = new ArticlesListHandler();
@@ -55,8 +55,8 @@ public class DataInNet {
         return handler.getArticles();
     }
     
-    public static Articles<Article> getListArticle() throws MalformedURLException {
-        Articles<Article> value;
+    public static Articles getListArticle() throws MalformedURLException {
+        Articles value;
         value = DataInDisk.getData(DataInDisk.getRelativePath("data/debug/cacheAL.bin"));
         if (value == null) {
             value = getListArticle(URL_RSS);
