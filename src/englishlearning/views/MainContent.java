@@ -33,6 +33,8 @@ public class MainContent extends Controller {
     public ArticlesList getArticlesList() {return articlesList;}
     @FXML ReadArticle readArticle;
     public ReadArticle getReadArticle() {return readArticle;}
+    @FXML Exercise exercise;
+    public Exercise getExercise() {return exercise; }
     
     @FXML private PopOver popOver;
     @FXML private ListView listView;

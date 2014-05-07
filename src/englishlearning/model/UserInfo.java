@@ -7,8 +7,6 @@
 package englishlearning.model;
 
 import java.io.Serializable;
-import java.util.Map;
-import java.util.Set;
 
 /**
  *

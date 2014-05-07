@@ -11,6 +11,6 @@ package englishlearning.model;
  *
  * @author Clicia
  */
-public class PlayState extends java.util.HashSet<Word> {
+public class PlayState extends java.util.ArrayList<Word> {
     
 }

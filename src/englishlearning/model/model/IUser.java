@@ -7,8 +7,6 @@
 package englishlearning.model.model;
 
 import englishlearning.model.UserInfo;
-import englishlearning.model.Word;
-import java.util.Set;
 
 /**
  *
@@ -16,5 +14,4 @@ import java.util.Set;
  */
 public interface IUser extends IWrapper {
     public UserInfo getUser();
-    public Set<Word> getPlayState();
 }

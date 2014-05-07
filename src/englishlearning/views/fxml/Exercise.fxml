@@ -7,12 +7,17 @@
 <?import javafx.scene.layout.*?>
 
 <GridPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1">
-    <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" percentWidth="60" />
-        <ColumnConstraints hgrow="SOMETIMES" fillWidth="true" />
-    </columnConstraints>
     <rowConstraints>
         <RowConstraints vgrow="NEVER" />
         <RowConstraints vgrow="SOMETIMES" />
     </rowConstraints>
+    <children>
+        <Label text="${controller.word}" alignment="TOP_CENTER" />
+        <FlowPane GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Button wrapText="true" maxWidth="200" text="${controller.option1}" onAction="#onSelect" />
+            <Button wrapText="true" maxWidth="200" text="${controller.option2}" onAction="#onSelect" />
+            <Button wrapText="true" maxWidth="200" text="${controller.option3}" onAction="#onSelect" />
+            <Button wrapText="true" maxWidth="200" text="${controller.option4}" onAction="#onSelect" />
+        </FlowPane>  
+    </children>
 </GridPane>

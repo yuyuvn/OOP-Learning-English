@@ -77,8 +77,11 @@
                 <DataTemplate dataType="englishlearning.model.model.IArticle">
                     <ReadArticle fx:id="readArticle" />
                 </DataTemplate>
-                <DataTemplate dataType="java.util.ArrayList">
+                <DataTemplate dataType="englishlearning.model.Articles">
                     <ArticlesList fx:id="articlesList" />
+                </DataTemplate>
+                <DataTemplate dataType="englishlearning.model.model.IWord">
+                    <Exercise fx:id="exercise" />
                 </DataTemplate>
             </resources>
         </ContentControl>

@@ -14,7 +14,6 @@ import englishlearning.model.property.ReadOnlyWrapperProperty;
 import englishlearning.model.property.WrapperProperty;
 import englishlearning.model.wrapper.ArticleWrapper;
 import englishlearning.model.wrapper.WordWrapper;
-import englishlearning.util.Lookup;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;

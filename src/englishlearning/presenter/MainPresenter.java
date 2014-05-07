@@ -13,6 +13,7 @@ import englishlearning.model.model.IUser;
 import englishlearning.model.model.IWord;
 import englishlearning.model.property.WrapperProperty;
 import englishlearning.model.wrapper.ArticleWrapper;
+import englishlearning.model.wrapper.WordWrapper;
 import englishlearning.util.DataInDisk;
 import englishlearning.util.DataInNet;
 import englishlearning.util.Lookup;
@@ -21,9 +22,12 @@ import englishlearning.views.MainContent;
 import englishlearning.views.MainWindow;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
+import static java.util.stream.Collectors.toList;
 import java.util.stream.Stream;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
@@ -51,6 +55,7 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
     private final Collection<IWord> words = new ArrayList<>();
     private Collection<IArticle> articles;
     private ExecutorService executor;
+    private List<Word> questions;
     
     public MainPresenter(V view) {
         super(view);
@@ -63,7 +68,7 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
     @Override
     protected void initialize() {
         // user login susscess
-        if (getUser().getPlayState() != null) {
+        if (getUser().getUser().getPlayState() != null) {
             resumeState();
         }
         
@@ -164,15 +169,23 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         
         // User start test
         mainContent.setOnDoTest(e -> {
-            PlayState questions = new PlayState();
+            PlayState q = new PlayState();
             words.forEach(w -> {
                 Word word = w.getWord();
                 Lookup.populateOption(word);
-                questions.add(word);
+                q.add(word);
             });
-            getUser().getUser().setPlayState(questions);
+            getUser().getUser().setPlayState(q);
             DataInDisk.saveUserInfo(getUser().getUser());
             resumeState();
+        });
+        
+        mainContent.getExercise().choiceProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+            Integer value = (Integer) newValue;
+            if (value > 0) {
+                // TODO
+                resumeState();
+            }
         });
     }
     
@@ -225,6 +238,10 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
     }
     
     private void resumeState() {
-        System.out.println("action");
+        // TODO
+        questions = getUser().getUser().getPlayState().stream().filter(w -> w.getChoiced() == 0).collect(toList());
+        Random generator = new Random();
+        IWord question = new WordWrapper(questions.get(generator.nextInt(questions.size())));
+        getView().getMainContent().setData(question);
     }
 }

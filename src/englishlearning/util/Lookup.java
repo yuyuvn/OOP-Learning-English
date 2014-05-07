@@ -66,10 +66,12 @@ public class Lookup {
         Set<String> options = word.getOptions();
         options.add(word.getMean());
         Random generator = new Random();
-        if (getDictionary().size() >= 4) {
-            Object[] values = getDictionary().values().toArray();
+        int dicSize = getDictionary().size();
+        if (dicSize >= 4) {
+            String[] values = new String[dicSize];
+            values = getDictionary().values().toArray(values);
             while (options.size() < 4) {
-                options.add((String)values[generator.nextInt(values.length)]);
+                options.add(values[generator.nextInt(values.length)]);
             }
         } else {
             throw new IllegalArgumentException("Dictionary is too small to test");

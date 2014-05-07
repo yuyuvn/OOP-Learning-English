@@ -33,10 +33,5 @@ public class UserWrapper<T extends UserInfo> extends Wrapper<T> implements IUser
     public UserInfo getUser() {
         return getRawData();
     }
-
-    @Override
-    public PlayState getPlayState() {
-        return getUser().getPlayState();
-    }
     
 }
