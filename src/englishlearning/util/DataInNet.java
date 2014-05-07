@@ -94,7 +94,7 @@ public class DataInNet {
                 int ch = r.read();
                 if (ch < 0)
                     break;
-                StringBuilder append = buf.append((char) ch);
+                buf.append((char) ch);
             }
             Matcher m2 = Pattern.compile("<h5> <span class=\"mw-headline\">([\\w \\-,\\(\\)]+)[<]", Pattern.UNICODE_CHARACTER_CLASS).matcher(buf.toString());
             if( m2.find() ){
