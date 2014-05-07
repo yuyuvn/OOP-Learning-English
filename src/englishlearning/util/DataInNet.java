@@ -35,6 +35,7 @@ import org.xml.sax.XMLReader;
  */
 public class DataInNet {
     private final static String URL_RSS = "http://learningenglish.voanews.com/api/epiqq";
+    private final static String URL_DIC = "http://tratu.soha.vn/dict/en_vn/";
     
     public static Articles<Article> getListArticle(String urlString) throws MalformedURLException{
         URL url = new URL(urlString);
@@ -83,7 +84,7 @@ public class DataInNet {
     }
     public static String getMean(String word){
         try {
-            URL url = new URL("http://tratu.soha.vn/dict/en_vn/"+word);
+            URL url = new URL(URL_DIC+word);
             URLConnection con = url.openConnection();
             Pattern p = Pattern.compile("\\w+", Pattern.UNICODE_CHARACTER_CLASS);
             Matcher m = p.matcher(con.getContentType());
