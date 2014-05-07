@@ -109,47 +109,27 @@ public class DataInDisk {
     }
     public static void saveDict(Dictionary dict){
         StringBuilder sb = new StringBuilder();
-        dict.forEach((K,V)->{
-            String s = K+":"+V+"\n";
-            sb.append(s);
+        dict.forEach((k,v)->{
+            sb.append(k).append(":").append(v).append("\n");
         });
-        try {
-            try (Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(PATH_DICT), "UTF-8"))) {
-                out.write(sb.toString());
-            }
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(DataInDisk.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(DataInDisk.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(DataInDisk.class.getName()).log(Level.SEVERE, null, ex);
+        try (Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(getRelativePath(PATH_DICT)), "UTF-8"))) {
+            out.write(sb.toString());
+        } catch (Exception ex) {
         }
-      
-        
     }
+        
     public static Dictionary loadDict(){
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream(PATH_DICT);
+        try (FileInputStream fis = new FileInputStream(getRelativePath(PATH_DICT))) {
+            
             Dictionary dict = new Dictionary();
             Scanner scanner = new Scanner(fis);
             while(scanner.hasNextLine()){
-                String line = scanner.nextLine();
-                String[] data = line.split(":",2);
+                String[] data = scanner.nextLine().split(":",2);
                 dict.put(data[0], data[1]);
             }
             return dict;
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(DataInDisk.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        finally {
-            try {
-                fis.close();
-            } catch (IOException ex) {
-                Logger.getLogger(DataInDisk.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        } catch (Exception ex) {
         }
-        return null;
-       
+        return null;       
     } 
 }
