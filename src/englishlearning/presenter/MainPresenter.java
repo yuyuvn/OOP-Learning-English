@@ -25,6 +25,7 @@ import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.concurrent.Task;
 import javafx.event.EventHandler;
@@ -98,7 +99,19 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         // filter articles
         articlesList.filterTextProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             if (newValue != null && !newValue.equals("")) {
-                mainContent.setData(articles.stream().filter(a -> a.getArticle().getTitle().toLowerCase().contains(newValue.toLowerCase())).collect(Collectors.toList()));
+                if (oldValue != null && !oldValue.equals("") && newValue.contains(oldValue)) {
+                    mainContent.setData(
+                            mainContent.getArticlesList().getArticles()
+                                    .stream().filter(
+                                            a -> a.getArticle().getTitle().toLowerCase().contains(
+                                                    newValue.toLowerCase())).collect(Collectors.toList())
+                    );
+                } else {
+                mainContent.setData(
+                                articles.stream()
+                                        .filter(a -> a.getArticle().getTitle().toLowerCase().contains(newValue.toLowerCase()))
+                                        .collect(Collectors.toList()));
+                }
             } else {
                 mainContent.setData(articles);
             }

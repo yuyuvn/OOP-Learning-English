@@ -26,7 +26,7 @@ import org.controlsfx.control.textfield.CustomTextField;
  */
 public class ArticlesList extends Controller implements DataReceivable {
     
-    @FXML public ListViewEx listView;
+    @FXML private ListViewEx listView;
     //<editor-fold defaultstate="collapsed" desc="Property articles">
     private ListProperty<IArticle> articles;
     
@@ -83,6 +83,10 @@ public class ArticlesList extends Controller implements DataReceivable {
     public void setFilterText(String value) { searchField.setText(value); }
     public StringProperty filterTextProperty() { return searchField.textProperty(); }
 //</editor-fold>
+    
+    public ListViewEx getListView() {
+        return listView;
+    }
     
     public ArticlesList() {
         _selectedArticleProperty().bind(listView.getSelectionModel().selectedItemProperty());

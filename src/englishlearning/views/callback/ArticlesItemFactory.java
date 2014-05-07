@@ -27,7 +27,7 @@ public class ArticlesItemFactory<V,C> implements Callback<ListView<?>,ListCell<?
             @Override
             public void updateItem(IArticle article, boolean empty){
                 super.updateItem(article,empty);
-                if(article != null) {
+                if(article != null && !empty) {
                     ArticlesItem data = new ArticlesItem();
                     data.setData(article);
                     setGraphic(data);
@@ -40,6 +40,9 @@ public class ArticlesItemFactory<V,C> implements Callback<ListView<?>,ListCell<?
                             }
                         });
                     }
+                } else {
+                    setText(null);
+                    setGraphic(null);
                 }
             }
         };
