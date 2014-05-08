@@ -25,5 +25,4 @@ public class Articles extends java.util.ArrayList<Article> {
     public Articles(Collection<? extends Article> c) {
         super(c);
     }
-    
 }

@@ -17,7 +17,7 @@ import java.util.Set;
 public class Word implements Serializable {
     private String word;
     private String mean;
-    private Set<String> options;
+    private Options options;
     private int answer;
     private int choiced;
 
@@ -43,11 +43,11 @@ public class Word implements Serializable {
         this.mean = mean;
     }
     
-    public Set<String> getOptions() {
+    public Options getOptions() {
         return options;
     }
     
-    public void setOptions(Set<String> options) {
+    public void setOptions(Options options) {
         this.options = options;
     }
     

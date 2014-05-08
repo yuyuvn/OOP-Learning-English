@@ -7,6 +7,7 @@
 package englishlearning.util;
 
 import englishlearning.model.Dictionary;
+import englishlearning.model.Options;
 import englishlearning.model.Word;
 import englishlearning.model.WordBuilder;
 import java.util.Random;
@@ -21,7 +22,9 @@ public class Lookup {
     
     public static Dictionary getDictionary() {
         // TODO: if __dictionary == null then read from disk
-        if (__dictionary == null) __dictionary = new Dictionary();
+        if (__dictionary == null) {
+            __dictionary = DataInDisk.loadDict();
+        }
         return __dictionary;
     }
     
@@ -41,7 +44,7 @@ public class Lookup {
 
     public static void add(String word, String mean) {
         getDictionary().put(word, mean);
-        // TODO: save to disk
+        DataInDisk.addWordToDict(word, mean);
     }
 
     public static String get(Word word) {
@@ -62,8 +65,8 @@ public class Lookup {
     
     public static Word populateOption(Word word) {
         if (word.getMean() == null || word.getMean().equals("")) throw new IllegalArgumentException("Word doesn't have mean");
-        if (word.getOptions().size() > 0) throw new IllegalArgumentException("Word has been populated");
-        Set<String> options = word.getOptions();
+        Options options = word.getOptions();
+        if (options.size() > 0) throw new IllegalArgumentException("Word has been populated");
         options.add(word.getMean());
         Random generator = new Random();
         int dicSize = getDictionary().size();

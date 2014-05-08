@@ -6,9 +6,7 @@
 
 package englishlearning.model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -23,7 +21,7 @@ public class WordBuilder {
         data = new Word();
         data.setAnswer(0);
         data.setChoiced(0);
-        data.setOptions(new HashSet<>());
+        data.setOptions(new Options());
     }
     
     public static WordBuilder create() {
@@ -45,7 +43,7 @@ public class WordBuilder {
         return this;
     }
     
-    public WordBuilder options(Set<String> value) {
+    public WordBuilder options(Options value) {
         data.setOptions(value);
         return this;
     }

@@ -117,11 +117,17 @@ public class DataInDisk {
         } catch (Exception ex) {
         }
     }
+    public static void addWordToDict(String key, String value){
+        try (Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(getRelativePath(PATH_DICT), true), "UTF-8"))) {
+            out.write(key + ":" + value + "\n");
+        } catch (Exception ex) {
+        }
+    }
         
     public static Dictionary loadDict(){
+        Dictionary dict = new Dictionary();
         try (FileInputStream fis = new FileInputStream(getRelativePath(PATH_DICT))) {
             
-            Dictionary dict = new Dictionary();
             Scanner scanner = new Scanner(fis);
             while(scanner.hasNextLine()){
                 String[] data = scanner.nextLine().split(":",2);
@@ -130,6 +136,6 @@ public class DataInDisk {
             return dict;
         } catch (Exception ex) {
         }
-        return null;       
+        return dict;       
     } 
 }

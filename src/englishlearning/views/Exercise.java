@@ -7,6 +7,8 @@
 package englishlearning.views;
 
 import englishlearning.model.model.IWord;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
@@ -22,84 +24,25 @@ import javafx.scene.control.Button;
  * @author Clicia
  */
 public class Exercise extends Controller implements DataReceivable {
+    @FXML private Button option1;
+    @FXML private Button option2;
+    @FXML private Button option3;
+    @FXML private Button option4;
+    
     //<editor-fold defaultstate="collapsed" desc="String word">
     private StringProperty word;
     
-    private String getWord() {
-        return stringProperty().get();
+    public String getWord() {
+        return wordProperty().get();
     }
     
-    private void setWord(String value) {
-        stringProperty().set(value);
+    public void setWord(String value) {
+        wordProperty().set(value);
     }
     
-    private StringProperty stringProperty() {
+    public StringProperty wordProperty() {
         if (word == null) word = new SimpleStringProperty(this, "word", "");
         return word;
-    }
-//</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="String option1">
-    private StringProperty option1;
-    
-    private String getOption1() {
-        return stringProperty().get();
-    }
-    
-    private void setOption1(String value) {
-        stringProperty().set(value);
-    }
-    
-    private StringProperty option1Property() {
-        if (option1 == null) option1 = new SimpleStringProperty(this, "option1", "");
-        return option1;
-    }
-//</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="String option2">
-    private StringProperty option2;
-    
-    private String getOption2() {
-        return stringProperty().get();
-    }
-    
-    private void setOption2(String value) {
-        stringProperty().set(value);
-    }
-    
-    private StringProperty option2Property() {
-        if (option2 == null) option2 = new SimpleStringProperty(this, "option2", "");
-        return option2;
-    }
-//</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="String option3">
-    private StringProperty option3;
-    
-    private String getOption3() {
-        return stringProperty().get();
-    }
-    
-    private void setOption3(String value) {
-        stringProperty().set(value);
-    }
-    
-    private StringProperty option3Property() {
-        if (option3 == null) option3 = new SimpleStringProperty(this, "option3", "");
-        return option3;
-    }
-//</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="String option4">
-    private StringProperty option4;
-    
-    private String getOption4() {
-        return stringProperty().get();
-    }
-    
-    private void setOption4(String value) {
-        stringProperty().set(value);
-    }
-    
-    private StringProperty option4Property() {
-        if (option4 == null) option4 = new SimpleStringProperty(this, "option4", "");
-        return option4;
     }
 //</editor-fold>
     
@@ -123,48 +66,33 @@ public class Exercise extends Controller implements DataReceivable {
         return choice;
     }
 //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Double process">
-    private DoubleProperty process;
-    
-    public double getProcess() {
-        return processProperty().get();
-    }
-    
-    public void setProcess(double value) {
-        processProperty().set(value);
-    }
-    
-    public DoubleProperty processProperty() {
-        if (process == null) process = new SimpleDoubleProperty(this, "process", 0);
-        return process;
-    }
-//</editor-fold>
     
     @Override
     public void setData(Object value) {
         try {
             IWord w = (IWord)value;
             setWord(w.getWord().getWord());
-            Object[] options = w.getWord().getOptions().toArray();
-            setOption1(options[0].toString());
-            setOption2(options[1].toString());
-            setOption3(options[2].toString());
-            setOption4(options[3].toString());
+            List<String> options = new ArrayList();
+            options.addAll(w.getWord().getOptions());
+            option1.setText(options.get(0));
+            option2.setText(options.get(1));
+            option3.setText(options.get(2));
+            option4.setText(options.get(3));
             setChoice(0);
         } catch (ClassCastException e) {
         }
     }
     
     @FXML private void onSelect(ActionEvent event) {
-        Button source = (Button)event.getSource();
-        String selected = source.getText();
-        if (selected.equals(getOption1())) {
+        Object source = event.getSource();
+        
+        if (source == option1) {
             setChoice(1);
-        } else if (selected.equals(getOption2())) {
+        } else if (source == option2) {
             setChoice(2);
-        } else if (selected.equals(getOption3())) {
+        } else if (source == option3) {
             setChoice(3);
-        } else if (selected.equals(getOption4())) {
+        } else if (source == option4) {
             setChoice(4);
         }
     }

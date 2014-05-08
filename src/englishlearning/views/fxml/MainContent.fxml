@@ -9,6 +9,7 @@
 <?import englishlearning.views.*?>
 <?import javafx.geometry.Insets?>
 <?import org.controlsfx.control.PopOver?>
+<?import javafx.scene.shape.Rectangle?> 
 
 <GridPane AnchorPane.bottomAnchor="10.0" 
           AnchorPane.leftAnchor="10.0" 
@@ -36,19 +37,20 @@
         </PopOver>
     </fx:define>
     <columnConstraints>
-        <ColumnConstraints hgrow="NEVER" minWidth="200"/>
+        <ColumnConstraints hgrow="NEVER" minWidth="200" />
         <ColumnConstraints hgrow="SOMETIMES" fillWidth="true" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints vgrow="SOMETIMES" />
+        <RowConstraints vgrow="SOMETIMES" fillHeight="true" />
+        <RowConstraints vgrow="NEVER" />
     </rowConstraints>
     <children>
-        <VBox alignment="TOP_LEFT">
+        <VBox alignment="TOP_LEFT" GridPane.hgrow="NEVER" >
             <GridPane.margin>
                 <Insets bottom="5" left="5" right="25" top="5" />
             </GridPane.margin>
             <children>
-                <Label text="${'Welcome ' + controller.user.user.name}" wrapText="true"/>
+                <Label text="${'Welcome ' + controller.user.user.name}" wrapText="true" />
                 <Label text="${'You have readed ' + controller.user.readedArticles + ' articles'}" wrapText="true"/>
                 <ContentControl data="${controller.data}">
                     <resources>
@@ -68,6 +70,9 @@
                                 <ListView fx:id="listView" items="${controller.wordList}" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
                             </GridPane>
                         </DataTemplate>
+                        <DataTemplate dataType="englishlearning.model.model.IWord">
+                            <Button text="Back" onAction="#onReturn" />
+                        </DataTemplate>
                     </resources>
                 </ContentControl>
            </children>
@@ -77,13 +82,14 @@
                 <DataTemplate dataType="englishlearning.model.model.IArticle">
                     <ReadArticle fx:id="readArticle" />
                 </DataTemplate>
-                <DataTemplate dataType="englishlearning.model.Articles">
+                <DataTemplate dataType="java.util.ArrayList">
                     <ArticlesList fx:id="articlesList" />
                 </DataTemplate>
                 <DataTemplate dataType="englishlearning.model.model.IWord">
                     <Exercise fx:id="exercise" />
                 </DataTemplate>
             </resources>
-        </ContentControl>
+        </ContentControl>        
+        <Rectangle height="5" width="${controller.width*controller.process}" fill="#333" GridPane.rowIndex="1" GridPane.columnSpan="2" />
     </children>
 </GridPane>

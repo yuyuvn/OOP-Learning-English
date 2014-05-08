@@ -53,9 +53,8 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
 //</editor-fold>
     
     private final Collection<IWord> words = new ArrayList<>();
-    private Collection<IArticle> articles;
+    private Collection<IArticle> articles = null;
     private ExecutorService executor;
-    private List<Word> questions;
     
     public MainPresenter(V view) {
         super(view);
@@ -67,16 +66,19 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
     
     @Override
     protected void initialize() {
-        // user login susscess
-        if (getUser().getUser().getPlayState() != null) {
-            resumeState();
-        }
-        
-        setArticlesListData();
+        // 準備する
         getView().userProperty().bindBidirectional(userProperty());
         MainContent mainContent = getView().getMainContent();
         ArticlesList articlesList = mainContent.getArticlesList();
-
+        
+        
+        // user login susscess
+        if (getUser().getUser().getPlayState() != null) {
+            resumeState();
+        } else {
+            returnToMain();
+        }
+        
         // User click return after read article
         mainContent.setOnReturn(e -> returnToMain());
         
@@ -184,12 +186,19 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
             Integer value = (Integer) newValue;
             if (value > 0) {
                 // TODO
+                try {
+                    IWord word = (IWord) getView().getMainContent().getData();
+                    word.getWord().setChoiced(value);
+                } catch (Exception e) {
+                    
+                }
                 resumeState();
             }
         });
     }
     
     private void setArticlesListData() {
+        if (articles != null) return;
         ExecutorService ect = Executors.newCachedThreadPool();
         Task<Collection<IArticle>> task = new Task<Collection<IArticle>>() {
             @Override
@@ -229,19 +238,29 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
     }
     
     private void returnToMain() {
+        setArticlesListData();
         MainContent mainContent = getView().getMainContent();
         mainContent.setData(articles);
         mainContent.getArticlesList().setFilterText("");
         mainContent.getWordList().clear();
+        getView().getMainContent().setProcess(0);
         words.clear();
         mainContent.getArticlesList().clearSelection();
+        getUser().getUser().setPlayState(null);
     }
     
     private void resumeState() {
-        // TODO
-        questions = getUser().getUser().getPlayState().stream().filter(w -> w.getChoiced() == 0).collect(toList());
-        Random generator = new Random();
-        IWord question = new WordWrapper(questions.get(generator.nextInt(questions.size())));
-        getView().getMainContent().setData(question);
+        List<Word> questions = getUser().getUser().getPlayState().stream().filter(w -> w.getChoiced() == 0).collect(toList());
+        if (questions.size() > 0 ) {
+            Random generator = new Random();
+            IWord question = new WordWrapper(questions.get(generator.nextInt(questions.size())));
+            getView().getMainContent().setData(question);
+            getView().getMainContent().setProcess(1-((double)questions.size()-1)/getUser().getUser().getPlayState().size());
+        } else {
+            // TODO show result window
+            PlayState result = getUser().getUser().getPlayState();
+            returnToMain();
+        }
+        DataInDisk.saveUserInfo(getUser().getUser());
     }
 }
