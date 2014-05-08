@@ -238,6 +238,7 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
     }
     
     private void returnToMain() {
+        getUser().getUser().setPlayState(null);
         setArticlesListData();
         MainContent mainContent = getView().getMainContent();
         mainContent.setData(articles);
@@ -246,19 +247,20 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         getView().getMainContent().setProcess(0);
         words.clear();
         mainContent.getArticlesList().clearSelection();
-        getUser().getUser().setPlayState(null);
     }
     
     private void resumeState() {
         List<Word> questions = getUser().getUser().getPlayState().stream().filter(w -> w.getChoiced() == 0).collect(toList());
+        MainContent mainContent = getView().getMainContent();
         if (questions.size() > 0 ) {
             Random generator = new Random();
             IWord question = new WordWrapper(questions.get(generator.nextInt(questions.size())));
-            getView().getMainContent().setData(question);
-            getView().getMainContent().setProcess(1-((double)questions.size()-1)/getUser().getUser().getPlayState().size());
+            mainContent.setData(question);
+            mainContent.setProcess(1-((double)questions.size()-1)/getUser().getUser().getPlayState().size());
         } else {
             // TODO show result window
-            PlayState result = getUser().getUser().getPlayState();
+            mainContent.setResult(getUser().getUser().getPlayState());
+            mainContent.showResult();
             returnToMain();
         }
         DataInDisk.saveUserInfo(getUser().getUser());

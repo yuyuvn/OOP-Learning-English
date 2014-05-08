@@ -17,7 +17,9 @@
         <RowConstraints vgrow="NEVER" />
         <RowConstraints vgrow="SOMETIMES" fillHeight="true" />
     </rowConstraints>
-    <Label text="${controller.article.article.title}" alignment="TOP_CENTER" />
+    <TilePane alignment="TOP_CENTER">
+        <Label text="${controller.article.article.title}" />
+    </TilePane>
     <ContentControl data="${controller.parsedContent}" GridPane.rowIndex="1">
         <resources>
             <DataTemplate dataType="java.lang.String">

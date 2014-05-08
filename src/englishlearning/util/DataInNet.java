@@ -98,8 +98,11 @@ public class DataInNet {
                 buf.append((char) ch);
             }
             Matcher m2 = Pattern.compile("<h5> <span class=\"mw-headline\">([\\w \\-,\\(\\);]+)<", Pattern.UNICODE_CHARACTER_CLASS).matcher(buf.toString());
-            if( m2.find() ){
+            while ( m2.find() ){
                 String match = m2.group(1);
+                if (!Pattern.compile("\\w",Pattern.UNICODE_CHARACTER_CLASS).matcher(match).find()) {
+                    continue;
+                }
                 if (match.equals("adjective")) return null;
                 if (match.endsWith("từ") && m2.find()) match = m2.group(1);
                 if (match.endsWith("Phó từ") && m2.find()) match = m2.group(1);

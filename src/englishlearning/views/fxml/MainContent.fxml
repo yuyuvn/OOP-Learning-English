@@ -22,7 +22,7 @@
                  autoHide="true"
         >
             <contentNode>
-                <ContentControl data="${readArticle.selectedWord}" GridPane.rowIndex="1">
+                <ContentControl data="${readArticle.selectedWord}">
                     <resources>
                         <DataTemplate dataType="englishlearning.model.model.IWord">
                             <MeaningPop />
@@ -31,9 +31,27 @@
                 </ContentControl>
             </contentNode>
         </PopOver>
+        <PopOver fx:id="resultPop" 
+                 arrowIndent="0.0" 
+                 arrowSize="0.0" 
+                 cornerRadius="0.0" 
+                 arrowLocation="LEFT_TOP" 
+                 detachable="true"
+                 detachedTitle="Result" 
+        >
+            <contentNode>
+                <ContentControl data="${controller.result}">
+                    <resources>
+                        <DataTemplate dataType="englishlearning.model.PlayState">
+                            <Result />
+                        </DataTemplate>
+                    </resources>
+                </ContentControl>
+            </contentNode>
+        </PopOver>
     </fx:define>
     <columnConstraints>
-        <ColumnConstraints hgrow="NEVER" minWidth="200" />
+        <ColumnConstraints hgrow="NEVER" minWidth="250" />
         <ColumnConstraints hgrow="SOMETIMES" fillWidth="true" />
     </columnConstraints>
     <rowConstraints>
@@ -85,7 +103,7 @@
                     <Exercise fx:id="exercise" />
                 </DataTemplate>
             </resources>
-        </ContentControl>        
+        </ContentControl>
         <Rectangle height="5" width="${controller.width*controller.process}" fill="#333" GridPane.rowIndex="1" GridPane.columnSpan="2" />
     </children>
 </GridPane>

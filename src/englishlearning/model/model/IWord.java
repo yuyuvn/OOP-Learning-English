@@ -19,12 +19,12 @@ public interface IWord extends IWrapper {
     boolean isRightAnswer();
     boolean isAnswered();
     //getWord setWord conflict
-    public String getMean();
-    public void setMean(String mean);
-    public Options getOptions();
-    public void setOptions(Options options);
-    public int getAnswer();
-    public void setAnswer(int answer);
-    public int getChoiced();
-    public void setChoiced(int choiced);
+    String getMean();
+    void setMean(String mean);
+    Options getOptions();
+    void setOptions(Options options);
+    int getAnswer();
+    void setAnswer(int answer);
+    int getChoiced();
+    void setChoiced(int choiced);
 }

@@ -18,7 +18,7 @@
     <ContentControl data="${controller.mean}" GridPane.rowIndex="1">
         <resources>
             <DataTemplate dataType="java.lang.String">
-                <Label text="${controller.mean}" wrapText="true" />
+                <Label text="${controller.mean}" />
             </DataTemplate>
         </resources>
         <defResources>

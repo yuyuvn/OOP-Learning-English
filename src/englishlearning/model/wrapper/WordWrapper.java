@@ -10,7 +10,6 @@ import englishlearning.model.Options;
 import englishlearning.model.Word;
 import englishlearning.model.WordBuilder;
 import englishlearning.model.model.IWord;
-import java.util.Set;
 
 /**
  *
@@ -20,7 +19,7 @@ import java.util.Set;
 public class WordWrapper<T extends Word> extends Wrapper<T> implements IWord {
 
     public WordWrapper() {
-        this((T)WordBuilder.create().word("").build());
+        this((T)WordBuilder.create().word("").mean("").build());
     }
     
     public WordWrapper(T data) {

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.TextFlow?>
+<?import englishlearning.views.callback.ResultItemFactory?>
+
+<GridPane xmlns:fx="http://javafx.com/fxml/1">
+    <rowConstraints>
+        <RowConstraints vgrow="NEVER"  />
+        <RowConstraints vgrow="SOMETIMES" />
+    </rowConstraints>
+    <columnConstraints><ColumnConstraints /></columnConstraints>
+    <TilePane alignment="TOP_CENTER" maxWidth="300">
+        <TextFlow>
+            <Label text="You have " wrapText="true" />
+            <Label text="${controller.score + '/' + controller.total}" wrapText="true" />
+            <Label text=" answered true!" wrapText="true" />
+        </TextFlow>
+    </TilePane>
+    <ListView fx:id="listView" items="${controller.wordList}" GridPane.rowIndex="1" maxWidth="400" maxHeight="600" >
+        <cellFactory><ResultItemFactory /></cellFactory>
+    </ListView>
+</GridPane>
