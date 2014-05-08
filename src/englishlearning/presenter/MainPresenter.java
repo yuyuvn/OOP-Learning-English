@@ -219,7 +219,7 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
     }
     
     private void setParsedContent() {
-        getView().getMainContent().getReadArticle().setParsedContent("");
+        getView().getMainContent().getReadArticle().setParsedContent(null);
         ExecutorService ect = Executors.newCachedThreadPool();
         Task<String> task = new Task<String>() {
         @Override
