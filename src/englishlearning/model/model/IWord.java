@@ -8,7 +8,6 @@ package englishlearning.model.model;
 
 import englishlearning.model.Options;
 import englishlearning.model.Word;
-import java.util.Set;
 
 /**
  *

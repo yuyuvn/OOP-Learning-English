@@ -97,7 +97,7 @@ public class DataInNet {
                     break;
                 buf.append((char) ch);
             }
-            Matcher m2 = Pattern.compile("<h5> <span class=\"mw-headline\">([\\w \\-,\\(\\)]+;)[<]", Pattern.UNICODE_CHARACTER_CLASS).matcher(buf.toString());
+            Matcher m2 = Pattern.compile("<h5> <span class=\"mw-headline\">([\\w \\-,\\(\\);]+)<", Pattern.UNICODE_CHARACTER_CLASS).matcher(buf.toString());
             if( m2.find() ){
                 String match = m2.group(1);
                 if (match.equals("adjective")) return null;

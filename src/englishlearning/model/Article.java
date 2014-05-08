@@ -18,7 +18,7 @@ public class Article implements Serializable {
     private String title;
     private String description;
     private String link;
-    private List<String> tags;
+    private Tags tags;
     private String imageUrl;
     private String content;
     
@@ -60,11 +60,11 @@ public class Article implements Serializable {
         this.link = link;
     }
     
-    public List<String> getTags() {
+    public Tags getTags() {
         return tags;
     }
     
-    public void setTags(List<String> tags) {
+    public void setTags(Tags tags) {
         this.tags = tags;
     }
     

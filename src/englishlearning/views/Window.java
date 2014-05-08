@@ -14,6 +14,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -58,8 +59,17 @@ public class Window extends Controller {
     }
     
     public void showWindow() {
+        showWindow(false);
+    }
+    
+    public void showWindow(boolean ultilyti) {
         stage.setTitle(getTitle());
-        UndecoratorScene undecoratorScene = new UndecoratorScene(stage, this);
+        UndecoratorScene undecoratorScene;
+        if (ultilyti) {
+             undecoratorScene = new UndecoratorScene(stage, StageStyle.UTILITY, this, null);
+        } else {
+            undecoratorScene = new UndecoratorScene(stage, this);
+        }
         
         stage.setScene(undecoratorScene);
         stage.sizeToScene();

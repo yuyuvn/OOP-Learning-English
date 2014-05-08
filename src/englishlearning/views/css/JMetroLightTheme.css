@@ -56,8 +56,8 @@
 {
     -fx-border-color: black;
     -fx-border-width: 1;
-    -fx-border-style: segments(1, 1);
-    -fx-background-insets: 0 0 0 0, 0, 1, 2;   
+    -fx-border-style: segments(1, 1) inside;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
 
 .button:disabled, .button:default:disabled

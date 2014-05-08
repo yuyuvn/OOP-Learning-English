@@ -8,6 +8,7 @@ package englishlearning.model.wrapper;
 
 import englishlearning.model.Article;
 import englishlearning.model.ArticleBuilder;
+import englishlearning.model.Tags;
 import englishlearning.model.model.IArticle;
 import englishlearning.util.Parser;
 import java.util.List;
@@ -80,11 +81,11 @@ public class ArticleWrapper<T extends Article> extends Wrapper<T> implements IAr
         getArticle().setLink(link);
     }
     @Override
-    public List getTags(){
+    public Tags getTags(){
         return getArticle().getTags();
     }
     @Override
-    public void setTags(List tags){
+    public void setTags(Tags tags){
         getArticle().setTags(tags);
     }
     @Override

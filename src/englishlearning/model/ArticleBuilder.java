@@ -6,7 +6,6 @@
 
 package englishlearning.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +17,7 @@ public class ArticleBuilder {
 
     protected ArticleBuilder() {
         this.data = new Article();
-        this.data.setTags(new ArrayList<>());
+        this.data.setTags(new Tags());
     }
     
     public static ArticleBuilder create() {
@@ -59,7 +58,7 @@ public class ArticleBuilder {
         return this;
     }
     
-    public ArticleBuilder tags(List<String> tags) {
+    public ArticleBuilder tags(Tags tags) {
         data.getTags().addAll(tags);
         return this;
     }

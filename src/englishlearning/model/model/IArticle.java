@@ -1,6 +1,7 @@
 package englishlearning.model.model;
 
 import englishlearning.model.Article;
+import englishlearning.model.Tags;
 import java.util.List;
 import javafx.scene.image.Image;
 
@@ -22,8 +23,8 @@ public interface IArticle extends IWrapper {
     public void setDescription(String description);
     public String getLink();
     public void setLink(String link);
-    public List getTags();
-    public void setTags(List tags);
+    public Tags getTags();
+    public void setTags(Tags tags);
     public String getImageUrl();
     public void setImageUrl(String imageUrl);
     public String getContent();
