@@ -9,6 +9,7 @@ package englishlearning.model.wrapper;
 import englishlearning.model.Word;
 import englishlearning.model.WordBuilder;
 import englishlearning.model.model.IWord;
+import java.util.Set;
 
 /**
  *
@@ -40,5 +41,38 @@ public class WordWrapper<T extends Word> extends Wrapper<T> implements IWord {
     @Override
     public boolean isAnswered() {
         return getWord().getAnswer() > 0;
+    }
+    // getWord / setWord  conflict
+    @Override
+    public String getMean(){
+        return getWord().getMean();
+    }
+    @Override
+    public void setMean(String mean){
+        getWord().setMean(mean);
+    }
+    @Override
+    public Set getOptions(){
+        return getWord().getOptions();
+    }
+    @Override
+    public void setOptions(Set options){
+        getWord().setOptions(options);
+    }
+    @Override
+    public int getAnswer(){
+        return getWord().getAnswer();
+    }
+    @Override
+    public void setAnswer(int answer){
+        getWord().setAnswer(answer);
+    }
+    @Override
+    public int getChoiced(){
+        return getWord().getChoiced();
+    }
+    @Override
+    public void setChoiced(int choiced){
+        getWord().setChoiced(choiced);
     }
 }
