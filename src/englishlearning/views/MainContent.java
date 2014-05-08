@@ -157,6 +157,7 @@ public class MainContent extends Controller {
     
     public void showPopOver() {
         popOver.show(this, MouseInfo.getPointerInfo().getLocation().x, MouseInfo.getPointerInfo().getLocation().y);
+        popOver.detach();
     }
     public void hidePopOver() {
         popOver.hide();
