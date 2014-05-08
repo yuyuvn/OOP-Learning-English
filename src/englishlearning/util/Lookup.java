@@ -11,7 +11,6 @@ import englishlearning.model.Options;
 import englishlearning.model.Word;
 import englishlearning.model.WordBuilder;
 import java.util.Random;
-import java.util.Set;
 
 /**
  *
@@ -34,8 +33,8 @@ public class Lookup {
         if (mean == null) {
             mean = DataInNet.getMean(word);
             if (mean == null) {
-                if (word.endsWith("s")) mean = DataInNet.getMean(word.substring(0, -1));
-                else if (word.endsWith("ed")) mean = DataInNet.getMean(word.substring(0, -2));
+                if (word.endsWith("s")) return get(word.substring(0, -1));
+                else if (word.endsWith("ed")) return get(word.substring(0, -2));
             }
             if (mean != null) add(word,mean);
         }

@@ -12,8 +12,11 @@
         <RowConstraints vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <Label text="${controller.word}" alignment="TOP_CENTER" />
-        <FlowPane GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.rowIndex="1" GridPane.hgrow="ALWAYS" alignment="CENTER_LEFT" >
+        <TilePane alignment="TOP_CENTER">
+            <GridPane.margin><javafx.geometry.Insets right="200" top="100" /></GridPane.margin>
+            <Label text="${controller.word}" />
+        </TilePane>
+        <FlowPane GridPane.rowIndex="1" GridPane.hgrow="ALWAYS" alignment="CENTER_LEFT" >
             <Button fx:id="option1" wrapText="true" prefWidth="${controller.width*0.4}" prefHeight="100" onAction="#onSelect" />
             <Button fx:id="option2" wrapText="true" prefWidth="${controller.width*0.4}" prefHeight="100" onAction="#onSelect" />
             <Button fx:id="option3" wrapText="true" prefWidth="${controller.width*0.4}" prefHeight="100" onAction="#onSelect" />

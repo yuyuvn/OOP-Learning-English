@@ -6,6 +6,7 @@
 
 package englishlearning.model.model;
 
+import englishlearning.model.Options;
 import englishlearning.model.Word;
 import java.util.Set;
 
@@ -21,8 +22,8 @@ public interface IWord extends IWrapper {
     //getWord setWord conflict
     public String getMean();
     public void setMean(String mean);
-    public Set getOptions();
-    public void setOptions(Set options);
+    public Options getOptions();
+    public void setOptions(Options options);
     public int getAnswer();
     public void setAnswer(int answer);
     public int getChoiced();

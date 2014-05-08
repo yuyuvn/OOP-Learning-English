@@ -6,6 +6,7 @@
 
 package englishlearning.model.wrapper;
 
+import englishlearning.model.Options;
 import englishlearning.model.Word;
 import englishlearning.model.WordBuilder;
 import englishlearning.model.model.IWord;
@@ -52,11 +53,11 @@ public class WordWrapper<T extends Word> extends Wrapper<T> implements IWord {
         getWord().setMean(mean);
     }
     @Override
-    public Set getOptions(){
+    public Options getOptions(){
         return getWord().getOptions();
     }
     @Override
-    public void setOptions(Set options){
+    public void setOptions(Options options){
         getWord().setOptions(options);
     }
     @Override
