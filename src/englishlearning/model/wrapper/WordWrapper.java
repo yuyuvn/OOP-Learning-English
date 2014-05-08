@@ -65,7 +65,9 @@ public class WordWrapper<T extends Word> extends Wrapper<T> implements IWord {
     }
     @Override
     public void setAnswer(int answer){
-        getWord().setAnswer(answer);
+        if(answer > 0 && answer < 5){
+            getWord().setAnswer(answer);
+        } 
     }
     @Override
     public int getChoiced(){
@@ -73,6 +75,8 @@ public class WordWrapper<T extends Word> extends Wrapper<T> implements IWord {
     }
     @Override
     public void setChoiced(int choiced){
-        getWord().setChoiced(choiced);
+        if(choiced > 0 && choiced < 5){
+            getWord().setChoiced(choiced);
+        }
     }
 }
