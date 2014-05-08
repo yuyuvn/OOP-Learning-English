@@ -10,6 +10,7 @@ import englishlearning.model.Article;
 import englishlearning.model.ArticleBuilder;
 import englishlearning.model.model.IArticle;
 import englishlearning.util.Parser;
+import java.util.List;
 import javafx.scene.image.Image;
 
 /**
@@ -45,5 +46,61 @@ public class ArticleWrapper<T extends Article> extends Wrapper<T> implements IAr
     @Override
     public String getParsedContent() {
         return Parser.convert2link(getRawData().getContent());
+    }
+    @Override
+    public String getGuid(){
+        return getArticle().getGuid();
+    }
+    @Override
+    public void setGuid(String guid){
+        getArticle().setGuid(guid);
+    }
+    @Override
+    public String getTitle(){
+        return getArticle().getTitle();
+    }
+    @Override
+    public void setTitle(String title){
+        getArticle().setTitle(title);
+    }
+    @Override
+    public String getDescription(){
+        return getArticle().getDescription();
+    }
+    @Override
+    public void setDescription(String description){
+        getArticle().setDescription(description);
+    }
+    @Override
+    public String getLink(){
+        return getArticle().getLink();
+    }
+    @Override
+    public void setLink(String link){
+        getArticle().setLink(link);
+    }
+    @Override
+    public List getTags(){
+        return getArticle().getTags();
+    }
+    @Override
+    public void setTags(List tags){
+        getArticle().setTags(tags);
+    }
+    @Override
+    public String getImageUrl(){
+        return getArticle().getImageUrl();
+    }
+    @Override
+    public void setImageUrl(String imageUrl){
+        getArticle().setImageUrl(imageUrl);
+    }
+    @Override
+    public String getContent(){
+        return getArticle().getContent();
+    }
+    @Override
+    public void setContent(String content){
+        getArticle().setContent(content);
     }
 }
