@@ -68,7 +68,11 @@ public class ContentControl extends Pane {
             
     private ObjectProperty<List<Node>> defResources;
     public final List<Node> getDefResources() { return defResourcesProperty().get(); }
-    public final void addDefResources(Node value) { getDefResources().add(value); }
+    public final void addDefResources(Node value) { 
+        getDefResources().add(value); 
+        if (getChildren().isEmpty()  && getData() == null) this.getChildren().add(value);
+        
+    }
     public final void clearDefResources(Node value) { getDefResources().clear(); }
     public final ObjectProperty<List<Node>> defResourcesProperty() { 
         if (defResources == null) defResources = new SimpleObjectProperty<>(this, "defResources", new ArrayList<>());

@@ -5,12 +5,16 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import englishlearning.util.Tooltips?>
 
-<FlowPane xmlns:fx="http://javafx.com/fxml/1">
+<HBox xmlns:fx="http://javafx.com/fxml/1" >
+    <Tooltips.tooltip>
+            <Tooltip text="${'You chose \'' + controller.choice + '\''}" />
+    </Tooltips.tooltip>
     <children>
         <Label text="${controller.data.word.word}" styleClass="result-item-title"/>
         <Label text="${' - ' + controller.data.word.mean}" 
-               wrapText="true" styleClass="result-item-mean"
+               styleClass="result-item-mean"
         />
     </children>
-</FlowPane>
+</HBox>

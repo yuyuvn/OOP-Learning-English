@@ -39,8 +39,5 @@
         <defResources>
             <Loading alignment="TOP_CENTER" />
         </defResources>
-        <children>
-            <Loading alignment="TOP_CENTER" />
-        </children>
     </ContentControl>
 </GridPane>

@@ -14,9 +14,6 @@
 <GridPane xmlns:fx="http://javafx.com/fxml/1">    
     <fx:define>
         <PopOver fx:id="popOver" 
-                 arrowIndent="0.0" 
-                 arrowSize="0.0" 
-                 cornerRadius="0.0" 
                  arrowLocation="LEFT_BOTTOM" 
                  detachable="true"
                  detachedTitle=""

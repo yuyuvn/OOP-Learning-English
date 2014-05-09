@@ -24,8 +24,5 @@
         <defResources>
             <Loading numberBlock="3" recSize="5" alignment="BASELINE_CENTER" />
         </defResources>
-        <children>
-            <Loading numberBlock="3" recSize="5" alignment="BASELINE_CENTER" />
-        </children>
     </ContentControl>
 </GridPane>
