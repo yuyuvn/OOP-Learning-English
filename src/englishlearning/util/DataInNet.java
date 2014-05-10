@@ -19,14 +19,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
 /**
@@ -101,7 +99,6 @@ public class DataInNet {
                 }
                 if (match.equals("adjective")) return null;
                 if (match.endsWith("từ") && m2.find()) match = m2.group(1);
-                if (match.endsWith("Phó từ") && m2.find()) match = m2.group(1);
                 return match;
             }
         } catch (MalformedURLException ex) {

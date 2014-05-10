@@ -126,9 +126,7 @@ public class DataInDisk {
         
     public static Dictionary loadDict(){
         Dictionary dict = new Dictionary();
-        try (FileInputStream fis = new FileInputStream(getRelativePath(PATH_DICT))) {
-            
-            Scanner scanner = new Scanner(fis);
+        try (Scanner scanner = new Scanner(new FileInputStream(getRelativePath(PATH_DICT)),"UTF-8")) {
             while(scanner.hasNextLine()){
                 String[] data = scanner.nextLine().split(":",2);
                 dict.put(data[0], data[1]);
