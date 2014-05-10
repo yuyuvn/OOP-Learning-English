@@ -37,25 +37,21 @@ public class DataInNet {
     private final static String URL_RSS = "http://learningenglish.voanews.com/api/epiqq";
     private final static String URL_DIC = "http://tratu.soha.vn/dict/en_vn/";
     
-    public static Articles getListArticle(String urlString) throws MalformedURLException{
+    public static Articles getListArticle(String urlString) throws Exception {
         URL url = new URL(urlString);
         SAXParserFactory spf = SAXParserFactory.newInstance();
         ArticlesListHandler handler = new ArticlesListHandler();
         
-        try {
-            SAXParser sp = spf.newSAXParser();
-            XMLReader xr = sp.getXMLReader();
-            xr.setContentHandler(handler);
-            xr.parse(new InputSource(url.openStream()));            
-        } catch (IOException | SAXException | ParserConfigurationException ex) {
-            Logger.getLogger(DataInNet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        SAXParser sp = spf.newSAXParser();
+        XMLReader xr = sp.getXMLReader();
+        xr.setContentHandler(handler);
+        xr.parse(new InputSource(url.openStream()));
         
         
         return handler.getArticles();
     }
     
-    public static Articles getListArticle() throws MalformedURLException {
+    public static Articles getListArticle() throws Exception {
         Articles value;
         value = DataInDisk.getData(DataInDisk.getRelativePath("data/debug/cacheAL.bin"));
         if (value == null) {

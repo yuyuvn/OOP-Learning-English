@@ -13,8 +13,8 @@ import englishlearning.model.wrapper.UserWrapper;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ReadOnlyIntegerProperty;
-import javafx.beans.property.ReadOnlyIntegerWrapper;
+import javafx.beans.property.ReadOnlyStringProperty;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -59,23 +59,23 @@ public class Exercise extends Controller implements DataReceivable {
         return word;
     }
 //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="int choice">
-    private ReadOnlyIntegerWrapper choice;
+    //<editor-fold defaultstate="collapsed" desc="String choice">
+    private ReadOnlyStringWrapper choice;
     
-    public int getChoice() {
+    public String getChoice() {
         return _choiceProperty().get();
     }
     
-    private void setChoice(int value) {
+    private void setChoice(String value) {
         _choiceProperty().set(value);
     }
     
-    public ReadOnlyIntegerProperty choiceProperty() {
+    public ReadOnlyStringProperty choiceProperty() {
         return _choiceProperty().getReadOnlyProperty();
     }
     
-    public ReadOnlyIntegerWrapper _choiceProperty() {
-        if (choice == null) choice = new ReadOnlyIntegerWrapper(this, "choice", 0);
+    public ReadOnlyStringWrapper _choiceProperty() {
+        if (choice == null) choice = new ReadOnlyStringWrapper(this, "choice");
         return choice;
     }
 //</editor-fold>
@@ -107,23 +107,14 @@ public class Exercise extends Controller implements DataReceivable {
             option2.setText(options.get(1));
             option3.setText(options.get(2));
             option4.setText(options.get(3));
-            setChoice(0);
+            setChoice(null);
         } catch (ClassCastException e) {
         }
     }
     
     @FXML private void onSelect(ActionEvent event) {
-        Object source = event.getSource();
-        
-        if (source == option1) {
-            setChoice(1);
-        } else if (source == option2) {
-            setChoice(2);
-        } else if (source == option3) {
-            setChoice(3);
-        } else if (source == option4) {
-            setChoice(4);
-        }
+        Button source = (Button) event.getSource();
+        setChoice(source.getText());
     }
     
     private EventHandler onReturn;

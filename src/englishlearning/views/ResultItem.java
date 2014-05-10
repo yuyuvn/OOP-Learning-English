@@ -26,11 +26,9 @@ public class ResultItem extends Controller implements DataReceivable {
     
     public void setData(IWord value) {
         dataProperty().set(value);
-        if (value.isAnswered()) this.getStyleClass().add("result-tem-true");
+        if (value.isRightAnswer()) this.getStyleClass().add("result-item-true");
         else this.getStyleClass().add("result-item-false");
-        String[] c = new String[4];
-        c = value.getOptions().toArray(c);
-        setChoice(c[value.getChoiced()-1]);
+        setChoice(value.getChose());
     }
     
     public WrapperProperty<IWord> dataProperty() {

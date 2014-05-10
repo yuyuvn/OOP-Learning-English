@@ -6,9 +6,6 @@
 
 package englishlearning.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  *
  * @author Clicia
@@ -19,8 +16,7 @@ public class WordBuilder {
     
     protected WordBuilder() {
         data = new Word();
-        data.setAnswer(0);
-        data.setChoiced(0);
+        data.setChose(null);
         data.setOptions(new Options());
     }
     

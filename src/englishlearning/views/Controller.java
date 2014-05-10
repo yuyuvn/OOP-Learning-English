@@ -55,12 +55,12 @@ public abstract class Controller extends Region {
         }   
     }
  
-    private String getViewPath(String path, String exp) {
+    private String getPath(String path, String exp) {
         return String.format(path + "%s" + exp, this.getClass().getSimpleName());
     }
  
     private URL getViewURL() {
-        String path = this.getViewPath(__resourceDir, ".fxml");
+        String path = this.getPath(__resourceDir, ".fxml");
         for (FXMLPath annotation : this.getClass().getAnnotationsByType(FXMLPath.class)) {
             if (annotation.fullPath()) {
                 path = annotation.value();
@@ -72,7 +72,7 @@ public abstract class Controller extends Region {
     }
     
     private URL getCSSUrl() {
-        String path = this.getViewPath(__cssDir, ".css");        
+        String path = this.getPath(__cssDir, ".css");        
         return this.getClass().getResource(path);
     }
     

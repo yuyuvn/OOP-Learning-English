@@ -38,6 +38,9 @@ import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import org.controlsfx.control.action.Action;
+import static org.controlsfx.dialog.Dialog.Actions.*;
+import org.controlsfx.dialog.Dialogs;
 
 /**
  *
@@ -86,8 +89,16 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         // User click return after read article or test
         mainContent.setOnReturn(e -> returnToMain());
         getView().getExercise().setOnReturn(e -> {
-            returnToMain();
-            DataInDisk.saveUserInfo(getUser().getUser());
+            Action response = Dialogs.create()
+                    .title("Do you really want to go back?")
+                    .message("Your process will not be counted")
+                    .masthead(null)
+                    .actions(new Action[]{YES,NO})
+                    .showConfirm();
+            if (response == YES) {
+                returnToMain();
+                DataInDisk.saveUserInfo(getUser().getUser());
+            }
         });
         
         // User start read article
@@ -98,7 +109,6 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
                 mainContent.setData(article);
                 // Don't know why need to fire 2 times.
                 // bug some where or java sync like shit?
-                getUser().fireValueChangedEvent();
                 getUser().fireValueChangedEvent();
                 DataInDisk.saveUserInfo(getUser().getUser());
             }
@@ -190,16 +200,21 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
                 getUser().setPlayState(q);
                 resumeState();
             } catch (RuntimeException ex) {
-                Logger.getLogger(this.getClass().getName()).log(Level.WARNING, null, ex);
+                Action response = Dialogs.create()
+                    .owner(this.getView())
+                    .title("Can't do test")
+                    .masthead(null)
+                    .message( ex.getMessage())
+                    .showError();
             }
         });
         
-        getView().getExercise().choiceProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
-            Integer value = (Integer) newValue;
-            if (value > 0) {
+        // User choose an option
+        getView().getExercise().choiceProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (newValue != null) {
                 try {
                     IWord word = (IWord) getView().getMainContent().getData();
-                    word.getWord().setChoiced(value);
+                    word.getWord().setChose(newValue);
                 } catch (Exception e) {
                     Logger.getLogger(this.getClass().getName()).log(Level.WARNING, null, e);
                 }
@@ -219,6 +234,15 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
                     .collect(Collectors.toList());
             }
         };
+        
+        task.exceptionProperty().addListener((ObservableValue<? extends Throwable> observable, Throwable oldValue, Throwable newValue) -> {
+            Dialogs.create().title("Can't download data")
+                    .masthead(null)
+                    .message("Please connect to internet and retry")
+                    .showException(newValue);
+            ect.shutdown();
+            getView().closeWindow();
+        });
         
         task.valueProperty().addListener(t -> {
             articles = task.getValue();
@@ -248,7 +272,7 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
     }
     
     private void resumeState() {
-        List<Word> questions = getUser().getPlayState().stream().filter(w -> w.getChoiced() == 0).collect(toList());
+        List<Word> questions = getUser().getPlayState().stream().filter(w -> w.getChose() == null).collect(toList());
         if (questions.size() > 0 ) {
             Exercise exercise = getView().getExercise();
             getView().setContent(exercise);

@@ -33,14 +33,12 @@ public class WordWrapper<T extends Word> extends Wrapper<T> implements IWord {
 
     @Override
     public boolean isRightAnswer() {
-        Word word = getWord();
-        int answer = word.getAnswer();
-        return (answer > 0) && (word.getAnswer() == word.getChoiced());
+        return getMean().equals(getChose());
     }
 
     @Override
     public boolean isAnswered() {
-        return getWord().getAnswer() > 0;
+        return getWord().getChose() != null;
     }
     // getWord / setWord  conflict
     @Override
@@ -59,24 +57,14 @@ public class WordWrapper<T extends Word> extends Wrapper<T> implements IWord {
     public void setOptions(Options options){
         getWord().setOptions(options);
     }
+
     @Override
-    public int getAnswer(){
-        return getWord().getAnswer();
+    public String getChose() {
+        return getWord().getChose();
     }
+
     @Override
-    public void setAnswer(int answer){
-        if(answer > 0 && answer < 5){
-            getWord().setAnswer(answer);
-        } 
-    }
-    @Override
-    public int getChoiced(){
-        return getWord().getChoiced();
-    }
-    @Override
-    public void setChoiced(int choiced){
-        if(choiced > 0 && choiced < 5){
-            getWord().setChoiced(choiced);
-        }
+    public void SetChose(String chose) {
+        getWord().setChose(chose);
     }
 }

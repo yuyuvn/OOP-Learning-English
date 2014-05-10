@@ -1,0 +1,6 @@
+.result-item-true *.label {
+    -fx-text-fill: seagreen;
+}
+.result-item-false *.label {
+    -fx-text-fill: darkred;
+}

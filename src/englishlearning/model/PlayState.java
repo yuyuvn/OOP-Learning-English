@@ -6,8 +6,6 @@
 
 package englishlearning.model;
 
-import java.util.Collection;
-
 
 /**
  *
@@ -30,6 +28,6 @@ public class PlayState extends java.util.ArrayList<Word> {
     }
     
     public int getPoint() {
-        return (int)this.stream().filter(p -> p.getAnswer() == p.getChoiced() && p.getChoiced() > 0).count();
+        return (int)this.stream().filter(p -> p.getMean().equals(p.getChose())).count();
     }
 }

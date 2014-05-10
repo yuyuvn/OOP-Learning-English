@@ -65,7 +65,7 @@ public class Lookup {
     public static Word populateOption(Word word) {
         if (word.getMean() == null || word.getMean().equals("")) throw new IllegalArgumentException("Word doesn't have mean");
         Options options = word.getOptions();
-        if (options.size() > 0) throw new IllegalArgumentException("Word has been populated");
+        if (options.size() > 0) return word;
         options.add(word.getMean());
         Random generator = new Random();
         int dicSize = getDictionary().size();
@@ -77,10 +77,6 @@ public class Lookup {
             }
         } else {
             throw new IllegalArgumentException("Dictionary is too small to test");
-        }
-        Object[] o = options.toArray();
-        for (int i = 0; i < 4; i++) {
-            if (o[i].equals(word.getMean())) word.setAnswer(i+1);
         }
         return word;
     }

@@ -28,5 +28,4 @@ public class Options extends java.util.HashSet<String>{
     public Options(int initialCapacity) {
         super(initialCapacity);
     }
-    
 }

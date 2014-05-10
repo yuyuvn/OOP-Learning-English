@@ -17,8 +17,7 @@ public class Word implements Serializable {
     private String word;
     private String mean;
     private Options options;
-    private int answer;
-    private int choiced;
+    private String chose;
 
     //<editor-fold defaultstate="collapsed" desc="Must use builder">
     public Word() {
@@ -49,22 +48,16 @@ public class Word implements Serializable {
     public void setOptions(Options options) {
         this.options = options;
     }
-    
-    public int getAnswer() {
-        return answer;
+
+    public String getChose() {
+        return chose;
+    }
+
+    public void setChose(String chose) {
+        this.chose = chose;
     }
     
-    public void setAnswer(int answer) {
-        this.answer = answer;
-    }
     
-    public int getChoiced() {
-        return choiced;
-    }
-    
-    public void setChoiced(int choiced) {
-        this.choiced = choiced;
-    }
 
 //</editor-fold>
     
@@ -92,7 +85,7 @@ public class Word implements Serializable {
 
     @Override
     public String toString() {
-        return "Word{" + "word=" + word + ", mean=" + mean + ", options=" + options + ", answer=" + answer + ", choiced=" + choiced + '}';
+        return "Word{" + "word=" + word + ", mean=" + mean + ", options=" + options + ", chose=" + chose + '}';
     }
     
     

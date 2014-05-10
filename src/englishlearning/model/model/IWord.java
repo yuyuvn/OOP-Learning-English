@@ -23,8 +23,6 @@ public interface IWord extends IWrapper {
     void setMean(String mean);
     Options getOptions();
     void setOptions(Options options);
-    int getAnswer();
-    void setAnswer(int answer);
-    int getChoiced();
-    void setChoiced(int choiced);
+    String getChose();
+    void SetChose(String chose);
 }
