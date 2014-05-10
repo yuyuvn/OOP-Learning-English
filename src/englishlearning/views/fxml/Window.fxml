@@ -25,5 +25,6 @@
 </children>    
     <stylesheets>
         <URL value="@../css/JMetroLightTheme.css" />
+        <URL value="@../css/Skin.css" />
     </stylesheets>
 </GridPane>

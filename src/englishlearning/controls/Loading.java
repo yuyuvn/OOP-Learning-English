@@ -80,12 +80,12 @@ public class Loading extends HBox {
     private int __target;
     
     public Loading() {
-        createContent();
+        init();
     }
 
     public Loading(double spacing) {
         super(spacing);
-        createContent();
+        init();
     }
     
     private void createContent() {
@@ -107,6 +107,11 @@ public class Loading extends HBox {
         });
 
         __ft.play();
+    }
+    
+    private void init() {
+        this.getStyleClass().add("loading");
+        createContent();
     }
     
     private void createRec() {

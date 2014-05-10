@@ -1,0 +1,65 @@
+.text-area {
+    -fx-wrap-text: true;
+    -fx-border-style: none;
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+
+
+.text-area .scroll-pane .content{
+    -fx-background-color: transparent;
+}
+
+.text-area *.text {
+    -fx-text-alignment: justify;
+}
+
+.loading {
+    -fx-alignment: BASELINE_CENTER;
+}
+
+.list-view {
+    -fx-background-color: transparent;
+}
+
+.list-cell:odd,
+.list-cell:even {
+    -fx-background-color: transparent;
+    -fx-border-color: #aaa;
+    -fx-border-insets: 0 0 1 0;
+    -fx-border-style: solid outside;
+}
+
+.list-cell:filled:hover { 
+    -fx-background-color: #ccc;
+}
+
+.list-cell:empty {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.list-view:focused .list-cell:filled:focused:selected{
+    -fx-background-color: #333;
+    -fx-text-fill: #fff;
+}
+
+.info-header {
+    -fx-font-size: 20;
+    -fx-font-weight: 700;
+    -fx-text-fill: #666;
+    // -fx-font-family: ;  // TODO: header font
+}
+
+.i {
+    -fx-font-style: italic;
+}

@@ -17,6 +17,7 @@ public class UserInfo implements Serializable {
     private String lastUsed;
     private ReadList readList;
     private PlayState playState;
+    private Integer point;
     
     // add favorite (thêm nếu có thời gian)
     // public List<String> favorite;
@@ -59,7 +60,18 @@ public class UserInfo implements Serializable {
         this.playState = playState;
     }
 
+    public Integer getPoint() {
+        return point;
+    }
+
+    public void setPoint(Integer point) {
+        this.point = point;
+    }
+    
+    
+
 //</editor-fold>
+    
     @Override
     public String toString() {
         return "UserInfo{" + "name=" + name + ", lastUsed=" + lastUsed + ", readList=" + readList + ", playState=" + playState + '}';

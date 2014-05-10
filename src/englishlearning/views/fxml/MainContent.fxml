@@ -15,6 +15,7 @@
     <fx:define>
         <PopOver fx:id="popOver" 
                  arrowLocation="LEFT_BOTTOM" 
+                 cornerRadius="0.0" 
                  detachable="true"
                  detachedTitle=""
                  autoHide="true"
@@ -30,8 +31,6 @@
             </contentNode>
         </PopOver>
         <PopOver fx:id="resultPop" 
-                 arrowIndent="0.0" 
-                 arrowSize="0.0" 
                  cornerRadius="0.0" 
                  arrowLocation="LEFT_TOP" 
                  detachable="true"
@@ -62,8 +61,13 @@
                 <Insets bottom="5" left="5" right="25" top="5" />
             </GridPane.margin>
             <children>
-                <Label text="${'Welcome ' + controller.user.user.name}" wrapText="true" />
-                <Label text="${'You have readed ' + controller.user.readedArticles + ' articles'}" wrapText="true"/>
+                <ContentControl data="${controller.user}">
+                    <resources>
+                        <DataTemplate dataType="englishlearning.model.model.IUser">
+                            <UserInfoBox />
+                        </DataTemplate>
+                    </resources>
+                </ContentControl>
                 <ContentControl data="${controller.data}">
                     <resources>
                         <DataTemplate dataType="englishlearning.model.model.IArticle">
@@ -79,7 +83,16 @@
                                     <Button text="Back" onAction="#onReturn" />
                                     <Button text="Do test" visible="${controller.canTest}" onAction="#onDoTest" />
                                 </HBox>
-                                <ListView fx:id="listView" items="${controller.wordList}" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+                                <VBox GridPane.rowIndex="1" >
+                                    <Label text="Selected words" styleClass="info-header" />
+                                    <ListView fx:id="listView" items="${controller.wordList}" GridPane.valignment="BOTTOM" >
+                                        <placeholder>
+                                            <VBox alignment="TOP_CENTER" >
+                                                <Label text="You have not selected any word yet" styleClass="i"/>
+                                            </VBox>
+                                        </placeholder>
+                                    </ListView>
+                                </VBox>
                             </GridPane>
                         </DataTemplate>
                         <DataTemplate dataType="englishlearning.model.model.IWord">
@@ -102,6 +115,6 @@
                 </DataTemplate>
             </resources>
         </ContentControl>
-        <Rectangle height="5" width="${controller.width*controller.process}" fill="#333" GridPane.rowIndex="1" GridPane.columnSpan="2" />
+        <<Rectangle height="5" width="${controller.width*controller.process}" fill="#333" GridPane.rowIndex="1" GridPane.columnSpan="2" />
     </children>
 </GridPane>

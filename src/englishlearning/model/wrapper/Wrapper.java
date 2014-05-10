@@ -6,8 +6,11 @@
 
 package englishlearning.model.wrapper;
 
-import englishlearning.model.property.WrapperProperty;
 import englishlearning.model.model.IWrapper;
+import englishlearning.model.property.WrapperProperty;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  *
@@ -16,10 +19,12 @@ import englishlearning.model.model.IWrapper;
  */
 public class Wrapper<T> implements IWrapper {
     private final T rawData;
-    private WrapperProperty property;
+    private List<WrapperProperty> properties;
+    private boolean __changed;
     
     public Wrapper(T data) {
         rawData = data;
+        properties = Collections.synchronizedList(new ArrayList<>());
     }
     
     protected T getRawData() {
@@ -27,23 +32,29 @@ public class Wrapper<T> implements IWrapper {
     }
 
     @Override
-    public WrapperProperty getProperty() {
-        return property;
+    public List<WrapperProperty> getProperties() {
+        // make a clone to avoid conflict
+        List<WrapperProperty> clone = new ArrayList(properties);
+        return clone;
     }
 
     @Override
-    public void setProperty(WrapperProperty property) {
-        this.property = property;
+    public void addProperty(WrapperProperty property) {
+        this.properties.add(property);
+    }
+        
+    @Override
+    public void removeProperty(WrapperProperty property) {
+        this.properties.remove(property);
+    }
+
+    @Override
+    public void fireValueChangedEvent() {
+        __changed = true;
+        getProperties().forEach(p -> p.fireValueChangedEvent());
+        __changed = false;
     }
     
-    private boolean __changed;
-    boolean isChanged() {
-        return __changed;
-    }
-    @Override
-    public void setChanged(boolean __changed) {
-        this.__changed = __changed;
-    }    
     
     @Override
     public boolean equals(Object obj) {

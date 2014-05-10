@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
@@ -22,14 +23,14 @@
         <RowConstraints vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <CustomTextField fx:id="searchField" CustomTextFields.clearButtonField="true" promptText="Filter articles" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" >
+        <CustomTextField fx:id="searchField" CustomTextFields.clearButtonField="true" promptText="Filter articles" >
             <GridPane.margin>
                 <Insets bottom="5" left="5" right="5" top="5" />
             </GridPane.margin>
         </CustomTextField>
         <ListViewEx fx:id="listView" GridPane.rowIndex="1" items="${controller.articles}" prefWidth="${controller.width}" >
             <cellFactory><ArticlesItemFactory /></cellFactory>
-            <placeholder><Loading alignment="BASELINE_CENTER" /></placeholder>
+            <placeholder><Loading /></placeholder>
         </ListViewEx>
         <ContentControl data="${controller.selectedArticle}" GridPane.columnIndex="2" GridPane.rowSpan="2" >
             <GridPane.margin>
@@ -37,9 +38,12 @@
             </GridPane.margin>
             <resources>
                 <DataTemplate dataType="englishlearning.model.model.IArticle">
-                    <TextArea text="${controller.selectedArticle.article.description}" wrapText="true" />
+                    <TextArea text="${controller.selectedArticle.article.description}" styleClass="articles-list-preview" />
                 </DataTemplate>
             </resources>
         </ContentControl>
     </children>
+    <stylesheets>
+        <URL value="@../css/ArticlesList.css" />
+    </stylesheets>
 </GridPane>

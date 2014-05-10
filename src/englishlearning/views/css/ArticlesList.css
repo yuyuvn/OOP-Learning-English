@@ -1,0 +1,17 @@
+.text-area {    
+    // -fx-font-family: ;  // TODO: preview font
+}
+
+.articles-item-title {
+    -fx-wrap-text: true;
+    -fx-alignment: TOP_LEFT;
+    -fx-padding: 0 0 0 10;
+    -fx-font-size: 13;
+    -fx-font-weight: 700;
+    -fx-text-fill: #444;    
+    // -fx-font-family: ;  // TODO: articles's title font
+}
+
+.list-view:focused .list-cell:filled:focused:selected .articles-item-title{
+    -fx-text-fill: #fff;
+}

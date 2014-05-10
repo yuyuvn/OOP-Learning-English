@@ -12,8 +12,8 @@ import javafx.scene.image.Image;
 public interface IArticle extends IWrapper {
     Article getArticle();
     
-    Image getThumbnail();
-    String getParsedContent();
+    Image getThumbnail();    
+    
     String getGuid();
     void setGuid(String guid);
     String getTitle();

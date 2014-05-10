@@ -66,5 +66,31 @@ public class UserWrapper<T extends UserInfo> extends Wrapper<T> implements IUser
     public void setPlayState(PlayState playState){
         getUser().setPlayState(playState);
     }
+
+    @Override
+    public Integer getPoint() {
+        return getUser().getPoint();
+    }
+
+    @Override
+    public void setPoint(Integer point) {
+        getUser().setPoint(point);
+    }
+
+    @Override
+    public void addPoint(Integer point) {
+        setPoint(getPoint()+point);
+    }
+
+    @Override
+    public void addReadlistPoint(String guid, Integer point) {
+        getReadList().put(guid, getReadList().get(guid) + point);
+    }
+
+    @Override
+    public void addReadlistPoint(PlayState playState) {
+        addReadlistPoint(playState.getArticle(),playState.getPoint());
+    }
+    
     
 }

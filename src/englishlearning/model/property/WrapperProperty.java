@@ -33,18 +33,14 @@ public class WrapperProperty<T extends IWrapper> extends javafx.beans.property.S
     
     @Override
     public void fireValueChangedEvent() {
-        try {
-            getValue().setChanged(true);
-            super.fireValueChangedEvent();
-            getValue().setChanged(false);
-        } catch (NullPointerException e) {
-            super.fireValueChangedEvent();
-        }
+        super.fireValueChangedEvent();
     }
     
     @Override
     public void set(T value) {
-        if (value != null) value.setProperty(this);
+        T oldValue = get();
+        if (oldValue != null) oldValue.removeProperty(this);
+        if (value != null) value.addProperty(this);
         super.set(value);
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
@@ -18,7 +19,7 @@
         <RowConstraints vgrow="SOMETIMES" fillHeight="true" />
     </rowConstraints>
     <TilePane alignment="TOP_CENTER">
-        <Label text="${controller.article.article.title}" />
+        <Label text="${controller.article.article.title}" styleClass="article-title"/>
     </TilePane>
     <ContentControl data="${controller.parsedContent}" GridPane.rowIndex="1">
         <resources>
@@ -40,4 +41,7 @@
             <Loading alignment="TOP_CENTER" />
         </defResources>
     </ContentControl>
+    <stylesheets>
+        <URL value="@../css/ReadArticle.css" />
+    </stylesheets>
 </GridPane>

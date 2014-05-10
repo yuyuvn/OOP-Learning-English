@@ -43,11 +43,7 @@ public class ArticleWrapper<T extends Article> extends Wrapper<T> implements IAr
         
         return __thumb;
     }
-
-    @Override
-    public String getParsedContent() {
-        return Parser.convert2link(getRawData().getContent());
-    }
+    
     @Override
     public String getGuid(){
         return getArticle().getGuid();

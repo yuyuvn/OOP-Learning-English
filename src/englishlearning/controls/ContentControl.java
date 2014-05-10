@@ -25,6 +25,17 @@ import javafx.scene.layout.Pane;
  * @author Clicia
  */
 public class ContentControl extends Pane {
+
+    public ContentControl() {
+        this.getStyleClass().add("content-control");
+    }
+
+    public ContentControl(Node... children) {
+        super(children);
+        this.getStyleClass().add("content-control");
+    }
+    
+    
     private ObjectProperty data;
     public final Object getData() { return dataProperty().get(); }
     public final void setData(Object value) { dataProperty().set(value); }

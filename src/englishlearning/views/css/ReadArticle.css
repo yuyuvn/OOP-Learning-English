@@ -1,0 +1,17 @@
+.article-title {
+    -fx-font-weight: 600;
+    -fx-font-size: 20;
+    -fx-padding: 0 0 10 0;
+    // -fx-font-family: ;  // TODO: title article font
+}
+
+.hyperlink {
+    -fx-text-fill: #000000;
+}
+.hyperlink:hover {
+    -fx-underline: false;
+    -fx-text-fill: -fx-accent;
+}
+.hyperlink:visited {
+    -fx-underline: false;
+}

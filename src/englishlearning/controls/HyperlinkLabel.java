@@ -75,6 +75,7 @@ public class HyperlinkLabel extends TextFlow {
         textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             updateText();
         });
+        this.getStyleClass().add("hyperlinklabel");
     }
     
     private void updateText() {

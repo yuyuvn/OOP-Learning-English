@@ -22,7 +22,7 @@ public class TestClass {
     public void testMethod() throws Exception {
         UserInfo clicia = getUserInfo("Clicia");
         System.out.println(clicia);
-        clicia.getReadList().putIfAbsent("test", 0.0);
+        //clicia.getReadList().putIfAbsent("test", 0.0);
         System.out.println(clicia);
         Lookup.getDictionary().forEach((k,v)->{});
     }

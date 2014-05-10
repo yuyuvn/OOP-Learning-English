@@ -12,7 +12,7 @@ import java.util.Map;
  *
  * @author Clicia
  */
-public class ReadList extends java.util.LinkedHashMap<String,Double> {
+public class ReadList extends java.util.LinkedHashMap<String,Integer> {
 
     public ReadList(int initialCapacity, float loadFactor) {
         super(initialCapacity, loadFactor);
@@ -25,7 +25,7 @@ public class ReadList extends java.util.LinkedHashMap<String,Double> {
     public ReadList() {
     }
 
-    public ReadList(Map<? extends String, ? extends Double> m) {
+    public ReadList(Map<? extends String, ? extends Integer> m) {
         super(m);
     }
 

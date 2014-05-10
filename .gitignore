@@ -22,3 +22,4 @@ data/
 
 # Library Files #
 !library/*.jar
+documents/Thumbs.db

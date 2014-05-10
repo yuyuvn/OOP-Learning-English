@@ -123,13 +123,7 @@ public class ReadOnlyWrapper<T extends IWrapper> extends WrapperProperty<T> {
         
         @Override
         public void fireValueChangedEvent() {
-            try {
-                getValue().setChanged(true);
-                ExpressionHelper.fireValueChangedEvent(helper);
-                getValue().setChanged(false);
-            } catch (NullPointerException e) {
-                ExpressionHelper.fireValueChangedEvent(helper);
-            }            
+            ExpressionHelper.fireValueChangedEvent(helper);
         }
         
         @Override

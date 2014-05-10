@@ -41,10 +41,16 @@ public class UserInfoBuilder {
         data.setPlayState(playState);
         return this;
     }
+    @SuppressWarnings("unchecked")
+    public UserInfoBuilder point(Integer point) {
+        data.setPoint(point);
+        return this;
+    }
     
     public UserInfo build() {
         if (data.getName() == null) throw new RuntimeException("Name is not set");
         if (data.getReadList() == null) readList(new ReadList());
+        if (data.getPoint() == null) data.setPoint(0);
         return data;
     }
 }

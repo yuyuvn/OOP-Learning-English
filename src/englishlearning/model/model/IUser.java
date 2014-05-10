@@ -16,6 +16,12 @@ import englishlearning.model.UserInfo;
  */
 public interface IUser extends IWrapper {
     UserInfo getUser();
+    
+    void addPoint(Integer point);
+    void addReadlistPoint(String guid, Integer point);
+    void addReadlistPoint(PlayState playState);
+    
+    // Getter & Setter
     String getName();
     void setName(String name);
     String getLastUsed();
@@ -24,4 +30,6 @@ public interface IUser extends IWrapper {
     void setReadList(ReadList readList);
     PlayState getPlayState();
     void setPlayState(PlayState playState);
+    Integer getPoint();
+    void setPoint(Integer point);
 }

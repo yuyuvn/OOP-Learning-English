@@ -8,6 +8,7 @@ package englishlearning.util.handler;
 
 import englishlearning.model.ArticleBuilder;
 import englishlearning.model.Articles;
+import englishlearning.util.Parser;
 import static org.apache.commons.lang3.StringEscapeUtils.unescapeHtml3;
 import org.apache.commons.lang3.StringUtils;
 import org.xml.sax.Attributes;
@@ -75,7 +76,7 @@ public class ArticlesListHandler extends DefaultHandler {
             } else if (qName.equalsIgnoreCase("description")) {
                 String data = unescapeHtml3(StringUtils.strip(__buffer.toString()).replaceAll("\\[.*?\\]", "").replace(String.valueOf((char) 160), "").trim()).replaceAll("(?m)^[ \\t]*\\r?\\n", "");
                 __articleBuilder.description(StringUtils.join(data.split(" ", 101)," ", 0, 99) + "...");
-                __articleBuilder.content(data);
+                __articleBuilder.content(Parser.convert2link(data));
             } else if (qName.equalsIgnoreCase("link")) {
                 __articleBuilder.link(__buffer.toString());
             } else if (qName.equalsIgnoreCase("guid")) {
