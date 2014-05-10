@@ -18,6 +18,7 @@ import englishlearning.util.DataInDisk;
 import englishlearning.util.DataInNet;
 import englishlearning.util.Lookup;
 import englishlearning.views.ArticlesList;
+import englishlearning.views.Exercise;
 import englishlearning.views.MainContent;
 import englishlearning.views.MainWindow;
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
     private final Collection<IWord> words = new ArrayList<>();
     private Collection<IArticle> articles = null;
     private ExecutorService executor;
-    
+        
     public MainPresenter(V view) {
         super(view);
     }
@@ -69,8 +70,9 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
     @Override
     protected void initialize() {
         // 準備する
-        getView().userProperty().bindBidirectional(userProperty());
         MainContent mainContent = getView().getMainContent();
+        mainContent.userProperty().bindBidirectional(userProperty());
+        getView().getExercise().userProperty().bindBidirectional(userProperty());
         ArticlesList articlesList = mainContent.getArticlesList();
         
         
@@ -81,8 +83,12 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
             returnToMain();
         }
         
-        // User click return after read article
+        // User click return after read article or test
         mainContent.setOnReturn(e -> returnToMain());
+        getView().getExercise().setOnReturn(e -> {
+            returnToMain();
+            DataInDisk.saveUserInfo(getUser().getUser());
+        });
         
         // User start read article
         articlesList.selectedProperty().addListener(e -> {
@@ -182,22 +188,20 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
                     q.add(word);
                 });
                 getUser().setPlayState(q);
-                DataInDisk.saveUserInfo(getUser().getUser());
                 resumeState();
             } catch (RuntimeException ex) {
-                Logger.getLogger(DataInDisk.class.getName()).log(Level.WARNING, null, ex);
+                Logger.getLogger(this.getClass().getName()).log(Level.WARNING, null, ex);
             }
         });
         
-        mainContent.getExercise().choiceProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+        getView().getExercise().choiceProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
             Integer value = (Integer) newValue;
             if (value > 0) {
-                // TODO
                 try {
                     IWord word = (IWord) getView().getMainContent().getData();
                     word.getWord().setChoiced(value);
                 } catch (Exception e) {
-                    
+                    Logger.getLogger(this.getClass().getName()).log(Level.WARNING, null, e);
                 }
                 resumeState();
             }
@@ -232,33 +236,36 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
     }
     
     private void returnToMain() {
+        getView().setContent(getView().getMainContent());
         getUser().setPlayState(null);
         setArticlesListData();
         MainContent mainContent = getView().getMainContent();
         mainContent.setData(articles);
         mainContent.getArticlesList().setFilterText("");
         mainContent.getWordList().clear();
-        getView().getMainContent().setProcess(0);
         words.clear();
         mainContent.getArticlesList().clearSelection();
     }
     
     private void resumeState() {
         List<Word> questions = getUser().getPlayState().stream().filter(w -> w.getChoiced() == 0).collect(toList());
-        MainContent mainContent = getView().getMainContent();
         if (questions.size() > 0 ) {
+            Exercise exercise = getView().getExercise();
+            getView().setContent(exercise);
             Random generator = new Random();
             IWord question = new WordWrapper(questions.get(generator.nextInt(questions.size())));
-            mainContent.setData(question);
-            mainContent.setProcess(1-((double)questions.size()-1)/getUser().getPlayState().size());
+            exercise.setData(question);
+            getView().getMainContent().setData(question);
+            exercise.setProcess(1-((double)questions.size()-1)/getUser().getPlayState().size());
         } else {
+            MainContent mainContent = getView().getMainContent();
             getUser().addPoint(getUser().getPlayState().getPoint());
             // 2 times fire event
             getUser().fireValueChangedEvent();
             getUser().fireValueChangedEvent();
             mainContent.setResult(getUser().getPlayState());
-            mainContent.showResult();
             returnToMain();
+            mainContent.showResult();
         }
         DataInDisk.saveUserInfo(getUser().getUser());
     }

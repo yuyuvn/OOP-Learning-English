@@ -43,7 +43,4 @@
             </resources>
         </ContentControl>
     </children>
-    <stylesheets>
-        <URL value="@../css/ArticlesList.css" />
-    </stylesheets>
 </GridPane>

@@ -34,7 +34,7 @@
 .list-cell:odd,
 .list-cell:even {
     -fx-background-color: transparent;
-    -fx-border-color: #aaa;
+    -fx-border-color: #ccc;
     -fx-border-insets: 0 0 1 0;
     -fx-border-style: solid outside;
 }

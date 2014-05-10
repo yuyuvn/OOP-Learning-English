@@ -41,7 +41,4 @@
             <Loading alignment="TOP_CENTER" />
         </defResources>
     </ContentControl>
-    <stylesheets>
-        <URL value="@../css/ReadArticle.css" />
-    </stylesheets>
 </GridPane>

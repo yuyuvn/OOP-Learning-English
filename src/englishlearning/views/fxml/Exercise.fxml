@@ -2,25 +2,57 @@
 
 <?import java.lang.*?>
 <?import java.util.*?>
+<?import java.net.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import englishlearning.controls.*?>
+<?import englishlearning.views.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.*?>
 
 <GridPane xmlns:fx="http://javafx.com/fxml/1">
+    <fx:define>
+        <Insets fx:id="margin" top="10" left="10" bottom="10" right="10" />
+    </fx:define>
     <rowConstraints>
         <RowConstraints vgrow="NEVER" />
-        <RowConstraints vgrow="SOMETIMES" />
+        <RowConstraints vgrow="NEVER" />
+        <RowConstraints vgrow="SOMETIMES" fillHeight="true" />
+        <RowConstraints vgrow="NEVER" />
     </rowConstraints>
     <children>
-        <TilePane alignment="TOP_CENTER">
-            <GridPane.margin><javafx.geometry.Insets right="200" top="100" /></GridPane.margin>
-            <Label text="${controller.word}" />
-        </TilePane>
-        <FlowPane GridPane.rowIndex="1" GridPane.hgrow="ALWAYS" alignment="CENTER_LEFT" >
-            <Button fx:id="option1" wrapText="true" prefWidth="${controller.width*0.4}" prefHeight="100" onAction="#onSelect" />
-            <Button fx:id="option2" wrapText="true" prefWidth="${controller.width*0.4}" prefHeight="100" onAction="#onSelect" />
-            <Button fx:id="option3" wrapText="true" prefWidth="${controller.width*0.4}" prefHeight="100" onAction="#onSelect" />
-            <Button fx:id="option4" wrapText="true" prefWidth="${controller.width*0.4}" prefHeight="100" onAction="#onSelect" />
+        <VBox alignment="TOP_LEFT" GridPane.hgrow="NEVER" >
+            <GridPane.margin>
+                <Insets bottom="5" left="5" right="25" top="5" />
+            </GridPane.margin>
+            <ContentControl data="${controller.user}">
+                <resources>
+                    <DataTemplate dataType="englishlearning.model.model.IUser">
+                        <UserInfoBox />
+                    </DataTemplate>
+                </resources>
+            </ContentControl>
+            <Button text="Back" onAction="#onReturn" />
+        </VBox>
+        <VBox alignment="TOP_CENTER" GridPane.rowIndex="1" >
+            <Label text="What is meaning of this word:" styleClass="exercise-question-text" />
+            <Label fx:id="word" text="${controller.word}" styleClass="exercise-word" />
+        </VBox>
+        <FlowPane GridPane.rowIndex="2" GridPane.hgrow="ALWAYS" alignment="CENTER" >
+            <Button fx:id="option1" wrapText="true" prefWidth="${controller.width*0.4}" prefHeight="100" onAction="#onSelect" styleClass="exercise-option">
+                <FlowPane.margin><fx:reference source="margin"/></FlowPane.margin>
+            </Button>
+            <Button fx:id="option2" wrapText="true" prefWidth="${controller.width*0.4}" prefHeight="100" onAction="#onSelect" styleClass="exercise-option">
+                <FlowPane.margin><fx:reference source="margin"/></FlowPane.margin>
+            </Button>
+            <Button fx:id="option3" wrapText="true" prefWidth="${controller.width*0.4}" prefHeight="100" onAction="#onSelect" styleClass="exercise-option">
+                <FlowPane.margin><fx:reference source="margin"/></FlowPane.margin>
+            </Button>
+            <Button fx:id="option4" wrapText="true" prefWidth="${controller.width*0.4}" prefHeight="100" onAction="#onSelect" styleClass="exercise-option">
+                <FlowPane.margin><fx:reference source="margin"/></FlowPane.margin>
+            </Button>
         </FlowPane>
+        <Rectangle height="5" width="${controller.width*controller.process}" fill="#333" GridPane.rowIndex="3"/>
     </children>
 </GridPane>

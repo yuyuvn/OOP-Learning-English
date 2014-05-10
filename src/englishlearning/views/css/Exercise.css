@@ -1,0 +1,5 @@
+.exercise-word {
+    -fx-font-size: 30;
+    -fx-padding: 20;
+    // -fx-font-family: ;  // TODO: word font
+}

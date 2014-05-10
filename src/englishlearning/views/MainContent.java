@@ -12,12 +12,10 @@ import englishlearning.model.property.WrapperProperty;
 import englishlearning.model.wrapper.UserWrapper;
 import java.awt.MouseInfo;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyListWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,8 +35,6 @@ public class MainContent extends Controller {
     public ArticlesList getArticlesList() {return articlesList;}
     @FXML ReadArticle readArticle;
     public ReadArticle getReadArticle() {return readArticle;}
-    @FXML Exercise exercise;
-    public Exercise getExercise() {return exercise; }
     
     @FXML private PopOver popOver;
     @FXML private PopOver resultPop;
@@ -102,22 +98,6 @@ public class MainContent extends Controller {
     public BooleanProperty canTestProperty() {
         if (canTest == null) canTest = new SimpleBooleanProperty(this, "canTest", false);
         return canTest;
-    }
-//</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Double process">
-    private DoubleProperty process;
-    
-    public double getProcess() {
-        return processProperty().get();
-    }
-    
-    public void setProcess(double value) {
-        processProperty().set(value);
-    }
-    
-    public DoubleProperty processProperty() {
-        if (process == null) process = new SimpleDoubleProperty(this, "process", 0);
-        return process;
     }
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="PlayState result">

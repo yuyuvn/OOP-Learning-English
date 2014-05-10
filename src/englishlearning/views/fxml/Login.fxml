@@ -12,7 +12,4 @@
         <TextField fx:id="usernameTextField" maxWidth="250" styleClass="login-textfield" onKeyPressed="#onKeyPressed" />
         <Button fx:id="loginButton" mnemonicParsing="false" text="Login" onAction="#onLogin" styleClass="login-button" />
     </children>
-    <stylesheets>
-        <URL value="@../css/Login.css" />
-    </stylesheets>
 </VBox>

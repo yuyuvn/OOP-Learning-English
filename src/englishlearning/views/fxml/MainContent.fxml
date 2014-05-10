@@ -9,9 +9,8 @@
 <?import englishlearning.views.*?>
 <?import javafx.geometry.Insets?>
 <?import org.controlsfx.control.PopOver?>
-<?import javafx.scene.shape.Rectangle?> 
 
-<GridPane xmlns:fx="http://javafx.com/fxml/1">    
+<GridPane xmlns:fx="http://javafx.com/fxml/1">
     <fx:define>
         <PopOver fx:id="popOver" 
                  arrowLocation="LEFT_BOTTOM" 
@@ -53,7 +52,6 @@
     </columnConstraints>
     <rowConstraints>
         <RowConstraints vgrow="SOMETIMES" fillHeight="true" />
-        <RowConstraints vgrow="NEVER" />
     </rowConstraints>
     <children>
         <VBox alignment="TOP_LEFT" GridPane.hgrow="NEVER" >
@@ -95,9 +93,6 @@
                                 </VBox>
                             </GridPane>
                         </DataTemplate>
-                        <DataTemplate dataType="englishlearning.model.model.IWord">
-                            <Button text="Back" onAction="#onReturn" />
-                        </DataTemplate>
                     </resources>
                 </ContentControl>
            </children>
@@ -110,11 +105,8 @@
                 <DataTemplate dataType="java.util.ArrayList">
                     <ArticlesList fx:id="articlesList" />
                 </DataTemplate>
-                <DataTemplate dataType="englishlearning.model.model.IWord">
-                    <Exercise fx:id="exercise" />
-                </DataTemplate>
             </resources>
         </ContentControl>
-        <Rectangle height="5" width="${controller.width*controller.process}" fill="#333" GridPane.rowIndex="1" GridPane.columnSpan="2" />
+        <!--<Rectangle height="5" width="${controller.width*controller.process}" fill="#333" GridPane.rowIndex="1" GridPane.columnSpan="2" />-->
     </children>
 </GridPane>

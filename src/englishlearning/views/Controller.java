@@ -23,6 +23,7 @@ import javafx.scene.layout.Region;
  */
 public abstract class Controller extends Region {     
     private final String __resourceDir = "/englishlearning/views/fxml/";
+    private final String __cssDir = "/englishlearning/views/css/";
 
     public Controller() {
         loadFXML();
@@ -39,7 +40,11 @@ public abstract class Controller extends Region {
             Node root = (Node) loader.load();
             setMaxSize(root);
             this.getChildren().add(root);
-            
+            try {
+                this.getStylesheets().add(getCSSUrl().toExternalForm());
+            } catch (Exception e) {
+                // css may not exist, never mind it
+            }
             AnchorPane.setBottomAnchor(this, .0);
             AnchorPane.setLeftAnchor(this, .0);
             AnchorPane.setRightAnchor(this, .0);
@@ -50,12 +55,12 @@ public abstract class Controller extends Region {
         }   
     }
  
-    private String getViewPath() {
-        return String.format(__resourceDir + "%s.fxml", this.getClass().getSimpleName());
+    private String getViewPath(String path, String exp) {
+        return String.format(path + "%s" + exp, this.getClass().getSimpleName());
     }
  
     private URL getViewURL() {
-        String path = this.getViewPath();
+        String path = this.getViewPath(__resourceDir, ".fxml");
         for (FXMLPath annotation : this.getClass().getAnnotationsByType(FXMLPath.class)) {
             if (annotation.fullPath()) {
                 path = annotation.value();
@@ -63,6 +68,11 @@ public abstract class Controller extends Region {
                 path = __resourceDir + annotation.value();
             }
         }
+        return this.getClass().getResource(path);
+    }
+    
+    private URL getCSSUrl() {
+        String path = this.getViewPath(__cssDir, ".css");        
         return this.getClass().getResource(path);
     }
     

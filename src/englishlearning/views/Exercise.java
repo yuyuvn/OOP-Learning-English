@@ -6,14 +6,20 @@
 
 package englishlearning.views;
 
+import englishlearning.model.model.IUser;
 import englishlearning.model.model.IWord;
+import englishlearning.model.property.WrapperProperty;
+import englishlearning.model.wrapper.UserWrapper;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
@@ -27,6 +33,16 @@ public class Exercise extends Controller implements DataReceivable {
     @FXML private Button option3;
     @FXML private Button option4;
     
+    
+    //<editor-fold defaultstate="collapsed" desc="IUser User">
+    private WrapperProperty<IUser> user;
+    public final IUser getUser() { return userProperty().get(); }
+    public final void setUser(IUser value) { userProperty().set(value); }
+    public final WrapperProperty<IUser> userProperty() { 
+        if (user == null) user = new WrapperProperty(this, "user", new UserWrapper());
+        return user; 
+    }
+//</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="String word">
     private StringProperty word;
     
@@ -43,7 +59,6 @@ public class Exercise extends Controller implements DataReceivable {
         return word;
     }
 //</editor-fold>
-    
     //<editor-fold defaultstate="collapsed" desc="int choice">
     private ReadOnlyIntegerWrapper choice;
     
@@ -62,6 +77,22 @@ public class Exercise extends Controller implements DataReceivable {
     public ReadOnlyIntegerWrapper _choiceProperty() {
         if (choice == null) choice = new ReadOnlyIntegerWrapper(this, "choice", 0);
         return choice;
+    }
+//</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Double process">
+    private DoubleProperty process;
+    
+    public double getProcess() {
+        return processProperty().get();
+    }
+    
+    public void setProcess(double value) {
+        processProperty().set(value);
+    }
+    
+    public DoubleProperty processProperty() {
+        if (process == null) process = new SimpleDoubleProperty(this, "process", 0);
+        return process;
     }
 //</editor-fold>
     
@@ -93,5 +124,13 @@ public class Exercise extends Controller implements DataReceivable {
         } else if (source == option4) {
             setChoice(4);
         }
+    }
+    
+    private EventHandler onReturn;
+    public void setOnReturn(EventHandler eventHandler) {
+        onReturn = eventHandler;
+    }    
+    public void onReturn(ActionEvent event) {
+        if (onReturn != null) onReturn.handle(event);
     }
 }

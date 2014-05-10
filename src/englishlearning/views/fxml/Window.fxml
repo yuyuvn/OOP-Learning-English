@@ -20,9 +20,8 @@
 <Insets />
 </opaqueInsets>
 <children>
-    <ContentControl data="${controller.content}" GridPane.rowIndex="1" >
-    </ContentControl>
-</children>    
+    <ContentControl data="${controller.content}" GridPane.rowIndex="1" />
+</children>
     <stylesheets>
         <URL value="@../css/JMetroLightTheme.css" />
         <URL value="@../css/Skin.css" />

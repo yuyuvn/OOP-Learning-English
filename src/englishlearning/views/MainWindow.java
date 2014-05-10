@@ -6,12 +6,8 @@
 
 package englishlearning.views;
 
-import englishlearning.model.model.IUser;
-import englishlearning.model.wrapper.UserWrapper;
-import englishlearning.model.property.WrapperProperty;
 import englishlearning.presenter.Presenter;
 import englishlearning.views.Controller.FXMLPath;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.stage.Stage;
 
@@ -21,15 +17,6 @@ import javafx.stage.Stage;
  */
 @FXMLPath("Window.fxml")
 public class MainWindow extends Window {
-    //<editor-fold defaultstate="collapsed" desc="Property User">
-    private WrapperProperty<IUser> user;
-    public final IUser getUser() { return userProperty().get(); }
-    public final void setUser(IUser value) { userProperty().set(value); }
-    public final WrapperProperty<IUser> userProperty() { 
-        if (user == null) user = new WrapperProperty(new UserWrapper());
-        return user; 
-    }
-//</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Property mainContent">
     private ReadOnlyObjectWrapper<MainContent> mainContent;
     
@@ -39,13 +26,23 @@ public class MainWindow extends Window {
     
     public final ReadOnlyObjectWrapper<MainContent> mainContentProperty() {
         if (mainContent == null) {
-            MainContent mc = new MainContent();
-            Bindings.bindBidirectional(
-                    mc.userProperty(),
-                    userProperty());
-            mainContent = new ReadOnlyObjectWrapper<>(this, "mainContent", mc);
+            mainContent = new ReadOnlyObjectWrapper<>(this, "mainContent", new MainContent());
         }
         return mainContent;
+    }
+//</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Property exercise">
+    private ReadOnlyObjectWrapper<Exercise> exercise;
+    
+    public final Exercise getExercise() {
+        return exerciseProperty().get();
+    }
+    
+    public final ReadOnlyObjectWrapper<Exercise> exerciseProperty() {
+        if (exercise == null) {
+            exercise = new ReadOnlyObjectWrapper<>(this, "exercise", new Exercise());
+        }
+        return exercise;
     }
 //</editor-fold>
     
@@ -56,7 +53,6 @@ public class MainWindow extends Window {
         setMinHeight(600);        
         
         this.setTitle("VOA Learning English");
-        this.setContent(getMainContent());
         this.showWindow();
     }
     
