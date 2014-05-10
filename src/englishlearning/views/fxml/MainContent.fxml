@@ -115,6 +115,6 @@
                 </DataTemplate>
             </resources>
         </ContentControl>
-        <<Rectangle height="5" width="${controller.width*controller.process}" fill="#333" GridPane.rowIndex="1" GridPane.columnSpan="2" />
+        <Rectangle height="5" width="${controller.width*controller.process}" fill="#333" GridPane.rowIndex="1" GridPane.columnSpan="2" />
     </children>
 </GridPane>
