@@ -24,7 +24,7 @@ import org.controlsfx.control.textfield.CustomTextField;
  *
  * @author Clicia
  */
-public class ArticlesList extends Controller implements DataReceivable {
+public class ArticlesList extends Controller{
     
     @FXML private ListViewEx listView;
     //<editor-fold defaultstate="collapsed" desc="Property articles">
@@ -94,13 +94,5 @@ public class ArticlesList extends Controller implements DataReceivable {
     
     public void clearSelection() {
         listView.getSelectionModel().clearSelection();
-    }
-
-    @Override
-    public void setData(Object value) {
-        try {
-            setArticles((Collection<IArticle>)value);
-        } catch (ClassCastException e) {
-        }
     }
 }

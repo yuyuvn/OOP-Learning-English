@@ -102,7 +102,7 @@
                 <DataTemplate dataType="englishlearning.model.model.IArticle">
                     <ReadArticle fx:id="readArticle" />
                 </DataTemplate>
-                <DataTemplate dataType="java.util.ArrayList">
+                <DataTemplate dataType="englishlearning.presenter.ArticlesListPresenter">
                     <ArticlesList fx:id="articlesList" />
                 </DataTemplate>
             </resources>

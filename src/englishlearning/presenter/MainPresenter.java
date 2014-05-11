@@ -12,12 +12,9 @@ import englishlearning.model.model.IArticle;
 import englishlearning.model.model.IUser;
 import englishlearning.model.model.IWord;
 import englishlearning.model.property.WrapperProperty;
-import englishlearning.model.wrapper.ArticleWrapper;
 import englishlearning.model.wrapper.WordWrapper;
 import englishlearning.util.DataInDisk;
-import englishlearning.util.DataInNet;
 import englishlearning.util.Lookup;
-import englishlearning.views.ArticlesList;
 import englishlearning.views.Exercise;
 import englishlearning.views.MainContent;
 import englishlearning.views.MainWindow;
@@ -29,9 +26,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import static java.util.stream.Collectors.toList;
-import java.util.stream.Stream;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.concurrent.Task;
@@ -58,8 +54,9 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
     }
 //</editor-fold>
     
-    private final Collection<IWord> words = new ArrayList<>();
-    private Collection<IArticle> articles = null;
+    private ArticlesListPresenter articlesList;
+    
+    private final Collection<IWord> words = new ArrayList<>();    
     private ExecutorService executor;
         
     public MainPresenter(V view) {
@@ -76,8 +73,21 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         MainContent mainContent = getView().getMainContent();
         mainContent.userProperty().bindBidirectional(userProperty());
         getView().getExercise().userProperty().bindBidirectional(userProperty());
-        ArticlesList articlesList = mainContent.getArticlesList();
+        articlesList = new ArticlesListPresenter(mainContent.getArticlesList());
         
+        // can't get list articles
+        articlesList.exceptionProperty().addListener(new ChangeListener<Throwable>() {
+            @Override
+            public void changed(ObservableValue<? extends Throwable> observable, Throwable oldValue, Throwable newValue) {
+                // can't use lambda expression, java 8's bug
+                Dialogs.create().title("Can't download data")
+                    .masthead(null)
+                    .message("Please connect to internet and retry")
+                    .showException(newValue);
+                getView().closeWindow();
+            }
+            
+        });
         
         // user login susscess
         if (getUser().getPlayState() != null) {
@@ -115,27 +125,6 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         });
         mainContent.getReadArticle().articleProperty().addListener(e -> {
                 setParsedContent();            
-        });
-        
-        // filter articles
-        articlesList.filterTextProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-            if (newValue != null && !newValue.equals("")) {
-                if (oldValue != null && !oldValue.equals("") && newValue.contains(oldValue)) {
-                    mainContent.setData(
-                            mainContent.getArticlesList().getArticles()
-                                    .stream().filter(
-                                            a -> a.getArticle().getTitle().toLowerCase().contains(
-                                                    newValue.toLowerCase())).collect(Collectors.toList())
-                    );
-                } else {
-                mainContent.setData(
-                                articles.stream()
-                                        .filter(a -> a.getArticle().getTitle().toLowerCase().contains(newValue.toLowerCase()))
-                                        .collect(Collectors.toList()));
-                }
-            } else {
-                mainContent.setData(articles);
-            }
         });
         
         // user selected a word
@@ -221,36 +210,6 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         });
     }
     
-    private void setArticlesListData() {
-        if (articles != null) return;
-        ExecutorService ect = Executors.newCachedThreadPool();
-        Task<Collection<IArticle>> task = new Task<Collection<IArticle>>() {
-            @Override
-            protected Collection<IArticle> call() throws Exception {
-                return DataInNet.getListArticle().stream()
-                    .flatMap(a -> Stream.of(new ArticleWrapper(a)))
-                    .collect(Collectors.toList());
-            }
-        };
-        
-        task.exceptionProperty().addListener((ObservableValue<? extends Throwable> observable, Throwable oldValue, Throwable newValue) -> {
-            Dialogs.create().title("Can't download data")
-                    .masthead(null)
-                    .message("Please connect to internet and retry")
-                    .showException(newValue);
-            ect.shutdown();
-            getView().closeWindow();
-        });
-        
-        task.valueProperty().addListener(t -> {
-            articles = task.getValue();
-            getView().getMainContent().setData(articles);
-            ect.shutdown();
-        });
-        
-        ect.submit(task);
-    }
-    
     private void setParsedContent() {
         getView().getMainContent().getReadArticle().setParsedContent(null);
         IArticle article = (IArticle) getView().getMainContent().getData();
@@ -260,13 +219,11 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
     private void returnToMain() {
         getView().setContent(getView().getMainContent());
         getUser().setPlayState(null);
-        setArticlesListData();
         MainContent mainContent = getView().getMainContent();
-        mainContent.setData(articles);
-        mainContent.getArticlesList().setFilterText("");
+        articlesList.reset();
+        mainContent.setData(articlesList);
         mainContent.getWordList().clear();
         words.clear();
-        mainContent.getArticlesList().clearSelection();
     }
     
     private void resumeState() {
