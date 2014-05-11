@@ -1,8 +1,8 @@
 .article-title {
-    -fx-font-weight: 600;
+    -fx-font-weight: 700;
     -fx-font-size: 20;
     -fx-padding: 0 0 10 0;
-    // -fx-font-family: ;  // TODO: title article font
+    -fx-font-family: nyt-franklin,nyt-franklin-1,'Helvetica Neue',Arial,sans-serif;
 }
 
 .hyperlink {
