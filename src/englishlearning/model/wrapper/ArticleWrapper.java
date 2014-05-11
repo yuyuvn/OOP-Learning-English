@@ -44,6 +44,7 @@ public class ArticleWrapper<T extends Article> extends Wrapper<T> implements IAr
         return __thumb;
     }
     
+    //<editor-fold defaultstate="collapsed" desc="Getter & Setter">
     @Override
     public String getGuid(){
         return getArticle().getGuid();
@@ -100,4 +101,5 @@ public class ArticleWrapper<T extends Article> extends Wrapper<T> implements IAr
     public void setContent(String content){
         getArticle().setContent(content);
     }
+//</editor-fold>
 }

@@ -36,6 +36,7 @@ public class WordWrapper<T extends Word> extends Wrapper<T> implements IWord {
         return getMean().equals(getChose());
     }
 
+    //<editor-fold defaultstate="collapsed" desc="Getter & Setter">
     @Override
     public boolean isAnswered() {
         return getWord().getChose() != null;
@@ -57,14 +58,15 @@ public class WordWrapper<T extends Word> extends Wrapper<T> implements IWord {
     public void setOptions(Options options){
         getWord().setOptions(options);
     }
-
+    
     @Override
     public String getChose() {
         return getWord().getChose();
     }
-
+    
     @Override
     public void SetChose(String chose) {
         getWord().setChose(chose);
     }
+//</editor-fold>
 }

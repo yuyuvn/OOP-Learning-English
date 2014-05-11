@@ -177,9 +177,7 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
                 executor.shutdown();
             });
 
-            executor.submit(task);
-            
-            
+            executor.submit(task); 
         });
         
         // bind canCanTest to e.getList().isEmpty()
