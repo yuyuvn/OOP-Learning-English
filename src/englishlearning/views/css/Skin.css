@@ -57,7 +57,7 @@
     -fx-font-size: 20;
     -fx-font-weight: 700;
     -fx-text-fill: #666;
-    // -fx-font-family: ;  // TODO: header font
+    -fx-font-family: nyt-franklin,nyt-franklin-1,'Helvetica Neue',Arial,sans-serif;
 }
 
 .i {
