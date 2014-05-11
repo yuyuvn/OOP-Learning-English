@@ -1,7 +1,7 @@
 .text-area {    
     // -fx-font-family: ;  // TODO: preview font
     -fx-font-size: 1em;
-    -fx-font-style: italic;
+    -fx-font-style: normal;
     -fx-font-family: nyt-franklin,nyt-franklin-1,'Helvetica Neue',Arial,sans-serif;
 }
 
