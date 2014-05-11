@@ -10,7 +10,6 @@ import englishlearning.model.PlayState;
 import englishlearning.model.model.IUser;
 import englishlearning.model.property.WrapperProperty;
 import englishlearning.model.wrapper.UserWrapper;
-import java.awt.MouseInfo;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;

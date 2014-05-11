@@ -11,6 +11,7 @@ import englishlearning.model.Word;
 import englishlearning.model.model.IArticle;
 import englishlearning.model.model.IUser;
 import englishlearning.model.model.IWord;
+import englishlearning.model.property.ReadOnlyWrapperProperty;
 import englishlearning.model.property.WrapperProperty;
 import englishlearning.model.wrapper.WordWrapper;
 import englishlearning.util.DataInDisk;
@@ -25,6 +26,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static java.util.stream.Collectors.toList;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
@@ -71,67 +73,39 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         readArticle = new ReadArticlePresenter(mainContent.getReadArticle());
         
         // user login susscess
-        if (getUser().getPlayState() != null) {
-            resumeState();
-        } else {
-            returnToMain();
-        }
-                
-        // can't get list articles
-        articlesList.exceptionProperty().addListener(new ChangeListener<Throwable>() {
-            @Override
-            public void changed(ObservableValue<? extends Throwable> observable, Throwable oldValue, Throwable newValue) {
-                // can't use lambda expression, java 8's bug
-                Dialogs.create().title("Can't download data")
-                    .masthead(null)
-                    .message("Please connect to internet and retry")
-                    .showException(newValue);
-                getView().closeWindow();
-            }
-            
+        if (getUser() != null) userLoginSusscess();
+        userProperty().addListener((ObservableValue<? extends IUser> observable, IUser oldValue, IUser newValue) -> {
+            // need check oldValue != newValue because it is wraperProperty
+            if (oldValue != newValue && newValue != null) userLoginSusscess();
         });
         
-        // user selected a word
-        readArticle.selectedWordProperty().addListener(new ChangeListener<IWord>() {
-            @Override
-            public void changed(ObservableValue<? extends IWord> observable, IWord oldValue, IWord newValue) {
-                // can't use lambda expression, java 8's bug
-                String mean = newValue.getMean();
-                if (mean != null && !"".equals(mean)) {
-                    String word = newValue.getWord().getWord().toLowerCase();
-                    if (!mainContent.getWordList().contains(word)) {
-                        mainContent.getWordList().add(word);
-                        words.add(newValue);
-                    }
-                }
-            }
-        });
+        {
+            // create a local var because jdk's bug
+            // can't get list articles
+            ReadOnlyObjectProperty<Throwable> property = articlesList.exceptionProperty();
+            property.addListener((ObservableValue<? extends Throwable> observable, Throwable oldValue, Throwable newValue) -> {
+                cantGetListArticle(newValue);
+            });
+        }
+        
+        {
+            // create a local var because jdk's bug
+            // user selected a word
+            ReadOnlyWrapperProperty<IWord> property = readArticle.selectedWordProperty();
+            property.addListener((ObservableValue<? extends IWord> observable, IWord oldValue, IWord newValue) -> {
+                userSelectedWord(newValue);
+            });
+        }
         
         // User click return after read article or test
         mainContent.setOnReturn(e -> returnToMain());
         getView().getExercise().setOnReturn(e -> {
-            Action response = Dialogs.create()
-                    .title("Do you really want to go back?")
-                    .message("Your process will not be counted")
-                    .masthead(null)
-                    .actions(new Action[]{YES,NO})
-                    .showConfirm();
-            if (response == YES) {
-                returnToMain();
-                DataInDisk.saveUserInfo(getUser().getUser());
-            }
+            returnAfterExercise();
         });
         
         // User start read article
         articlesList.selectedProperty().addListener(e -> {
-            IArticle article = articlesList.getSelectedArticle();
-            if (article != null) {
-                getUser().getReadList().putIfAbsent(article.getArticle().getGuid(), 0);
-                readArticle.setData(article);
-                mainContent.setData(readArticle);
-                getUser().fireValueChangedEvent();
-                DataInDisk.saveUserInfo(getUser().getUser());
-            }
+            userStartReadArticle();
         });
         
         // bind canCanTest to e.getList().isEmpty()
@@ -141,37 +115,12 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         
         // User start test
         mainContent.setOnDoTest(e -> {
-            try {
-                IArticle article = readArticle.getData();
-                PlayState q = new PlayState(article.getGuid());
-                words.forEach(w -> {
-                    Word word = w.getWord();
-                    Lookup.populateOption(word);
-                    q.add(word);
-                });
-                getUser().setPlayState(q);
-                resumeState();
-            } catch (RuntimeException ex) {
-                Action response = Dialogs.create()
-                    .owner(this.getView())
-                    .title("Can't do test")
-                    .masthead(null)
-                    .message( ex.getMessage())
-                    .showError();
-            }
+            userStartExcercise();
         });
         
         // User choose an option
         getView().getExercise().choiceProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-            if (newValue != null) {
-                try {
-                    IWord word = (IWord) getView().getMainContent().getData();
-                    word.getWord().setChose(newValue);
-                } catch (Exception e) {
-                    Logger.getLogger(this.getClass().getName()).log(Level.WARNING, null, e);
-                }
-                resumeState();
-            }
+            userChooseOption(newValue);
         });
     }
     
@@ -204,5 +153,88 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
             mainContent.showResult();
         }
         DataInDisk.saveUserInfo(getUser().getUser());
+    }
+    
+    protected void cantGetListArticle(Throwable e) {
+        Dialogs.create().title("Can't download data")
+                .masthead(null)
+                .message("Please connect to internet and retry")
+                .showException(e);
+        getView().closeWindow();
+    }
+    
+    protected void userSelectedWord(IWord word) {
+        String mean = word.getMean();
+        if (mean != null && !"".equals(mean)) {
+            String w = word.getWord().getWord().toLowerCase();
+            if (!getView().getMainContent().getWordList().contains(w)) {
+                getView().getMainContent().getWordList().add(w);
+                words.add(word);
+            }
+        }
+    }
+    protected void returnAfterExercise() {
+        Action response = Dialogs.create()
+                .title("Do you really want to go back?")
+                .message("Your process will not be counted")
+                .masthead(null)
+                .actions(new Action[]{YES,NO})
+                .showConfirm();
+        if (response == YES) {
+            returnToMain();
+            DataInDisk.saveUserInfo(getUser().getUser());
+        }
+    }
+    
+    protected void userLoginSusscess() {
+        if (getUser().getPlayState() != null) {
+            resumeState();
+        } else {
+            returnToMain();
+        }
+    }
+    
+    protected void userStartReadArticle() {
+        IArticle article = articlesList.getSelectedArticle();
+        if (article != null) {
+            getUser().getReadList().putIfAbsent(article.getArticle().getGuid(), 0);
+            readArticle.setData(article);
+            getView().getMainContent().setData(readArticle);
+            getUser().fireValueChangedEvent();
+            DataInDisk.saveUserInfo(getUser().getUser());
+        }
+    }
+    
+    protected void userStartExcercise() {
+        try {
+            IArticle article = readArticle.getData();
+            PlayState q = new PlayState(article.getGuid());
+            words.forEach(w -> {
+                Word word = w.getWord();
+                Lookup.populateOption(word);
+                q.add(word);
+            });
+            getUser().setPlayState(q);
+            resumeState();
+        } catch (RuntimeException ex) {
+            Action response = Dialogs.create()
+                .owner(this.getView())
+                .title("Can't do test")
+                .masthead(null)
+                .message( ex.getMessage())
+                .showError();
+        }
+    }
+    
+    protected void userChooseOption(String value) {
+        if (value != null) {
+            try {
+                IWord word = (IWord) getView().getMainContent().getData();
+                word.getWord().setChose(value);
+            } catch (Exception e) {
+                Logger.getLogger(this.getClass().getName()).log(Level.WARNING, null, e);
+            }
+            resumeState();
+        }
     }
 }

@@ -55,7 +55,7 @@ public class ArticlesListPresenter<V extends ArticlesList> extends Presenter<V> 
     }
     
     public ReadOnlyObjectProperty<Throwable> exceptionProperty() {
-        return _exceptionProperty();
+        return _exceptionProperty().getReadOnlyProperty();
     }
     
     private ReadOnlyObjectWrapper<Throwable> _exceptionProperty() {
@@ -75,7 +75,7 @@ public class ArticlesListPresenter<V extends ArticlesList> extends Presenter<V> 
     }
     
     @Override
-    protected void initialize() {        
+    protected void initialize() {
         // filter articles
         getView().filterTextProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             if (newValue != null && !newValue.equals("")) {
@@ -87,7 +87,7 @@ public class ArticlesListPresenter<V extends ArticlesList> extends Presenter<V> 
                                                     newValue.toLowerCase())).collect(Collectors.toList())
                     );
                 } else {
-                getView().setArticles(
+                    getView().setArticles(
                                 articles.stream()
                                         .filter(a -> a.getArticle().getTitle().toLowerCase().contains(newValue.toLowerCase()))
                                         .collect(Collectors.toList()));
