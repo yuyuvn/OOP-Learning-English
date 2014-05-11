@@ -12,23 +12,6 @@
 
 <GridPane xmlns:fx="http://javafx.com/fxml/1">
     <fx:define>
-        <PopOver fx:id="popOver" 
-                 arrowLocation="LEFT_BOTTOM" 
-                 cornerRadius="0.0" 
-                 detachable="true"
-                 detachedTitle=""
-                 autoHide="true"
-        >
-            <contentNode>
-                <ContentControl data="${readArticle.selectedWord}">
-                    <resources>
-                        <DataTemplate dataType="englishlearning.model.model.IWord">
-                            <MeaningPop />
-                        </DataTemplate>
-                    </resources>
-                </ContentControl>
-            </contentNode>
-        </PopOver>
         <PopOver fx:id="resultPop" 
                  cornerRadius="0.0" 
                  arrowLocation="LEFT_TOP" 
@@ -68,7 +51,7 @@
                 </ContentControl>
                 <ContentControl data="${controller.data}">
                     <resources>
-                        <DataTemplate dataType="englishlearning.model.model.IArticle">
+                        <DataTemplate dataType="englishlearning.presenter.ReadArticlePresenter">
                             <GridPane>
                                 <rowConstraints>
                                     <RowConstraints vgrow="NEVER" />
@@ -99,7 +82,7 @@
         </VBox>
         <ContentControl GridPane.columnIndex="1" data="${controller.data}">
             <resources>
-                <DataTemplate dataType="englishlearning.model.model.IArticle">
+                <DataTemplate dataType="englishlearning.presenter.ReadArticlePresenter">
                     <ReadArticle fx:id="readArticle" />
                 </DataTemplate>
                 <DataTemplate dataType="englishlearning.presenter.ArticlesListPresenter">

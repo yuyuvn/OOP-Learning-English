@@ -9,8 +9,28 @@
 <?import englishlearning.controls.*?>
 <?import englishlearning.views.*?>
 <?import javafx.geometry.Insets?>
+<?import org.controlsfx.control.PopOver?>
 
 <GridPane xmlns:fx="http://javafx.com/fxml/1">
+    <fx:define>
+        <PopOver fx:id="popOver" 
+                 arrowLocation="LEFT_BOTTOM" 
+                 cornerRadius="0.0" 
+                 detachable="true"
+                 detachedTitle=""
+                 autoHide="true"
+        >
+            <contentNode>
+                <ContentControl data="${controller.selectedWord}">
+                    <resources>
+                        <DataTemplate dataType="englishlearning.model.model.IWord">
+                            <MeaningPop />
+                        </DataTemplate>
+                    </resources>
+                </ContentControl>
+            </contentNode>
+        </PopOver>
+    </fx:define>
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" />
     </columnConstraints>

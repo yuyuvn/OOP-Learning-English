@@ -14,17 +14,19 @@ import englishlearning.model.property.ReadOnlyWrapperProperty;
 import englishlearning.model.property.WrapperProperty;
 import englishlearning.model.wrapper.ArticleWrapper;
 import englishlearning.model.wrapper.WordWrapper;
+import java.awt.MouseInfo;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
+import org.controlsfx.control.PopOver;
 
 /**
  *
  * @author Clicia
  */
-public class ReadArticle extends Controller implements DataReceivable {
+public class ReadArticle extends Controller {
     //<editor-fold defaultstate="collapsed" desc="Property article">
     private WrapperProperty<IArticle> article;
     
@@ -77,14 +79,18 @@ public class ReadArticle extends Controller implements DataReceivable {
         return selectedWord;
     }
 //</editor-fold>
-
-    @Override
-    public void setData(Object value) {
-        try {
-            setArticle((IArticle)value);
-        } catch (ClassCastException e) {
-        }
+    
+    
+    //<editor-fold defaultstate="collapsed" desc="PopOver popOver">
+    @FXML private PopOver popOver;
+    public void showPopOver() {
+        popOver.show(this, MouseInfo.getPointerInfo().getLocation().x, MouseInfo.getPointerInfo().getLocation().y);
+        popOver.detach();
     }
+    public void hidePopOver() {
+        popOver.hide();
+    }
+//</editor-fold>
     
     @FXML private void onClick(ActionEvent event) {
         Hyperlink link = (Hyperlink)event.getSource();

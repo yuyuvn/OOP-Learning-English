@@ -36,7 +36,6 @@ public class MainContent extends Controller {
     @FXML ReadArticle readArticle;
     public ReadArticle getReadArticle() {return readArticle;}
     
-    @FXML private PopOver popOver;
     @FXML private PopOver resultPop;
     @FXML private ListView listView;
     public ListView getListView() {
@@ -50,22 +49,6 @@ public class MainContent extends Controller {
     public final WrapperProperty<IUser> userProperty() { 
         if (user == null) user = new WrapperProperty(this, "user", new UserWrapper());
         return user; 
-    }
-//</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Object binding data">
-    private ObjectProperty data;
-    
-    public final Object getData() {
-        return dataProperty().get();
-    }
-    
-    public final void setData(Object value) {
-        dataProperty().set(value);
-    }
-    
-    public final ObjectProperty dataProperty() {
-        if (data == null) data = new SimpleObjectProperty(this, "data");
-        return data;
     }
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="List<String> wordList">
@@ -100,6 +83,22 @@ public class MainContent extends Controller {
         return canTest;
     }
 //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Object binding data">
+    private ObjectProperty data;
+    
+    public final Object getData() {
+        return dataProperty().get();
+    }
+    
+    public final void setData(Object value) {
+        dataProperty().set(value);
+    }
+    
+    public final ObjectProperty dataProperty() {
+        if (data == null) data = new SimpleObjectProperty(this, "data");
+        return data;
+    }
+//</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="PlayState result">
     private ObjectProperty<PlayState> result;
     
@@ -119,29 +118,25 @@ public class MainContent extends Controller {
     
     
     
+    //<editor-fold defaultstate="collapsed" desc="Event onReturn">
     private EventHandler onReturn;
     public void setOnReturn(EventHandler eventHandler) {
         onReturn = eventHandler;
-    }    
+    }
     public void onReturn(ActionEvent event) {
         if (onReturn != null) onReturn.handle(event);
     }
-    
+//</editor-fold>    
+    //<editor-fold defaultstate="collapsed" desc="Event onDoTest">
     private EventHandler onDoTest;
     public void setOnDoTest(EventHandler eventHandler) {
         onDoTest = eventHandler;
-    }    
+    }
     @FXML private void onDoTest(ActionEvent event) {
         if (onDoTest != null) onDoTest.handle(event);
     }
+//</editor-fold>
     
-    public void showPopOver() {
-        popOver.show(this, MouseInfo.getPointerInfo().getLocation().x, MouseInfo.getPointerInfo().getLocation().y);
-        popOver.detach();
-    }
-    public void hidePopOver() {
-        popOver.hide();
-    }
     
     public void showResult() {
         resultPop.show(this, (Screen.getPrimary().getVisualBounds().getWidth() - 400)/2, (Screen.getPrimary().getVisualBounds().getHeight() - 600)/2);

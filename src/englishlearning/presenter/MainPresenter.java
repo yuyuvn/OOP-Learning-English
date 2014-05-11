@@ -22,18 +22,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static java.util.stream.Collectors.toList;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
-import javafx.concurrent.Task;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
 import org.controlsfx.control.action.Action;
 import static org.controlsfx.dialog.Dialog.Actions.*;
 import org.controlsfx.dialog.Dialogs;
@@ -55,9 +49,9 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
 //</editor-fold>
     
     private ArticlesListPresenter articlesList;
+    private ReadArticlePresenter readArticle;
     
-    private final Collection<IWord> words = new ArrayList<>();    
-    private ExecutorService executor;
+    private final Collection<IWord> words = new ArrayList<>();
         
     public MainPresenter(V view) {
         super(view);
@@ -74,7 +68,15 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         mainContent.userProperty().bindBidirectional(userProperty());
         getView().getExercise().userProperty().bindBidirectional(userProperty());
         articlesList = new ArticlesListPresenter(mainContent.getArticlesList());
+        readArticle = new ReadArticlePresenter(mainContent.getReadArticle());
         
+        // user login susscess
+        if (getUser().getPlayState() != null) {
+            resumeState();
+        } else {
+            returnToMain();
+        }
+                
         // can't get list articles
         articlesList.exceptionProperty().addListener(new ChangeListener<Throwable>() {
             @Override
@@ -89,12 +91,21 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
             
         });
         
-        // user login susscess
-        if (getUser().getPlayState() != null) {
-            resumeState();
-        } else {
-            returnToMain();
-        }
+        // user selected a word
+        readArticle.selectedWordProperty().addListener(new ChangeListener<IWord>() {
+            @Override
+            public void changed(ObservableValue<? extends IWord> observable, IWord oldValue, IWord newValue) {
+                // can't use lambda expression, java 8's bug
+                String mean = newValue.getMean();
+                if (mean != null && !"".equals(mean)) {
+                    String word = newValue.getWord().getWord().toLowerCase();
+                    if (!mainContent.getWordList().contains(word)) {
+                        mainContent.getWordList().add(word);
+                        words.add(newValue);
+                    }
+                }
+            }
+        });
         
         // User click return after read article or test
         mainContent.setOnReturn(e -> returnToMain());
@@ -116,57 +127,11 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
             IArticle article = articlesList.getSelectedArticle();
             if (article != null) {
                 getUser().getReadList().putIfAbsent(article.getArticle().getGuid(), 0);
-                mainContent.setData(article);
-                // Don't know why need to fire 2 times.
-                // bug some where or java sync like shit?
+                readArticle.setData(article);
+                mainContent.setData(readArticle);
                 getUser().fireValueChangedEvent();
                 DataInDisk.saveUserInfo(getUser().getUser());
             }
-        });
-        mainContent.getReadArticle().articleProperty().addListener(e -> {
-                setParsedContent();            
-        });
-        
-        // user selected a word
-        mainContent.getReadArticle().selectedWordProperty().addListener((ObservableValue<? extends IWord> observable, IWord oldValue, IWord newValue) -> {
-            if (newValue == oldValue) return;
-            mainContent.showPopOver();
-            EventHandler<MouseEvent> hd = new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    mainContent.hidePopOver();
-                    Scene scene = (Scene)mouseEvent.getSource();
-                    scene.removeEventFilter(MouseEvent.MOUSE_PRESSED, this);
-                }
-            };
-            getView().getScene().addEventFilter(MouseEvent.MOUSE_PRESSED, hd);
-            
-            
-            if (executor != null && !executor.isTerminated()) {                
-                executor.shutdownNow();
-            }            
-            executor = Executors.newCachedThreadPool();
-            
-            Task<String> task = new Task<String>() {
-                @Override
-                protected String call() throws Exception {
-                    return Lookup.get(newValue.getWord());
-                }
-            };
-
-            task.valueProperty().addListener(t -> {
-                String word = newValue.getWord().getWord().toLowerCase();
-                if (!mainContent.getWordList().contains(word)) {
-                    if(task.getValue()!=null && !task.getValue().equals("")) {
-                        mainContent.getWordList().add(word);
-                        words.add(newValue);
-                    }
-                }
-                mainContent.getReadArticle().getSelectedWord().fireValueChangedEvent();
-                executor.shutdown();
-            });
-
-            executor.submit(task); 
         });
         
         // bind canCanTest to e.getList().isEmpty()
@@ -177,7 +142,7 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         // User start test
         mainContent.setOnDoTest(e -> {
             try {
-                IArticle article = (IArticle)mainContent.getData();
+                IArticle article = readArticle.getData();
                 PlayState q = new PlayState(article.getGuid());
                 words.forEach(w -> {
                     Word word = w.getWord();
@@ -210,12 +175,6 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         });
     }
     
-    private void setParsedContent() {
-        getView().getMainContent().getReadArticle().setParsedContent(null);
-        IArticle article = (IArticle) getView().getMainContent().getData();
-        getView().getMainContent().getReadArticle().setParsedContent(article.getContent());
-    }
-    
     private void returnToMain() {
         getView().setContent(getView().getMainContent());
         getUser().setPlayState(null);
@@ -239,8 +198,6 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         } else {
             MainContent mainContent = getView().getMainContent();
             getUser().addPoint(getUser().getPlayState().getPoint());
-            // 2 times fire event
-            getUser().fireValueChangedEvent();
             getUser().fireValueChangedEvent();
             mainContent.setResult(getUser().getPlayState());
             returnToMain();

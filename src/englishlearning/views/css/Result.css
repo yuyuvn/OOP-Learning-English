@@ -4,3 +4,7 @@
 .result-item-false *.label {
     -fx-text-fill: darkred;
 }
+
+.list-view:focused .list-cell:filled:focused:selected .result-item-false *.label {
+    -fx-text-fill: #fff;
+}
