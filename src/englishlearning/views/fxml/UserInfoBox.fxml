@@ -8,6 +8,6 @@
 
 <VBox alignment="TOP_LEFT" GridPane.hgrow="NEVER" xmlns:fx="http://javafx.com/fxml/1">
     <Label text="${'Welcome ' + controller.data.name}" styleClass="info-header"/>
-    <Label text="${'You have readed ' + controller.data.readedArticles + ' articles'}"/>
+    <Label text="${'You have read ' + controller.data.readedArticles + ' articles'}"/>
     <Label text="${'Your point: ' + controller.data.point}"/>
 </VBox>

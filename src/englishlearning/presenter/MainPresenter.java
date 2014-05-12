@@ -27,7 +27,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import static java.util.stream.Collectors.toList;
 import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import org.controlsfx.control.action.Action;
@@ -79,23 +78,15 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
             if (oldValue != newValue && newValue != null) userLoginSusscess();
         });
         
-        {
-            // create a local var because jdk's bug
-            // can't get list articles
-            ReadOnlyObjectProperty<Throwable> property = articlesList.exceptionProperty();
-            property.addListener((ObservableValue<? extends Throwable> observable, Throwable oldValue, Throwable newValue) -> {
-                cantGetListArticle(newValue);
-            });
-        }
+        // can't get list articles
+        articlesList.exceptionProperty().addListener((ObservableValue observable, Object oldValue, Object newValue) -> {
+            cantGetListArticle((Throwable)newValue);
+        });
         
-        {
-            // create a local var because jdk's bug
-            // user selected a word
-            ReadOnlyWrapperProperty<IWord> property = readArticle.selectedWordProperty();
-            property.addListener((ObservableValue<? extends IWord> observable, IWord oldValue, IWord newValue) -> {
-                userSelectedWord(newValue);
-            });
-        }
+        // user selected a word
+        readArticle.selectedWordProperty().addListener((ObservableValue observable, Object oldValue, Object newValue) -> {
+            userSelectedWord((IWord)newValue);
+        });
         
         // User click return after read article or test
         mainContent.setOnReturn(e -> returnToMain());

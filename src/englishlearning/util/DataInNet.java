@@ -91,7 +91,8 @@ public class DataInNet {
                     break;
                 buf.append((char) ch);
             }
-            Matcher m2 = Pattern.compile("<h5> <span class=\"mw-headline\">([\\w \\-,\\(\\);]+)<", Pattern.UNICODE_CHARACTER_CLASS).matcher(buf.toString());
+            String data = buf.toString().replaceAll("</*a.*?>", "");
+            Matcher m2 = Pattern.compile("<h5> <span class=\"mw-headline\">([\\w \\-,\\(\\);]+)<", Pattern.UNICODE_CHARACTER_CLASS).matcher(data);
             while ( m2.find() ){
                 String match = m2.group(1);
                 if (!Pattern.compile("\\w",Pattern.UNICODE_CHARACTER_CLASS).matcher(match).find()) {

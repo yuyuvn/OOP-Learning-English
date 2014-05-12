@@ -39,7 +39,7 @@
             <Button text="Back" onAction="#onReturn" />
         </VBox>
         <VBox alignment="TOP_CENTER" GridPane.rowIndex="1" >
-            <Label text="What is meaning of this word:" styleClass="exercise-question-text" />
+            <Label text="What is the meaning of this word:" styleClass="exercise-question-text" />
             <Label fx:id="word" text="${controller.word}" styleClass="exercise-word" />
         </VBox>
         <FlowPane GridPane.rowIndex="2" GridPane.hgrow="ALWAYS" alignment="CENTER" >
