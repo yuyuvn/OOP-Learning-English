@@ -57,7 +57,7 @@ public class LoginPresenter<V extends LoginWindow> extends Presenter<V> {
         setUsers(FXCollections.observableSet(usersList));
         getView().getLogin().setAutoCompletion(usersList);
         
-        // resume data before ad change handler
+        // resume data before add change handler
         usersProperty().addListener((ObservableValue<? extends ObservableSet<String>> observable, ObservableSet<String> oldValue, ObservableSet<String> newValue)->{
             UsersList ul = new UsersList(newValue);
             getView().getLogin().setAutoCompletion(ul);
