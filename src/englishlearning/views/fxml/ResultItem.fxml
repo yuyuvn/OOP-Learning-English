@@ -12,8 +12,8 @@
             <Tooltip text="${'You chose \'' + controller.choice + '\''}" />
     </Tooltips.tooltip>
     <children>
-        <Label text="${controller.data.word.word}" styleClass="result-item-title"/>
-        <Label text="${' - ' + controller.data.word.mean}" 
+        <Label text="${controller.data.text}" styleClass="result-item-title"/>
+        <Label text="${' - ' + controller.data.mean}" 
                styleClass="result-item-mean"
         />
     </children>

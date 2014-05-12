@@ -100,9 +100,9 @@ public class Exercise extends Controller implements DataReceivable {
     public void setData(Object value) {
         try {
             IWord w = (IWord)value;
-            setWord(w.getWord().getWord());
+            setWord(w.getText());
             List<String> options = new ArrayList();
-            options.addAll(w.getWord().getOptions());
+            options.addAll(w.getOptions());
             option1.setText(options.get(0));
             option2.setText(options.get(1));
             option3.setText(options.get(2));

@@ -14,7 +14,7 @@ import java.util.Objects;
  * @author Clicia
  */
 public class Word implements Serializable {
-    private String word;
+    private String text;
     private String mean;
     private Options options;
     private String chose;
@@ -22,16 +22,17 @@ public class Word implements Serializable {
     //<editor-fold defaultstate="collapsed" desc="Must use builder">
     public Word() {
     }
-//</editor-fold>
 
+//</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getter & setter">
-    public void setWord(String word) {
-        this.word = word;
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
     
-    public String getWord() {
-        return word;
-    }
     
     public String getMean() {
         return mean;
@@ -64,7 +65,7 @@ public class Word implements Serializable {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 61 * hash + Objects.hashCode(this.word);
+        hash = 61 * hash + Objects.hashCode(this.text);
         return hash;
     }
 
@@ -77,7 +78,7 @@ public class Word implements Serializable {
             return false;
         }
         final Word other = (Word) obj;
-        if (!Objects.equals(this.word, other.word)) {
+        if (!Objects.equals(this.text, other.text)) {
             return false;
         }
         return true;
@@ -85,7 +86,7 @@ public class Word implements Serializable {
 
     @Override
     public String toString() {
-        return "Word{" + "word=" + word + ", mean=" + mean + ", options=" + options + ", chose=" + chose + '}';
+        return "Word{" + "text=" + text + ", mean=" + mean + ", options=" + options + ", chose=" + chose + '}';
     }
     
     

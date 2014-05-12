@@ -62,8 +62,8 @@ public class MeaningPop extends Controller implements DataReceivable {
     public void setData(Object value) {
         try {
             IWord w = (IWord)value;
-            setMean(w.getWord().getMean());
-            setWord(w.getWord().getWord());
+            setMean(w.getMean());
+            setWord(w.getText());
         } catch (ClassCastException e) {
         }
     }

@@ -19,7 +19,7 @@ import englishlearning.model.model.IWord;
 public class WordWrapper<T extends Word> extends Wrapper<T> implements IWord {
 
     public WordWrapper() {
-        this((T)WordBuilder.create().word("").mean("").build());
+        this((T)WordBuilder.create().text("").mean("").build());
     }
     
     public WordWrapper(T data) {
@@ -69,4 +69,14 @@ public class WordWrapper<T extends Word> extends Wrapper<T> implements IWord {
         getWord().setChose(chose);
     }
 //</editor-fold>
+
+    @Override
+    public String getText() {
+        return getWord().getText();
+    }
+
+    @Override
+    public void setText(String text) {
+        getWord().setText(text);
+    }
 }

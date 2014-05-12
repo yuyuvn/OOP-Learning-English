@@ -47,19 +47,19 @@ public class Lookup {
     }
 
     public static String get(Word word) {
-        String mean = get(word.getWord());
+        String mean = get(word.getText());
         if (mean != null) word.setMean(mean);
         else mean = word.getMean();
         return mean;
     }
 
     public static void add(Word word) {
-        add(word.getWord(),word.getMean());
+        add(word.getText(),word.getMean());
     }
 
     public static Word getWord(String word) {
         String mean = get(word);
-        return WordBuilder.create().word(word).mean(mean == null ? "" : mean).build();
+        return WordBuilder.create().text(word).mean(mean == null ? "" : mean).build();
     }
     
     public static Word populateOption(Word word) {

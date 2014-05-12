@@ -15,8 +15,6 @@ import englishlearning.model.property.WrapperProperty;
 import englishlearning.model.wrapper.ArticleWrapper;
 import englishlearning.model.wrapper.WordWrapper;
 import java.awt.MouseInfo;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
@@ -78,6 +76,6 @@ public class ReadArticle extends Controller {
     
     @FXML private void onClick(ActionEvent event) {
         Hyperlink link = (Hyperlink)event.getSource();
-        setSelectedWord(new WordWrapper(WordBuilder.create().word(link.getText()).build()));
+        setSelectedWord(new WordWrapper(WordBuilder.create().text(link.getText()).build()));
     }
 }

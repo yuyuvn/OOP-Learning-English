@@ -24,8 +24,8 @@ public class WordBuilder {
         return new WordBuilder();
     }
     
-    public WordBuilder word(String value) {
-        data.setWord(value);
+    public WordBuilder text(String value) {
+        data.setText(value);
         return this;
     }
     
@@ -45,7 +45,7 @@ public class WordBuilder {
     }
     
     public Word build() {
-        if (data.getWord() == null) throw new RuntimeException("Word is not set");
+        if (data.getText() == null) throw new RuntimeException("Text is not set");
         return data;
     }
 }

@@ -8,7 +8,7 @@
 
 <VBox spacing="7.0" alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label text="Hãy điền tên bạn:" styleClass="login-label" />
+        <Label text="Please write your name:" styleClass="login-label" />
         <TextField fx:id="usernameTextField" maxWidth="250" styleClass="login-textfield" onKeyPressed="#onKeyPressed" />
         <Button fx:id="loginButton" mnemonicParsing="false" text="Login" onAction="#onLogin" styleClass="login-button" />
     </children>

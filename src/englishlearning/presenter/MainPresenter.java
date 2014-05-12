@@ -11,7 +11,6 @@ import englishlearning.model.Word;
 import englishlearning.model.model.IArticle;
 import englishlearning.model.model.IUser;
 import englishlearning.model.model.IWord;
-import englishlearning.model.property.ReadOnlyWrapperProperty;
 import englishlearning.model.property.WrapperProperty;
 import englishlearning.model.wrapper.WordWrapper;
 import englishlearning.util.DataInDisk;
@@ -156,7 +155,7 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
     protected void userSelectedWord(IWord word) {
         String mean = word.getMean();
         if (mean != null && !"".equals(mean)) {
-            String w = word.getWord().getWord().toLowerCase();
+            String w = word.getText().toLowerCase();
             if (!getView().getMainContent().getWordList().contains(w)) {
                 getView().getMainContent().getWordList().add(w);
                 words.add(word);

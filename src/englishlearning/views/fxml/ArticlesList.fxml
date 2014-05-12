@@ -38,7 +38,7 @@
             </GridPane.margin>
             <resources>
                 <DataTemplate dataType="englishlearning.model.model.IArticle">
-                    <TextArea text="${controller.selectedArticle.article.description}" styleClass="articles-list-preview" />
+                    <TextArea text="${controller.selectedArticle.description}" styleClass="articles-list-preview" />
                 </DataTemplate>
             </resources>
         </ContentControl>

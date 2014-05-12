@@ -18,7 +18,8 @@ public interface IWord extends IWrapper {
     
     boolean isRightAnswer();
     boolean isAnswered();
-    //getWord setWord conflict
+    String getText();
+    void setText(String text);
     String getMean();
     void setMean(String mean);
     Options getOptions();
