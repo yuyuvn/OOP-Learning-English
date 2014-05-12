@@ -80,8 +80,6 @@ public class ReadArticlePresenter<V extends ReadArticle> extends Presenter<V> {
         
     public void setData(IArticle article) {
         getView().setArticle(article);
-        getView().setParsedContent(null);
-        getView().setParsedContent(article.getContent());
     }
     
     public IArticle getData() {

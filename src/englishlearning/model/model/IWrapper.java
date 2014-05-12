@@ -7,6 +7,7 @@
 package englishlearning.model.model;
 
 import englishlearning.model.property.WrapperProperty;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
  * @author Clicia
  */
 public interface IWrapper {
-    List<WrapperProperty> getProperties();
+    List<WrapperProperty> getProperties(); 
     void addProperty(WrapperProperty property);
     void removeProperty(WrapperProperty property);
     void fireValueChangedEvent();

@@ -8,6 +8,7 @@ package englishlearning.model.wrapper;
 
 import englishlearning.model.model.IWrapper;
 import englishlearning.model.property.WrapperProperty;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -17,14 +18,17 @@ import java.util.List;
  * @author Clicia
  * @param <T>
  */
-public class Wrapper<T> implements IWrapper {
+public class Wrapper<T> implements IWrapper, Serializable {
     private final T rawData;
-    private List<WrapperProperty> properties;
-    private boolean __changed;
+    private transient List<WrapperProperty> _properties;
+    private List<WrapperProperty> properties() { 
+        if (_properties == null) _properties = Collections.synchronizedList(new ArrayList<>());
+        return _properties;
+    };
+    private transient boolean __changed;
     
     public Wrapper(T data) {
         rawData = data;
-        properties = Collections.synchronizedList(new ArrayList<>());
     }
     
     protected T getRawData() {
@@ -34,18 +38,18 @@ public class Wrapper<T> implements IWrapper {
     @Override
     public List<WrapperProperty> getProperties() {
         // make a clone to avoid conflict
-        List<WrapperProperty> clone = new ArrayList(properties);
+        List<WrapperProperty> clone = new ArrayList(properties());
         return clone;
     }
 
     @Override
     public void addProperty(WrapperProperty property) {
-        this.properties.add(property);
+        this.properties().add(property);
     }
         
     @Override
     public void removeProperty(WrapperProperty property) {
-        this.properties.remove(property);
+        this.properties().remove(property);
     }
 
     @Override

@@ -10,9 +10,15 @@ import englishlearning.model.Article;
 import englishlearning.model.ArticleBuilder;
 import englishlearning.model.Tags;
 import englishlearning.model.model.IArticle;
-import englishlearning.util.Parser;
-import java.util.List;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.time.LocalDate;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -34,14 +40,34 @@ public class ArticleWrapper<T extends Article> extends Wrapper<T> implements IAr
         return getRawData();
     }
 
-    private Image __thumb = null;
+    private transient Image __thumb = null;
     @Override
-    public Image getThumbnail() {
+    public Image getThumbnail(boolean cache) {
         if (__thumb == null) {
-            __thumb = new Image(getRawData().getImageUrl(), 0.0, 0.0, false, false, true);
+            __thumb = new Image(getRawData().getImageUrl(), 0.0, 0.0, false, false, cache);
         }
         
         return __thumb;
+    }
+    @Override
+    public Image getThumbnail() {
+        return getThumbnail(true);
+    }
+    
+    // for Serialization
+    private LocalDate _date;
+    public LocalDate getDate() {return _date;}
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        // avoid different file format, we save date creation file in object
+        _date = LocalDate.now();
+        out.defaultWriteObject();
+        BufferedImage imageBuffer = SwingFXUtils.fromFXImage(__thumb, null);
+        ImageIO.write(imageBuffer, "jpg", out);
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        __thumb = SwingFXUtils.toFXImage(ImageIO.read(in), null); 
     }
     
     //<editor-fold defaultstate="collapsed" desc="Getter & Setter">

@@ -7,9 +7,9 @@
 package englishlearning.presenter;
 
 import englishlearning.model.model.IArticle;
-import englishlearning.model.property.ReadOnlyWrapper;
 import englishlearning.model.property.ReadOnlyWrapperProperty;
 import englishlearning.model.wrapper.ArticleWrapper;
+import englishlearning.util.DataInDisk;
 import englishlearning.util.DataInNet;
 import englishlearning.views.ArticlesList;
 import java.util.Collection;
@@ -107,9 +107,32 @@ public class ArticlesListPresenter<V extends ArticlesList> extends Presenter<V> 
         Task<Collection<IArticle>> task = new Task<Collection<IArticle>>() {
             @Override
             protected Collection<IArticle> call() throws Exception {
-                return DataInNet.getListArticle().stream()
-                    .flatMap(a -> Stream.of(new ArticleWrapper(a)))
-                    .collect(Collectors.toList());
+                Collection<IArticle> data = DataInDisk.getArticlesList();
+                if (data == null) {
+                    int tries = 3;
+                    while (true) {
+                        try {
+                            data = DataInNet.getListArticle().stream()
+                                .flatMap(a -> Stream.of(new ArticleWrapper(a)))
+                                .collect(Collectors.toList());
+                        } catch (Exception e) {
+                            if (tries > 0) {
+                                tries--;
+                                continue;
+                            }
+                            else throw e;
+                        }
+                        break;
+                    }
+                    if (data == null) data = DataInDisk.getArticlesList(false);
+                    else {                        
+                        // Get all thumbnail at one
+                        data.forEach(a -> a.getThumbnail(false));
+                        // save cached
+                        DataInDisk.saveArticlesList(data);
+                    }                    
+                }
+                return data;
             }
         };
         

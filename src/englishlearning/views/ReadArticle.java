@@ -43,22 +43,6 @@ public class ReadArticle extends Controller {
         return article;
     }
 //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Property parsedContent">
-    private StringProperty parsedContent;
-    
-    public String getParsedContent() {
-        return parsedContentProperty().get();
-    }
-    
-    public void setParsedContent(String value) {
-        parsedContentProperty().set(value);
-    }
-    
-    public StringProperty parsedContentProperty() {
-        if (parsedContent == null) parsedContent = new SimpleStringProperty(this, "parsedContent", "");
-        return parsedContent;
-    }
-//</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Property selectedWord">
     private ReadOnlyWrapper<IWord> selectedWord;
     

@@ -9,11 +9,15 @@ package englishlearning.controls;
 import com.sun.javafx.event.EventHandlerManager;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -70,6 +74,18 @@ public class HyperlinkLabel extends TextFlow {
     }
 
 //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Property process">
+    private ObjectProperty<List<Node>> process;
+    public final List<Node> getProcess() { return processProperty().get(); }
+    public final void addProcess(Node value) {
+        getProcess().add(value);
+    }
+    public final void clearProcess(Node value) { getProcess().clear(); }
+    public final ObjectProperty<List<Node>> processProperty() {
+        if (process == null) process = new SimpleObjectProperty<>(this, "process", new ArrayList<>());
+        return process;
+    }
+//</editor-fold>
     
     public HyperlinkLabel() {
         textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
@@ -81,44 +97,59 @@ public class HyperlinkLabel extends TextFlow {
     private void updateText() {
         final String textData = getText();
         
+        this.getChildren().clear();
         if (textData == null || textData.isEmpty()) {
-            this.getChildren().clear();
             return;
         }
+        this.getChildren().addAll(getProcess());
         
-        // parse the text and put it into an array list
-        final List<Node> nodes = new ArrayList<>();
+        ExecutorService executor = Executors.newCachedThreadPool();
         
-        int start = 0;
-        final int textLength = textData.length();
-        while (start != -1 && start < textLength) {
-            int startPos = textData.indexOf(HYPERLINK_START, start);
-            int endPos = textData.indexOf(HYPERLINK_END, startPos);
-            
-            // if the startPos is -1, there are no more hyperlinks...
-            if (startPos == -1 || endPos == -1) {
-                if (textLength > start) {
-                    // ...but there is still text to turn into one last label
-                    Label label = new Label(textData.substring(start));
+        Task<List<Node>> task = new Task<List<Node>>() {
+            @Override
+            protected List<Node> call() throws Exception {
+                // parse the text and put it into an array list
+                final List<Node> nodes = new ArrayList<>();
+
+                int start = 0;
+                final int textLength = textData.length();
+                while (start != -1 && start < textLength) {
+                    int startPos = textData.indexOf(HYPERLINK_START, start);
+                    int endPos = textData.indexOf(HYPERLINK_END, startPos);
+
+                    // if the startPos is -1, there are no more hyperlinks...
+                    if (startPos == -1 || endPos == -1) {
+                        if (textLength > start) {
+                            // ...but there is still text to turn into one last label
+                            Label label = new Label(textData.substring(start));
+                            nodes.add(label);
+                            break;
+                        }
+                    }
+
+                    // firstly, create a label from start to startPos
+                    Text label = new Text(textData.substring(start, startPos));
                     nodes.add(label);
-                    break;
+
+                    // if endPos is greater than startPos, create a hyperlink
+                    Hyperlink hyperlink = new Hyperlink(textData.substring(startPos + 1, endPos));
+                    hyperlink.setPadding(new Insets(0, 0, 0, 0));
+                    hyperlink.setOnAction(eventHandler);
+                    nodes.add(hyperlink);
+
+                    start = endPos + 1;
                 }
+                return nodes;
             }
-            
-            // firstly, create a label from start to startPos
-            Text label = new Text(textData.substring(start, startPos));
-            nodes.add(label);
-            
-            // if endPos is greater than startPos, create a hyperlink
-            Hyperlink hyperlink = new Hyperlink(textData.substring(startPos + 1, endPos));
-            hyperlink.setPadding(new Insets(0, 0, 0, 0));
-            hyperlink.setOnAction(eventHandler);
-            nodes.add(hyperlink);
-            
-            start = endPos + 1;
-        }
+        };
         
-        getChildren().addAll(nodes);
+        task.valueProperty().addListener(t -> {
+            getChildren().clear();
+            getChildren().addAll(task.getValue());
+            executor.shutdown();
+        });
+        
+        executor.submit(task);        
     }
     
     // --- onAction

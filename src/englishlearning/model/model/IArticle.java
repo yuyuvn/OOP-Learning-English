@@ -13,6 +13,7 @@ public interface IArticle extends IWrapper {
     Article getArticle();
     
     Image getThumbnail();    
+    Image getThumbnail(boolean cache);
     
     String getGuid();
     void setGuid(String guid);

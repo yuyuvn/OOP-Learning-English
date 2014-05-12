@@ -50,13 +50,7 @@ public class DataInNet {
     }
     
     public static Articles getListArticle() throws Exception {
-        Articles value;
-        value = DataInDisk.getData(DataInDisk.getRelativePath("data/debug/cacheAL.bin"));
-        if (value == null) {
-            value = getListArticle(URL_RSS);
-            DataInDisk.saveData(value, DataInDisk.getRelativePath("data/debug/cacheAL.bin"));
-        }
-        return value;
+        return getListArticle(URL_RSS);
     }
     
     public static Article getArticle(Article article) throws IOException {
