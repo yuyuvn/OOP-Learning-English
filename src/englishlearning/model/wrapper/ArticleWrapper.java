@@ -14,7 +14,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.time.LocalDate;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;

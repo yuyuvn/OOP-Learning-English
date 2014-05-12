@@ -7,7 +7,6 @@
 package englishlearning.model.model;
 
 import englishlearning.model.property.WrapperProperty;
-import java.io.Serializable;
 import java.util.List;
 
 /**
