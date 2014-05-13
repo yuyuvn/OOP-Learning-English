@@ -44,7 +44,7 @@ public class ReadArticlePresenter<V extends ReadArticle> extends Presenter<V> {
     protected void initialize() {
         // user selected a word
         getView().selectedWordProperty().addListener((ObservableValue<? extends IWord> observable, IWord oldValue, IWord newValue) -> {
-            wordSelected(oldValue,newValue);
+            if (newValue != oldValue) wordSelected(newValue);
         });
     }
         
@@ -56,37 +56,36 @@ public class ReadArticlePresenter<V extends ReadArticle> extends Presenter<V> {
         return getView().getArticle();
     }
     
-    protected void wordSelected(IWord oldValue, IWord newValue) {
-        if (newValue == oldValue) return;
-            getView().showPopOver();
-            EventHandler<MouseEvent> hd = new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    getView().hidePopOver();
-                    Scene scene = (Scene)mouseEvent.getSource();
-                    scene.removeEventFilter(MouseEvent.MOUSE_PRESSED, this);
-                }
-            };
-            getView().getScene().addEventFilter(MouseEvent.MOUSE_PRESSED, hd);
-            
-            
-            if (executor != null && !executor.isTerminated()) {                
-                executor.shutdownNow();
-            }            
-            executor = Executors.newCachedThreadPool();
-            
-            Task<String> task = new Task<String>() {
-                @Override
-                protected String call() throws Exception {
-                    return Lookup.get(newValue.getWord());
-                }
-            };
+    protected void wordSelected(IWord word) {
+        getView().showPopOver();
+        EventHandler<MouseEvent> hd = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                getView().hidePopOver();
+                Scene scene = (Scene)mouseEvent.getSource();
+                scene.removeEventFilter(MouseEvent.MOUSE_PRESSED, this);
+            }
+        };
+        getView().getScene().addEventFilter(MouseEvent.MOUSE_PRESSED, hd);
 
-            task.valueProperty().addListener(t -> {
-                getView().getSelectedWord().fireValueChangedEvent();
-                executor.shutdown();
-            });
 
-            executor.submit(task); 
+        if (executor != null && !executor.isTerminated()) {                
+            executor.shutdownNow();
+        }            
+        executor = Executors.newCachedThreadPool();
+
+        Task<String> task = new Task<String>() {
+            @Override
+            protected String call() throws Exception {
+                return Lookup.get(word.getWord());
+            }
+        };
+
+        task.valueProperty().addListener(t -> {
+            getView().getSelectedWord().fireValueChangedEvent();
+            executor.shutdown();
+        });
+
+        executor.submit(task); 
     }
 }

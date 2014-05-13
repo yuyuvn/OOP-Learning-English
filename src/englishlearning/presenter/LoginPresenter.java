@@ -63,23 +63,21 @@ public class LoginPresenter<V extends LoginWindow> extends Presenter<V> {
         });
         
         getView().getLogin().logedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            userLogin(newValue);
+            if (newValue) userLogin();
         });
     }
     
-    protected void userLogin(Boolean loged) {
-        if (loged) {
-            String username = getView().getLogin().getUsername();
-            getUsers().add(username);
-            System.out.println("User " + username + " logged");
+    protected void userLogin() {
+        String username = getView().getLogin().getUsername();
+        getUsers().add(username);
+        System.out.println("User " + username + " logged");
 
-            getView().closeWindow();
+        getView().closeWindow();
 
-            MainPresenter mainPresenter = new MainPresenter();
-            mainPresenter.setUser(new UserWrapper(DataInDisk.getUserInfo(username)));
-            Stage stage = new Stage();
-            MainWindow mainWindow = new MainWindow(stage,mainPresenter);
-        }
+        MainPresenter mainPresenter = new MainPresenter();
+        mainPresenter.setUser(new UserWrapper(DataInDisk.getUserInfo(username)));
+        Stage stage = new Stage();
+        MainWindow mainWindow = new MainWindow(stage,mainPresenter);
     }
     
     protected void updateUsersList(ObservableSet<String> usersList) {
