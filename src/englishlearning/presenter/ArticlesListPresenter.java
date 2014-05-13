@@ -78,30 +78,13 @@ public class ArticlesListPresenter<V extends ArticlesList> extends Presenter<V> 
     protected void initialize() {
         // filter articles
         getView().filterTextProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-            if (newValue != null && !newValue.equals("")) {
-                if (oldValue != null && !oldValue.equals("") && newValue.contains(oldValue)) {
-                    getView().setArticles(
-                            getView().getArticles()
-                                    .stream().filter(
-                                            a -> a.getArticle().getTitle().toLowerCase().contains(
-                                                    newValue.toLowerCase())).collect(Collectors.toList())
-                    );
-                } else {
-                    getView().setArticles(
-                                articles.stream()
-                                        .filter(a -> a.getArticle().getTitle().toLowerCase().contains(newValue.toLowerCase()))
-                                        .collect(Collectors.toList()));
-                }
-            } else {
-                getView().setArticles(articles);
-            }   
-            getView().clearSelection();            
+            filter(oldValue,newValue);         
         });
         
         
     }
     
-    private void setArticlesListData() {
+    protected void setArticlesListData() {
         if (articles != null) return;
         ExecutorService ect = Executors.newCachedThreadPool();
         Task<Collection<IArticle>> task = new Task<Collection<IArticle>>() {
@@ -153,6 +136,27 @@ public class ArticlesListPresenter<V extends ArticlesList> extends Presenter<V> 
     public void reset() {
         setArticlesListData();        
         getView().setFilterText("");   
+        getView().clearSelection();
+    }
+    
+    private void filter(String oldValue, String newValue) {
+        if (newValue != null && !newValue.equals("")) {
+            if (oldValue != null && !oldValue.equals("") && newValue.contains(oldValue)) {
+                getView().setArticles(
+                        getView().getArticles()
+                                .stream().filter(
+                                        a -> a.getArticle().getTitle().toLowerCase().contains(
+                                                newValue.toLowerCase())).collect(Collectors.toList())
+                );
+            } else {
+                getView().setArticles(
+                            articles.stream()
+                                    .filter(a -> a.getArticle().getTitle().toLowerCase().contains(newValue.toLowerCase()))
+                                    .collect(Collectors.toList()));
+            }
+        } else {
+            getView().setArticles(articles);
+        }   
         getView().clearSelection();
     }
 }

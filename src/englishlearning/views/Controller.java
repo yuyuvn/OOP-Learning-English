@@ -29,7 +29,7 @@ public abstract class Controller extends Region {
         loadFXML();
     }
     
-    protected final void loadFXML() {
+    private void loadFXML() {
         FXMLLoader loader = new FXMLLoader();
 
         //loader.setRoot(this);

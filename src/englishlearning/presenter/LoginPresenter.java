@@ -59,24 +59,32 @@ public class LoginPresenter<V extends LoginWindow> extends Presenter<V> {
         
         // resume data before add change handler
         usersProperty().addListener((ObservableValue<? extends ObservableSet<String>> observable, ObservableSet<String> oldValue, ObservableSet<String> newValue)->{
-            UsersList ul = new UsersList(newValue);
-            getView().getLogin().setAutoCompletion(ul);
-            DataInDisk.saveUsersList(ul);
+            updateUsersList(newValue);
         });
         
         getView().getLogin().logedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue) {
-                String username = getView().getLogin().getUsername();
-                getUsers().add(username);
-                System.out.println("User " + username + " logged");
-
-                getView().closeWindow();
-                
-                MainPresenter mainPresenter = new MainPresenter();
-                mainPresenter.setUser(new UserWrapper(DataInDisk.getUserInfo(username)));
-                Stage stage = new Stage();
-                MainWindow mainWindow = new MainWindow(stage,mainPresenter);
-            }
+            userLogin(newValue);
         });
+    }
+    
+    protected void userLogin(Boolean loged) {
+        if (loged) {
+            String username = getView().getLogin().getUsername();
+            getUsers().add(username);
+            System.out.println("User " + username + " logged");
+
+            getView().closeWindow();
+
+            MainPresenter mainPresenter = new MainPresenter();
+            mainPresenter.setUser(new UserWrapper(DataInDisk.getUserInfo(username)));
+            Stage stage = new Stage();
+            MainWindow mainWindow = new MainWindow(stage,mainPresenter);
+        }
+    }
+    
+    protected void updateUsersList(ObservableSet<String> usersList) {
+        UsersList ul = new UsersList(usersList);
+        getView().getLogin().setAutoCompletion(ul);
+        DataInDisk.saveUsersList(ul);
     }
 }

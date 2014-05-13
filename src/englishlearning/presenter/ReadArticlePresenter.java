@@ -44,7 +44,20 @@ public class ReadArticlePresenter<V extends ReadArticle> extends Presenter<V> {
     protected void initialize() {
         // user selected a word
         getView().selectedWordProperty().addListener((ObservableValue<? extends IWord> observable, IWord oldValue, IWord newValue) -> {
-            if (newValue == oldValue) return;
+            wordSelected(oldValue,newValue);
+        });
+    }
+        
+    public void setData(IArticle article) {
+        getView().setArticle(article);
+    }
+    
+    public IArticle getData() {
+        return getView().getArticle();
+    }
+    
+    protected void wordSelected(IWord oldValue, IWord newValue) {
+        if (newValue == oldValue) return;
             getView().showPopOver();
             EventHandler<MouseEvent> hd = new EventHandler<MouseEvent>() {
                 @Override
@@ -75,14 +88,5 @@ public class ReadArticlePresenter<V extends ReadArticle> extends Presenter<V> {
             });
 
             executor.submit(task); 
-        });
-    }
-        
-    public void setData(IArticle article) {
-        getView().setArticle(article);
-    }
-    
-    public IArticle getData() {
-        return getView().getArticle();
     }
 }
