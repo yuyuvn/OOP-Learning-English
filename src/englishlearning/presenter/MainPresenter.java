@@ -113,7 +113,7 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         });
     }
     
-    private void returnToMain() {
+    protected void returnToMain() {
         getView().setContent(getView().getMainContent());
         getUser().setPlayState(null);
         MainContent mainContent = getView().getMainContent();
@@ -123,7 +123,7 @@ public class MainPresenter<V extends MainWindow> extends Presenter<V> {
         words.clear();
     }
     
-    private void resumeState() {
+    protected void resumeState() {
         List<Word> questions = getUser().getPlayState().stream().filter(w -> w.getChose() == null).collect(toList());
         if (questions.size() > 0 ) {
             Exercise exercise = getView().getExercise();

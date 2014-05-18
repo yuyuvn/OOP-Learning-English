@@ -34,14 +34,14 @@ public class WordWrapper<T extends Word> extends Wrapper<T> implements IWord {
     @Override
     public boolean isRightAnswer() {
         return getMean().equals(getChose());
-    }
-
-    //<editor-fold defaultstate="collapsed" desc="Getter & Setter">
+    }	
+	
     @Override
     public boolean isAnswered() {
         return getWord().getChose() != null;
     }
-    // getWord / setWord  conflict
+
+    //<editor-fold defaultstate="collapsed" desc="Getter & Setter">
     @Override
     public String getMean(){
         return getWord().getMean();
