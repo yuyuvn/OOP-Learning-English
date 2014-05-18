@@ -31,7 +31,7 @@ public class ReadArticlePresenter<V extends ReadArticle> extends Presenter<V> {
     }
 //</editor-fold>
     
-    private ExecutorService executor;
+    protected ExecutorService executor;
 
     public ReadArticlePresenter() {
     }
